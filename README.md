@@ -32,7 +32,7 @@ Pushing to `main` builds the site and publishes it to GitHub Pages via
 **GitHub Actions**.
 
 The site is served from the project subpath, so the production build sets
-Vite's `base` to `/dev-learning/` (see `vite.config.js`); local dev/preview
+Vite's `base` to `/japanese-learning/` (see `vite.config.js`); local dev/preview
 stay at the root path. Routing uses `HashRouter`, so deep links and refreshes
 work on Pages without extra 404 handling.
 
