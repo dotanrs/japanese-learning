@@ -31,11 +31,12 @@ export default function Sidebar({ onNavigate }) {
   return (
     <>
       <div className="brand">
-        <span>🗾 Japanese Crash Course</span>
+        <span className="brand-seal">日</span>
+        <span>Japanese<br />Crash Course</span>
       </div>
       <div style={{ padding: '0 6px' }}>
-        <small style={{ color: 'var(--text-dim)', fontSize: 12 }}>
-          Spoken Japanese for travellers
+        <small className="brand-subtitle">
+          Spoken Japanese for curious travellers
         </small>
       </div>
       <input

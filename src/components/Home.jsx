@@ -3,16 +3,25 @@ import { chapters } from '../content/index.js'
 
 export default function Home() {
   return (
-    <div className="content">
-      <h1>🗾 Spoken Japanese Crash Course</h1>
-      <p style={{ color: 'var(--text-dim)', fontSize: 17 }}>
-        Enough Japanese to explain yourself as a visitor — no writing system
-        required. How words are built, how tenses work, the phrases that get you
-        fed, moved and helped, and the quirks nobody warns you about. Jump into
-        any chapter; nothing needs to be read in order. Look for{' '}
-        <strong>🃏 flashcards</strong> and <strong>🧠 test-yourself</strong>{' '}
-        questions to check your recall.
-      </p>
+    <div className="content home-content">
+      <section className="home-hero">
+        <div className="hero-copy">
+          <div className="eyebrow">日本語 ・ NIHONGO</div>
+          <h1>Spoken Japanese,<br /><em>made practical.</em></h1>
+          <p>
+            The Japanese you need to get fed, get around, and get help—with the
+            grammar that makes every phrase easier to remember.
+          </p>
+          <div className="hero-note">
+            <span className="hover-sample">日本語</span>
+            <span>Hover the red-underlined Japanese once for a translation.</span>
+          </div>
+        </div>
+        <div className="sun-mark" aria-hidden="true">
+          <span>旅</span>
+        </div>
+      </section>
+      <div className="section-kicker">Seven concise chapters</div>
       <div className="home-grid">
         {chapters.map((ch) => {
           const first = ch.subchapters[0]
@@ -27,6 +36,7 @@ export default function Home() {
               <div className="hc-list">
                 {ch.subchapters.map((s) => s.title).join(' · ')}
               </div>
+              <div className="hc-arrow" aria-hidden="true">→</div>
             </Link>
           )
         })}

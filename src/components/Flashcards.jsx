@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import JapaneseMarkdown from './JapaneseMarkdown.jsx'
 
 function Card({ front, back }) {
   const [open, setOpen] = useState(false)
@@ -11,7 +10,7 @@ function Card({ front, back }) {
       {open ? (
         <>
           <div className="fc-back">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{back}</ReactMarkdown>
+            <JapaneseMarkdown>{back}</JapaneseMarkdown>
           </div>
           <div className="fc-hint">Click to hide ▴</div>
         </>

@@ -1,19 +1,18 @@
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import { Link } from 'react-router-dom'
 import Flashcards from './Flashcards.jsx'
 import Quiz from './Quiz.jsx'
+import JapaneseMarkdown from './JapaneseMarkdown.jsx'
 
 export default function ContentView({ chapter, sub, prev, next }) {
   return (
-    <div className="content">
+    <div className="content lesson-content">
       <div className="breadcrumb">
-        <Link to="/">Home</Link> / {chapter.title}
+        <Link to="/">Course</Link> <span>／</span> Chapter {chapter.num}
       </div>
       <h1>{sub.title}</h1>
 
       {sub.body && (
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{sub.body}</ReactMarkdown>
+        <JapaneseMarkdown>{sub.body}</JapaneseMarkdown>
       )}
 
       <Flashcards cards={sub.flashcards} />

@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import JapaneseMarkdown from './JapaneseMarkdown.jsx'
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F']
 
@@ -9,7 +8,7 @@ function Question({ index, children }) {
   return (
     <div className="quiz-q">
       <span className="qn">Q{index + 1}.</span>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{children}</ReactMarkdown>
+      <JapaneseMarkdown>{children}</JapaneseMarkdown>
     </div>
   )
 }
@@ -44,7 +43,7 @@ function Mcq({ item, index }) {
       )}
       {done && item.explanation && (
         <div className="quiz-answer">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{item.explanation}</ReactMarkdown>
+          <JapaneseMarkdown>{item.explanation}</JapaneseMarkdown>
         </div>
       )}
     </div>
@@ -61,7 +60,7 @@ function Open({ item, index }) {
       </button>
       {show && (
         <div className="quiz-answer">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{item.answer}</ReactMarkdown>
+          <JapaneseMarkdown>{item.answer}</JapaneseMarkdown>
         </div>
       )}
     </div>
