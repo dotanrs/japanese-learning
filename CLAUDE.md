@@ -46,7 +46,15 @@ base teaching conversational Japanese for travellers).
   So a new `| Japanese | Romaji | Meaning |` row becomes translatable for free —
   and reformatting a phrase table out of that shape silently removes those phrases from
   the translator. `translate.js` is a lookup, not a translation engine: exact match, then
-  closest phrases, then a word-by-word gloss.
+  closest phrases, then a word-by-word gloss. Every entry also carries the `path` it came
+  from (`/ch/<chapter>/<sub>`, or `/words?s=<scenario>` for the deck), which the result
+  renders as a link — so the word deck reads its open tab from `?s=`, not from local state.
+- `src/lib/browserTranslate.js` — the **direct translation** shown above the course
+  phrases: the browser's own built-in Translator API (a `Translator` global, Chrome 138+).
+  Most browsers don't have it, the language pair may be unsupported, and the first use
+  downloads a language pack, so every state is rendered rather than assumed. A `create()`
+  that can't reach its language pack never rejects — it just re-reports 0% forever — hence
+  the stall guard that only counts *forward* progress.
 - `Translator` is rendered by each page under its `h1`, but its state lives in
   `TranslatorProvider` in `App.jsx`, so what you typed survives navigation.
 - `body` is Markdown rendered with `react-markdown` + `remark-gfm` (GFM tables, etc.).
