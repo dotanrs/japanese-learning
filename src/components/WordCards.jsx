@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { hasSpeech, watchJapaneseVoice } from '../lib/speech.js'
 import SpeakButton from './SpeakButton.jsx'
 import Translator from './Translator.jsx'
@@ -56,23 +57,26 @@ function WordCard({ word, showJapaneseFirst, revealAll, canSpeak }) {
 }
 
 export default function WordCards({ deck }) {
-  const [activeId, setActiveId] = useState(deck.scenarios[0].id)
+  // The open tab lives in the URL (`#/words?s=restaurant`), so the translate
+  // box and any other link can point at one scenario.
+  const [params, setParams] = useSearchParams()
   const [showJapaneseFirst, setShowJapaneseFirst] = useState(true)
   const [revealAll, setRevealAll] = useState(false)
   const [canSpeak, setCanSpeak] = useState(false)
 
   useEffect(() => watchJapaneseVoice(setCanSpeak), [])
 
+  const activeId = params.get('s')
   const active = useMemo(
     () => deck.scenarios.find((s) => s.id === activeId) || deck.scenarios[0],
     [deck, activeId]
   )
 
   // A fresh scenario always starts face-down, whatever the last tab was showing.
-  const pickScenario = (id) => {
-    setActiveId(id)
-    setRevealAll(false)
-  }
+  useEffect(() => setRevealAll(false), [active.id])
+
+  // Replace rather than push: switching tabs shouldn't fill up the back button.
+  const pickScenario = (id) => setParams({ s: id }, { replace: true })
 
   return (
     <div className="content lesson-content">

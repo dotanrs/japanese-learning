@@ -104,13 +104,25 @@ matches whole. It tolerates romaji spelling (*arigato* → ありがとう) and 
 says plainly when a phrase isn't covered.
 
 This is a phrasebook lookup, **not** a machine-translation engine: it is offline, private
-and instant, but it only knows the ~510 phrases the course contains.
+and instant, but it only knows the ~510 phrases the course contains. Each result names the
+chapter or word-deck scenario it comes from, **and links to it** — so a phrase you like is
+one click from the page that teaches it.
+
+Above the course phrases sits a **direct translation from the browser itself**
+(`src/lib/browserTranslate.js`), using the built-in Translator API — Chrome 138+ today. It
+covers whatever the course doesn't: any sentence, translated on the device, nothing sent
+to a server. The first use of a language pair downloads a language pack, which the box
+reports as it goes; browsers without the API simply say so and show the course phrases
+alone. It gives no romaji and doesn't know what the course teaches, which is exactly why
+it sits *above* the phrasebook rather than replacing it.
 
 ### Features
 
 - **Non-linear navigation** — collapsible sidebar (the logo returns home), searchable topic
   filter, home grid, and prev/next paging.
-- **🔤 Quick translate** — a shared box on every page, either direction, with audio.
+- **🔤 Quick translate** — a shared box on every page, either direction, with audio: the
+  browser's own translation on top, then the course's own phrases, each linked to its
+  chapter.
 - **🃏 Flashcards** — click to reveal the answer.
 - **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
 - **📖 Short stories** — dialogue with per-sentence translations and whole-story playback.
@@ -126,8 +138,9 @@ src/
                           # WordCards, Stories, Translator, SpeakButton
   lib/
     speech.js             # Web Speech API wrapper for 🔊 and story playback
-    phrasebook.js         # builds the JA↔EN index out of the course content
+    phrasebook.js         # builds the JA↔EN index (with links) out of the course content
     translate.js          # the lookup behind the quick-translate box
+    browserTranslate.js   # the browser's built-in Translator API, for the direct line
   content/
     index.js              # aggregates chapters + word deck, builds nav/paging index
     ch1-sounds-and-survival.js … ch7-quirks.js   # chapter content lives here

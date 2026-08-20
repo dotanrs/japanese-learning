@@ -5,6 +5,9 @@
 // Nothing here is hand-maintained — add a table row or a word and it becomes
 // translatable. Built lazily on first lookup and memoised, since it walks
 // every chapter body.
+//
+// Every entry also carries the route it came from, so a result can send you to
+// the page that teaches it.
 import { chapters, wordDeck } from '../content/index.js'
 import { japaneseTranslations } from '../content/translations.js'
 
@@ -91,33 +94,41 @@ export function phrasebook() {
 
   const entries = []
   const seen = new Set()
-  const add = (entry, source) => {
+  const add = (entry, source, path) => {
     const jp = clean(entry.jp || '')
     const en = clean(entry.en || '')
     if (!jp || !en || !hasJapanese(jp)) return
     const key = normaliseJp(jp) + '|' + normaliseEn(en)
     if (seen.has(key)) return
     seen.add(key)
-    entries.push({ jp, romaji: clean(entry.romaji || ''), en, source })
+    entries.push({ jp, romaji: clean(entry.romaji || ''), en, source, path: path || null })
   }
 
   // The word deck first: it carries the cleanest romaji, so it wins on ties.
+  // `?s=` picks the scenario tab, so the link lands on the right deck.
   wordDeck.scenarios.forEach((sc) =>
-    sc.words.forEach((w) => add(w, `Common Words · ${sc.title}`))
+    sc.words.forEach((w) => add(w, `Common Words · ${sc.title}`, `/words?s=${sc.id}`))
   )
 
+  const pages = []
   chapters.forEach((ch) =>
     ch.subchapters.forEach((sub) => {
       if (!sub.body) return
+      const source = `Chapter ${ch.num} · ${sub.title}`
+      const path = `/ch/${ch.id}/${sub.id}`
+      pages.push({ source, path, body: sub.body })
       tableRows(sub.body).forEach((row) =>
-        splitAlternatives(row).forEach((e) => add(e, `Chapter ${ch.num} · ${sub.title}`))
+        splitAlternatives(row).forEach((e) => add(e, source, path))
       )
     })
   )
 
-  Object.entries(japaneseTranslations).forEach(([jp, en]) =>
-    add({ jp, en }, 'Phrase tooltips')
-  )
+  // A tooltip phrase has no home of its own, but it is tooltipped because it
+  // appears in a chapter body — so link it to the page it appears on.
+  Object.entries(japaneseTranslations).forEach(([jp, en]) => {
+    const page = pages.find((p) => p.body.includes(jp))
+    add({ jp, en }, page ? page.source : 'Phrase tooltips', page ? page.path : null)
+  })
 
   // The tooltip phrases carry no romaji of their own. Where the same Japanese
   // appears in a chapter table or the word deck, borrow the romaji from there
