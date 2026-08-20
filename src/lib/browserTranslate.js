@@ -30,6 +30,29 @@ export async function pairAvailability(from, to) {
 
 const fail = (code, message) => Object.assign(new Error(message), { code })
 
+// `navigator.onLine === false` is the only half of that flag worth trusting:
+// `true` says nothing about real connectivity, but `false` does mean a language
+// pack cannot be fetched. The course itself works offline, so this path is
+// common rather than exotic — worth answering at once instead of showing a
+// progress bar that has nothing to report.
+const definitelyOffline = () => typeof navigator !== 'undefined' && navigator.onLine === false
+
+const OFFLINE_MESSAGE =
+  'No network, so the browser can’t fetch its language pack. The course phrases below still work.'
+
+// A download already under way when the network drops would otherwise sit
+// there until the stall guard fires; going offline is a definite answer.
+function offlineTrip() {
+  if (typeof window === 'undefined') return { promise: new Promise(() => {}), stop: () => {} }
+  let reject
+  const promise = new Promise((_, rej) => {
+    reject = rej
+  })
+  const onOffline = () => reject(fail('offline', OFFLINE_MESSAGE))
+  window.addEventListener('offline', onOffline)
+  return { promise, stop: () => window.removeEventListener('offline', onOffline) }
+}
+
 // One translator per language pair, kept for the life of the page: creating one
 // can cost a model download, and the box re-translates on every keystroke.
 // Every waiting caller hears the download progress, not just the first.
@@ -93,7 +116,8 @@ function stallGuard() {
 }
 
 // Resolves to the translated text. Rejects with an Error carrying a `code`
-// ('unsupported', 'unavailable', 'blocked' or 'failed') the caller can explain.
+// ('unsupported', 'unavailable', 'offline', 'blocked' or 'failed') the caller
+// can explain.
 export async function browserTranslate(text, { from, to, onProgress } = {}) {
   if (!hasBrowserTranslator()) throw fail('unsupported', 'No built-in translator')
 
@@ -101,11 +125,15 @@ export async function browserTranslate(text, { from, to, onProgress } = {}) {
   if (state === 'unavailable') {
     throw fail('unavailable', `No ${from} → ${to} language pack`)
   }
+  // A pack that is not on the device yet needs the network to arrive. Saying so
+  // immediately beats twenty seconds of "downloading… 0%" that cannot progress.
+  if (state !== 'available' && definitelyOffline()) throw fail('offline', OFFLINE_MESSAGE)
   // Say so before the wait starts: the first use of a pair fetches a model,
   // and that is a different wait from translating a sentence.
   if (state !== 'available') onProgress?.(0)
 
   const guard = stallGuard()
+  const offline = offlineTrip()
   let best = 0
   const tick = (progress) => {
     if (progress <= best) return
@@ -117,7 +145,11 @@ export async function browserTranslate(text, { from, to, onProgress } = {}) {
   try {
     let translator
     try {
-      translator = await Promise.race([getTranslator(from, to, tick), guard.promise])
+      translator = await Promise.race([
+        getTranslator(from, to, tick),
+        guard.promise,
+        offline.promise,
+      ])
     } catch (err) {
       if (err?.code) throw err
       // Chrome refuses to start the download outside a user gesture.
@@ -128,13 +160,14 @@ export async function browserTranslate(text, { from, to, onProgress } = {}) {
     }
 
     try {
-      return await Promise.race([translator.translate(text), guard.promise])
+      return await Promise.race([translator.translate(text), guard.promise, offline.promise])
     } catch (err) {
       if (err?.code) throw err
       throw fail('failed', err?.message || 'The browser translator failed')
     }
   } finally {
     guard.stop()
+    offline.stop()
     dropListener(from, to, tick)
   }
 }
