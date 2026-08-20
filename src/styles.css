@@ -780,6 +780,47 @@ a:hover { text-decoration: underline; }
   font-size: 14.5px;
 }
 
+/* Per-sentence grammar breakdown, shown with the translation */
+.sl-parts { margin: 2px 0 10px 86px; padding-right: 10px; }
+.sl-parts-tag {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  margin-bottom: 6px;
+}
+.sl-parts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 2px solid var(--border);
+}
+.sl-part {
+  display: grid;
+  grid-template-columns: 152px 1fr;
+  gap: 2px 14px;
+  padding: 6px 0 6px 12px;
+  align-items: baseline;
+}
+.sl-part + .sl-part { border-top: 1px dashed var(--border); }
+.sl-part-jp {
+  grid-column: 1;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.sl-part-romaji {
+  grid-column: 1;
+  grid-row: 2;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-style: italic;
+}
+.sl-part-en { grid-column: 2; grid-row: 1; font-size: 14px; font-weight: 600; }
+.sl-part-role { grid-column: 2; grid-row: 2; color: var(--text-dim); font-size: 12.5px; line-height: 1.45; }
+
 /* Two side sections on the home page */
 .side-decks { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .side-decks .words-banner { margin-top: 30px; }
@@ -829,4 +870,11 @@ a:hover { text-decoration: underline; }
   .sl-speaker { flex: none; text-align: left; padding-top: 0; }
   .sl-speaker.narration { display: none; }
   .story-head { gap: 10px; }
+}
+
+@media (max-width: 640px) {
+  .sl-parts { margin-left: 0; }
+  .sl-part { grid-template-columns: 1fr; gap: 1px; padding-left: 10px; }
+  .sl-part-jp, .sl-part-romaji, .sl-part-en, .sl-part-role { grid-column: 1; grid-row: auto; }
+  .sl-part-en { margin-top: 3px; }
 }
