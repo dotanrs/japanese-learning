@@ -510,6 +510,8 @@ a:hover { text-decoration: underline; }
 }
 .speak-btn:hover { border-color: var(--accent); background: #fff; }
 .speak-btn.speaking { border-color: var(--accent); background: rgba(181,31,46,.10); }
+/* The voice was listed but refused to speak (often a network-only voice, offline). */
+.speak-btn.failed { border-style: dashed; opacity: .75; }
 
 .wc-answer {
   margin-top: 8px;

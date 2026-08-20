@@ -32,9 +32,37 @@ Pushing to `main` builds the site and publishes it to GitHub Pages via
 **GitHub Actions**.
 
 The site is served from the project subpath, so the production build sets
-Vite's `base` to `/japanese-learning/` (see `vite.config.js`); local dev/preview
-stay at the root path. Routing uses `HashRouter`, so deep links and refreshes
-work on Pages without extra 404 handling.
+Vite's `base` to `/japanese-learning/` (see `vite.config.js`); `npm run dev` stays
+at the root path, while `npm run preview` uses the subpath because it serves the
+built output. Routing uses `HashRouter`, so deep links and refreshes work on Pages
+without extra 404 handling.
+
+## Install it on your phone (offline)
+
+The site is a PWA: it installs to the home screen and then works with **no network at
+all** — every chapter, flashcard, quiz, word card, story and the translator are already
+on the device.
+
+- **iPhone/iPad** — open the site in Safari, then **Share → Add to Home Screen**.
+- **Android** — open it in Chrome and accept the install prompt (or **⋮ → Install app**).
+
+Nothing in the app talks to the network at runtime, so the whole thing is three static
+files (~600 kB). `vite-plugin-pwa` precaches all of them on first visit and serves them
+cache-first; `registerType: 'autoUpdate'` means a new version is picked up silently the
+next time the phone is online. Offline reloads and deep links are covered by the app
+shell, so a refresh on the underground is safe.
+
+The one part that can still go quiet offline is the 🔊 audio, and that is out of the
+app's hands: it uses the device's own speech synthesis. iOS ships an on-device Japanese
+voice (Kyoko), but several Android voices synthesise on Google's servers, so they fail
+without a network until an offline Japanese voice is installed (**Settings → System →
+Languages & input → Text-to-speech output → install voice data → Japanese**). When a
+voice is listed but refuses to speak, the button turns 🔇 and the page explains why —
+distinct from "no Japanese voice at all", where the buttons stay hidden.
+
+Two caveats worth knowing: service workers need HTTPS (GitHub Pages provides it, and
+`localhost` counts for local testing), and iOS may evict an installed app's cache after
+several weeks unused — reopening it once online restores everything.
 
 ## What's inside
 
@@ -123,10 +151,12 @@ and instant, but it only knows the ~510 phrases the course contains.
   whole-story playback.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
   open questions (reveal the worked answer).
+- **📴 Offline** — installable to the home screen and fully usable with no network.
 
 ## Structure
 
 ```
+public/                   # PWA icons + favicon, copied verbatim into the build
 src/
   App.jsx                 # routing + layout + the shared translator state
   components/             # Sidebar, Home, ContentView, Flashcards, Quiz,

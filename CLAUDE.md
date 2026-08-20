@@ -56,6 +56,27 @@ base teaching conversational Japanese for travellers).
 - Code fences inside `body` use `~~~` (not triple backticks), because `body` is itself a
   template literal delimited by backticks.
 
+## Offline / PWA
+
+The site is an installable PWA that works with no network: `vite-plugin-pwa` (configured in
+`vite.config.js`) generates a service worker that precaches the entire build and serves it
+cache-first, with `registerType: 'autoUpdate'`. Things to keep in mind when changing it:
+
+- `manifest.start_url`/`scope` and `workbox.navigateFallback` must all stay under Vite's
+  `base`, which is the GitHub Pages subpath in a build. `baseFor()` in `vite.config.js` is
+  the single source of that value — `vite preview` uses the subpath too, because it serves
+  built output whose asset URLs already contain it.
+- `workbox.maximumFileSizeToCacheInBytes` is raised to 4 MiB from Workbox's 2 MiB default
+  as headroom: everything ships in one bundle (~550 kB today, and it grows with every
+  chapter), and a file over the ceiling is dropped from the precache *silently* — for a
+  single-bundle app that means it stops opening offline at all.
+- Icons live in `public/` (`icon-192`, `icon-512`, a `maskable` 512 for Android cropping,
+  and `apple-touch-icon.png`, which is the only one iOS reads).
+- **Nothing in the app may fetch at runtime** — that assumption is what makes offline work.
+  The one exception is out of our control: some Android voices synthesise speech over the
+  network, so `speakJapanese`/`speakSequence` take an `onError` callback and the UI reports
+  a voice that is present but silent (🔇 on the button, a note in the stories).
+
 ## Adding / editing content
 
 1. Edit or create `src/content/chN-*.js`.
