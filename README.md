@@ -111,10 +111,16 @@ Seven very short stories, one per tab, almost entirely dialogue — two Ikkyū r
 jokes built on a literal reading, a Zen story, and a restaurant scene where a textbook
 phrase backfires. Each runs six to nine lines and turns on a pun or a reversal.
 
-Every line shows the Japanese and its romaji; **tap a sentence to reveal the English**, or
-show the whole story's translation at once. 🔊 reads a single line, and **Play story**
-reads the whole thing in order, highlighting each line as it goes. The catch is explained
-at the end, behind a button so it can't spoil the read.
+Every line shows the Japanese and its romaji. **Tap a sentence** for its English plus a
+word-by-word breakdown: every chunk of the sentence in order, with what it means and the
+job it does — *topic marker*, *object marker*, *te-form of 渡る*, *potential negative of
+縛る*. 267 chunks across the 49 lines, all hand-written.
+
+Two reveal levels, on purpose: tapping one sentence gives the full study view, while
+**Show all English** gives translations only, since seven breakdowns at once is a wall.
+🔊 reads a single line and **Play story** reads the whole thing in order, highlighting each
+line as it goes. The catch is explained at the end, behind a button so it can't spoil the
+read.
 
 ### Quick translate
 
@@ -153,7 +159,8 @@ it sits *above* the phrasebook rather than replacing it.
   chapter.
 - **🃏 Flashcards** — click to reveal the answer.
 - **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
-- **📖 Short stories** — dialogue with per-sentence translations and whole-story playback.
+- **📖 Short stories** — dialogue with per-sentence translations, grammar breakdowns and
+  whole-story playback.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
   open questions (reveal the worked answer).
 - **📴 Offline** — installable to the home screen and fully usable with no network.
@@ -185,8 +192,9 @@ the 0-based index), otherwise they're open questions (`answer` is a string).
 
 To edit the stories, open `content/stories.js` — it exports
 `{ id, title, intro, stories: [{ id, title, jpTitle, icon, blurb, cast, lines, catch }] }`,
-where each line is `{ speaker?, jp, romaji, en }` and a line without a `speaker` is
-narration. Adding a story adds a tab.
+where each line is `{ speaker?, jp, romaji, en, parts }` and a line without a `speaker` is
+narration. Adding a story adds a tab. `parts` is the breakdown — `{ jp, romaji, en, role }`
+per chunk, and the chunks must join back into the sentence exactly (punctuation aside).
 
 To edit vocabulary, open `content/words.js` — it exports
 `{ id, title, intro, scenarios: [{ id, title, icon, blurb, words }] }`, where each word is
