@@ -4,8 +4,9 @@ import Sidebar from './components/Sidebar.jsx'
 import Home from './components/Home.jsx'
 import ContentView from './components/ContentView.jsx'
 import WordCards from './components/WordCards.jsx'
+import Stories from './components/Stories.jsx'
 import { TranslatorProvider } from './components/Translator.jsx'
-import { chapters, flatIndex, wordDeck } from './content/index.js'
+import { chapters, flatIndex, wordDeck, storyDeck } from './content/index.js'
 
 function SubPage() {
   const { chapterId, subId } = useParams()
@@ -62,6 +63,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/ch/:chapterId/:subId" element={<SubPage />} />
             <Route path="/words" element={<WordCards deck={wordDeck} />} />
+            <Route path="/stories" element={<Stories deck={storyDeck} />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

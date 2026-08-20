@@ -39,7 +39,8 @@ work on Pages without extra 404 handling.
 ## What's inside
 
 7 chapters · 23 topics · 130 flashcards · 70 self-test questions, plus a standalone
-**Common Words** deck of 151 vocabulary cards across 7 scenarios.
+**Common Words** deck of 151 vocabulary cards across 7 scenarios and 7 **Short Stories**
+in dialogue.
 
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
    meaning (*biiru* vs *biru*), pitch accent, devoiced vowels; the 20 phrases that cover a
@@ -76,6 +77,17 @@ Each card has a 🔊 button that speaks the word using the browser's built-in sp
 synthesis — no dependency, no API key, no network call. Where the device has no Japanese
 voice installed the buttons are hidden and the page says so.
 
+### Short Stories (`/#/stories`)
+
+Seven very short stories, one per tab, almost entirely dialogue — two Ikkyū riddles, three
+jokes built on a literal reading, a Zen story, and a restaurant scene where a textbook
+phrase backfires. Each runs six to nine lines and turns on a pun or a reversal.
+
+Every line shows the Japanese and its romaji; **tap a sentence to reveal the English**, or
+show the whole story's translation at once. 🔊 reads a single line, and **Play story**
+reads the whole thing in order, highlighting each line as it goes. The catch is explained
+at the end, behind a button so it can't spoil the read.
+
 ### Quick translate
 
 Every page carries a translate box under its headline, sharing one state — type a phrase,
@@ -101,6 +113,7 @@ and instant, but it only knows the ~510 phrases the course contains.
 - **🔤 Quick translate** — a shared box on every page, either direction, with audio.
 - **🃏 Flashcards** — click to reveal the answer.
 - **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
+- **📖 Short stories** — dialogue with per-sentence translations and whole-story playback.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
   open questions (reveal the worked answer).
 
@@ -110,21 +123,27 @@ and instant, but it only knows the ~510 phrases the course contains.
 src/
   App.jsx                 # routing + layout + the shared translator state
   components/             # Sidebar, Home, ContentView, Flashcards, Quiz,
-                          # WordCards, Translator, SpeakButton
+                          # WordCards, Stories, Translator, SpeakButton
   lib/
-    speech.js             # Web Speech API wrapper for the 🔊 buttons
+    speech.js             # Web Speech API wrapper for 🔊 and story playback
     phrasebook.js         # builds the JA↔EN index out of the course content
     translate.js          # the lookup behind the quick-translate box
   content/
     index.js              # aggregates chapters + word deck, builds nav/paging index
     ch1-sounds-and-survival.js … ch7-quirks.js   # chapter content lives here
     words.js              # the Common Words vocabulary deck
+    stories.js            # the Short Stories dialogues
 ```
 
 To edit or add chapter content, open the relevant `content/ch*.js` file — each exports a
 chapter object of `{ id, title, subchapters: [{ id, title, body, flashcards, quiz }] }`.
 `body` is Markdown; quiz items with `options` are multiple-choice (`answer` is
 the 0-based index), otherwise they're open questions (`answer` is a string).
+
+To edit the stories, open `content/stories.js` — it exports
+`{ id, title, intro, stories: [{ id, title, jpTitle, icon, blurb, cast, lines, catch }] }`,
+where each line is `{ speaker?, jp, romaji, en }` and a line without a `speaker` is
+narration. Adding a story adds a tab.
 
 To edit vocabulary, open `content/words.js` — it exports
 `{ id, title, intro, scenarios: [{ id, title, icon, blurb, words }] }`, where each word is

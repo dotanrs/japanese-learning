@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { chapters, wordDeck } from '../content/index.js'
+import { chapters, wordDeck, storyDeck } from '../content/index.js'
 
 export default function Sidebar({ onNavigate }) {
   const location = useLocation()
@@ -14,6 +14,18 @@ export default function Sidebar({ onNavigate }) {
   const toggle = (id) => setCollapsed((c) => ({ ...c, [id]: !c[id] }))
 
   const q = query.trim().toLowerCase()
+
+  // The two standalone sections match on their own title or any of their tabs.
+  const standalone = [
+    { to: '/words', icon: '🗂️', title: wordDeck.title, tabs: wordDeck.scenarios },
+    { to: '/stories', icon: '📖', title: storyDeck.title, tabs: storyDeck.stories },
+  ].filter(
+    (s) =>
+      !q ||
+      s.title.toLowerCase().includes(q) ||
+      s.tabs.some((t) => t.title.toLowerCase().includes(q))
+  )
+
   const filtered = chapters
     .map((ch) => {
       if (!q) return ch
@@ -47,17 +59,17 @@ export default function Sidebar({ onNavigate }) {
         style={{ marginTop: 12 }}
       />
 
-      {(!q || wordDeck.title.toLowerCase().includes(q) ||
-        wordDeck.scenarios.some((sc) => sc.title.toLowerCase().includes(q))) && (
+      {standalone.map((s) => (
         <NavLink
-          to="/words"
+          key={s.to}
+          to={s.to}
           className={({ isActive }) => 'nav-standalone' + (isActive ? ' active' : '')}
           onClick={onNavigate}
         >
-          <span className="nav-standalone-icon" aria-hidden="true">🗂️</span>
-          {wordDeck.title}
+          <span className="nav-standalone-icon" aria-hidden="true">{s.icon}</span>
+          {s.title}
         </NavLink>
-      )}
+      ))}
 
       {filtered.map((ch) => {
         const isCollapsed = q ? false : collapsed[ch.id] && activeChapter !== ch.id

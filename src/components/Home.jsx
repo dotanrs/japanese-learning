@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { chapters, wordDeck } from '../content/index.js'
+import { chapters, wordDeck, storyDeck } from '../content/index.js'
 import Translator from './Translator.jsx'
 
 export default function Home() {
@@ -23,19 +23,31 @@ export default function Home() {
         </div>
       </section>
       <Translator />
-      <Link className="words-banner" to="/words">
-        <div className="wb-copy">
-          <div className="eyebrow">Vocabulary deck</div>
-          <h2>{wordDeck.title}</h2>
-          <p>
-            {wordDeck.scenarios.reduce((n, s) => n + s.words.length, 0)} words you
-            will actually use, on flashcards, split into{' '}
-            {wordDeck.scenarios.length} scenarios — {wordDeck.scenarios.map((s) => s.title).join(', ')}.
-            Tap 🔊 to hear any of them.
-          </p>
-        </div>
-        <div className="wb-arrow" aria-hidden="true">→</div>
-      </Link>
+      <div className="side-decks">
+        <Link className="words-banner" to="/words">
+          <div className="wb-copy">
+            <div className="eyebrow">Vocabulary deck</div>
+            <h2>{wordDeck.title}</h2>
+            <p>
+              {wordDeck.scenarios.reduce((n, s) => n + s.words.length, 0)} words you
+              will actually use, on flashcards, split into{' '}
+              {wordDeck.scenarios.length} scenarios. Tap 🔊 to hear any of them.
+            </p>
+          </div>
+          <div className="wb-arrow" aria-hidden="true">→</div>
+        </Link>
+        <Link className="words-banner" to="/stories">
+          <div className="wb-copy">
+            <div className="eyebrow">Reading</div>
+            <h2>{storyDeck.title}</h2>
+            <p>
+              {storyDeck.stories.length} dialogue stories, each with a sting in the
+              tail. Tap a sentence for the English, or play the whole story aloud.
+            </p>
+          </div>
+          <div className="wb-arrow" aria-hidden="true">→</div>
+        </Link>
+      </div>
 
       <div className="section-kicker">Seven concise chapters</div>
       <div className="home-grid">
