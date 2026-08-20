@@ -38,7 +38,8 @@ work on Pages without extra 404 handling.
 
 ## What's inside
 
-7 chapters · 23 topics · 130 flashcards · 70 self-test questions.
+7 chapters · 23 topics · 130 flashcards · 70 self-test questions, plus a standalone
+**Common Words** deck of 151 vocabulary cards across 7 scenarios.
 
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
    meaning (*biiru* vs *biru*), pitch accent, devoiced vowels; the 20 phrases that cover a
@@ -64,11 +65,23 @@ work on Pages without extra 404 handling.
    subjects, "you"); *aizuchi* listening noises, hedging and *chotto* as a refusal, *ne*/*yo*;
    traps for English speakers (false-friend katakana, *hai* ≠ yes, *daijoubu desu*)
 
+### Common Words (`/#/words`)
+
+A vocabulary-only section, separate from the chapters: tabs for **Essentials, Restaurant,
+Hotel, Shop, Street, Trouble** and **People**, each a grid of flip cards showing the
+Japanese, the romaji and the meaning. Swap the prompt direction (日本語 → English or the
+reverse) and reveal or hide a whole scenario at once.
+
+Each card has a 🔊 button that speaks the word using the browser's built-in speech
+synthesis — no dependency, no API key, no network call. Where the device has no Japanese
+voice installed the buttons are hidden and the page says so.
+
 ### Features
 
 - **Non-linear navigation** — collapsible sidebar, searchable topic filter, home grid, and
   prev/next paging.
 - **🃏 Flashcards** — click to reveal the answer.
+- **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
   open questions (reveal the worked answer).
 
@@ -77,13 +90,20 @@ work on Pages without extra 404 handling.
 ```
 src/
   App.jsx                 # routing + layout
-  components/             # Sidebar, Home, ContentView, Flashcards, Quiz
+  components/             # Sidebar, Home, ContentView, Flashcards, Quiz, WordCards
+  lib/
+    speech.js             # Web Speech API wrapper for the 🔊 buttons
   content/
-    index.js              # aggregates chapters + builds nav/paging index
-    ch1-sounds-and-survival.js … ch7-quirks.js   # all content lives here
+    index.js              # aggregates chapters + word deck, builds nav/paging index
+    ch1-sounds-and-survival.js … ch7-quirks.js   # chapter content lives here
+    words.js              # the Common Words vocabulary deck
 ```
 
-To edit or add content, open the relevant `content/ch*.js` file — each exports a
+To edit or add chapter content, open the relevant `content/ch*.js` file — each exports a
 chapter object of `{ id, title, subchapters: [{ id, title, body, flashcards, quiz }] }`.
 `body` is Markdown; quiz items with `options` are multiple-choice (`answer` is
 the 0-based index), otherwise they're open questions (`answer` is a string).
+
+To edit vocabulary, open `content/words.js` — it exports
+`{ id, title, intro, scenarios: [{ id, title, icon, blurb, words }] }`, where each word is
+`{ jp, romaji, en, note? }`. Adding a scenario adds a tab; no other file needs touching.

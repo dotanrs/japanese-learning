@@ -3,7 +3,8 @@ import { Routes, Route, useParams, useLocation, Navigate } from 'react-router-do
 import Sidebar from './components/Sidebar.jsx'
 import Home from './components/Home.jsx'
 import ContentView from './components/ContentView.jsx'
-import { chapters, flatIndex } from './content/index.js'
+import WordCards from './components/WordCards.jsx'
+import { chapters, flatIndex, wordDeck } from './content/index.js'
 
 function SubPage() {
   const { chapterId, subId } = useParams()
@@ -58,6 +59,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ch/:chapterId/:subId" element={<SubPage />} />
+          <Route path="/words" element={<WordCards deck={wordDeck} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

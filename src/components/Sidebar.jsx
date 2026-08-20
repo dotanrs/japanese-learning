@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { chapters } from '../content/index.js'
+import { chapters, wordDeck } from '../content/index.js'
 
 export default function Sidebar({ onNavigate }) {
   const location = useLocation()
@@ -46,6 +46,18 @@ export default function Sidebar({ onNavigate }) {
         onChange={(e) => setQuery(e.target.value)}
         style={{ marginTop: 12 }}
       />
+
+      {(!q || wordDeck.title.toLowerCase().includes(q) ||
+        wordDeck.scenarios.some((sc) => sc.title.toLowerCase().includes(q))) && (
+        <NavLink
+          to="/words"
+          className={({ isActive }) => 'nav-standalone' + (isActive ? ' active' : '')}
+          onClick={onNavigate}
+        >
+          <span className="nav-standalone-icon" aria-hidden="true">🗂️</span>
+          {wordDeck.title}
+        </NavLink>
+      )}
 
       {filtered.map((ch) => {
         const isCollapsed = q ? false : collapsed[ch.id] && activeChapter !== ch.id

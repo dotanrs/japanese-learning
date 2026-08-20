@@ -5,8 +5,11 @@ import ch4 from './ch4-verbs-in-action.js'
 import ch5 from './ch5-numbers-and-time.js'
 import ch6 from './ch6-tourist-situations.js'
 import ch7 from './ch7-quirks.js'
+import words from './words.js'
 
 const raw = [ch1, ch2, ch3, ch4, ch5, ch6, ch7]
+
+export const wordDeck = words
 
 export const chapters = raw.map((ch, i) => ({ ...ch, num: i + 1 }))
 
