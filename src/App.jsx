@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar.jsx'
 import Home from './components/Home.jsx'
 import ContentView from './components/ContentView.jsx'
 import WordCards from './components/WordCards.jsx'
+import { TranslatorProvider } from './components/Translator.jsx'
 import { chapters, flatIndex, wordDeck } from './content/index.js'
 
 function SubPage() {
@@ -44,25 +45,27 @@ export default function App() {
   }, [location.pathname])
 
   return (
-    <div className="layout">
-      <button className="menu-toggle" onClick={() => setMenuOpen((o) => !o)}>
-        ☰
-      </button>
-      <div
-        className={'scrim' + (menuOpen ? ' show' : '')}
-        onClick={() => setMenuOpen(false)}
-      />
-      <aside className={'sidebar' + (menuOpen ? ' open' : '')}>
-        <Sidebar onNavigate={() => setMenuOpen(false)} />
-      </aside>
-      <main className="main">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/ch/:chapterId/:subId" element={<SubPage />} />
-          <Route path="/words" element={<WordCards deck={wordDeck} />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </main>
-    </div>
+    <TranslatorProvider>
+      <div className="layout">
+        <button className="menu-toggle" onClick={() => setMenuOpen((o) => !o)}>
+          ☰
+        </button>
+        <div
+          className={'scrim' + (menuOpen ? ' show' : '')}
+          onClick={() => setMenuOpen(false)}
+        />
+        <aside className={'sidebar' + (menuOpen ? ' open' : '')}>
+          <Sidebar onNavigate={() => setMenuOpen(false)} />
+        </aside>
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/ch/:chapterId/:subId" element={<SubPage />} />
+            <Route path="/words" element={<WordCards deck={wordDeck} />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+      </div>
+    </TranslatorProvider>
   )
 }

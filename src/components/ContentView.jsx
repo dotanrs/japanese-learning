@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Flashcards from './Flashcards.jsx'
 import Quiz from './Quiz.jsx'
 import JapaneseMarkdown from './JapaneseMarkdown.jsx'
+import Translator from './Translator.jsx'
 
 export default function ContentView({ chapter, sub, prev, next }) {
   return (
@@ -10,6 +11,7 @@ export default function ContentView({ chapter, sub, prev, next }) {
         <Link to="/">Course</Link> <span>／</span> Chapter {chapter.num}
       </div>
       <h1>{sub.title}</h1>
+      <Translator />
 
       {sub.body && (
         <JapaneseMarkdown>{sub.body}</JapaneseMarkdown>

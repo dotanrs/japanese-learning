@@ -1,27 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { hasSpeech, speakJapanese, watchJapaneseVoice } from '../lib/speech.js'
-
-function SpeakButton({ jp, enabled }) {
-  const [speaking, setSpeaking] = useState(false)
-
-  if (!enabled) return null
-
-  return (
-    <button
-      className={'wc-play' + (speaking ? ' speaking' : '')}
-      title={`Hear ${jp}`}
-      aria-label={`Hear ${jp} spoken in Japanese`}
-      onClick={(e) => {
-        e.stopPropagation() // don't flip the card underneath
-        speakJapanese(jp)
-        setSpeaking(true)
-        setTimeout(() => setSpeaking(false), 900)
-      }}
-    >
-      🔊
-    </button>
-  )
-}
+import { hasSpeech, watchJapaneseVoice } from '../lib/speech.js'
+import SpeakButton from './SpeakButton.jsx'
+import Translator from './Translator.jsx'
 
 function WordCard({ word, showJapaneseFirst, revealAll, canSpeak }) {
   const [flipped, setFlipped] = useState(false)
@@ -100,6 +80,7 @@ export default function WordCards({ deck }) {
         Vocabulary <span>／</span> By scenario
       </div>
       <h1>{deck.title}</h1>
+      <Translator />
       <p className="wc-intro">{deck.intro}</p>
 
       <div className="wc-tabs" role="tablist" aria-label="Scenario">
