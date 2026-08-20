@@ -4,15 +4,34 @@ import SpeakButton from './SpeakButton.jsx'
 import Translator from './Translator.jsx'
 import JapaneseMarkdown from './JapaneseMarkdown.jsx'
 
-function Line({ line, revealed, speaking, onToggle, canSpeak, onStopStory }) {
+function Breakdown({ parts }) {
   return (
-    <li className={'story-line' + (speaking ? ' speaking' : '') + (revealed ? ' open' : '')}>
+    <div className="sl-parts">
+      <div className="sl-parts-tag">Word by word</div>
+      <ol className="sl-parts-list">
+        {parts.map((part, i) => (
+          <li key={i} className="sl-part">
+            <div className="sl-part-jp">{part.jp}</div>
+            <div className="sl-part-romaji">{part.romaji}</div>
+            <div className="sl-part-en">{part.en}</div>
+            <div className="sl-part-role">{part.role}</div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
+function Line({ line, showEn, showParts, speaking, onToggle, canSpeak, onStopStory }) {
+  const open = showEn || showParts
+  return (
+    <li className={'story-line' + (speaking ? ' speaking' : '') + (open ? ' open' : '')}>
       <div className="sl-row">
         <div
           className="sl-jp-block"
           role="button"
           tabIndex={0}
-          aria-expanded={revealed}
+          aria-expanded={open}
           onClick={onToggle}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -29,7 +48,7 @@ function Line({ line, revealed, speaking, onToggle, canSpeak, onStopStory }) {
           <span className="sl-text">
             <span className="sl-jp">{line.jp}</span>
             <span className="sl-romaji">{line.romaji}</span>
-            {revealed && <span className="sl-en">{line.en}</span>}
+            {showEn && <span className="sl-en">{line.en}</span>}
           </span>
         </div>
         <SpeakButton
@@ -39,6 +58,7 @@ function Line({ line, revealed, speaking, onToggle, canSpeak, onStopStory }) {
           onPlay={onStopStory}
         />
       </div>
+      {showParts && <Breakdown parts={line.parts} />}
     </li>
   )
 }
@@ -46,6 +66,7 @@ function Line({ line, revealed, speaking, onToggle, canSpeak, onStopStory }) {
 export default function Stories({ deck }) {
   const [activeId, setActiveId] = useState(deck.stories[0].id)
   const [revealed, setRevealed] = useState(() => new Set())
+  const [showAllEn, setShowAllEn] = useState(false)
   const [showCatch, setShowCatch] = useState(false)
   const [speakingLine, setSpeakingLine] = useState(null)
   const [playing, setPlaying] = useState(false)
@@ -87,6 +108,7 @@ export default function Stories({ deck }) {
     stopStory()
     setActiveId(id)
     setRevealed(new Set())
+    setShowAllEn(false)
     setShowCatch(false)
   }
 
@@ -98,9 +120,12 @@ export default function Stories({ deck }) {
       return next
     })
 
-  const allShown = revealed.size === story.lines.length
-  const toggleAll = () =>
-    setRevealed(allShown ? new Set() : new Set(story.lines.map((_, i) => i)))
+  // Two levels on purpose: the whole story's English is worth skimming, but
+  // seven breakdowns at once is a wall, so those stay per-line.
+  const toggleAll = () => {
+    setShowAllEn((on) => !on)
+    if (showAllEn) setRevealed(new Set())
+  }
 
   return (
     <div className="content lesson-content">
@@ -143,8 +168,8 @@ export default function Stories({ deck }) {
                 {playing ? '■ Stop' : '▶ Play story'}
               </button>
             )}
-            <button className="wc-ctl" onClick={toggleAll}>
-              {allShown ? 'Hide English' : 'Show all English'}
+            <button className={'wc-ctl' + (showAllEn ? ' active' : '')} onClick={toggleAll}>
+              {showAllEn ? 'Hide English' : 'Show all English'}
             </button>
           </div>
         </div>
@@ -162,7 +187,8 @@ export default function Stories({ deck }) {
             <Line
               key={i}
               line={line}
-              revealed={revealed.has(i)}
+              showEn={showAllEn || revealed.has(i)}
+              showParts={revealed.has(i)}
               speaking={speakingLine === i}
               onToggle={() => toggleLine(i)}
               canSpeak={canSpeak}

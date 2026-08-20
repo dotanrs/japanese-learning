@@ -14,7 +14,13 @@ base teaching conversational Japanese for travellers).
   bracketed glosses.
 - `src/content/stories.js` — the **Short Stories** section: `{ id, title, intro, stories:
   [{ id, title, jpTitle, icon, blurb, cast, lines, catch }] }`, where each line is
-  `{ speaker?, jp, romaji, en }` and a line with no `speaker` is narration. One story = one
+  `{ speaker?, jp, romaji, en, parts }` and a line with no `speaker` is narration.
+  `parts` is the grammar breakdown shown beside the translation — one entry per chunk, in
+  order, each `{ jp, romaji, en, role }`, where `en` is the chunk's meaning (`"—"` when it
+  has none of its own) and `role` is its job in the sentence. **The chunks must concatenate
+  back into `jp` exactly, ignoring punctuation** — that invariant is what makes a breakdown
+  checkable, and it catches a skipped word straight away. Don't try to derive `parts`
+  automatically: naive segmentation gets conjugated verbs (渡りませんでした) confidently wrong. One story = one
   tab at `/#/stories`. Keep `jp` to the sentence alone — the speaker label must stay out of
   it, because `jp` is what speech synthesis reads. Every story needs a `catch` (the turn,
   explained in English); it is hidden behind a button so it can't spoil the story. Grammar
