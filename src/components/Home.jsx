@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { chapters } from '../content/index.js'
+import { chapters, wordDeck } from '../content/index.js'
 
 export default function Home() {
   return (
@@ -21,6 +21,20 @@ export default function Home() {
           <span>旅</span>
         </div>
       </section>
+      <Link className="words-banner" to="/words">
+        <div className="wb-copy">
+          <div className="eyebrow">Vocabulary deck</div>
+          <h2>{wordDeck.title}</h2>
+          <p>
+            {wordDeck.scenarios.reduce((n, s) => n + s.words.length, 0)} words you
+            will actually use, on flashcards, split into{' '}
+            {wordDeck.scenarios.length} scenarios — {wordDeck.scenarios.map((s) => s.title).join(', ')}.
+            Tap 🔊 to hear any of them.
+          </p>
+        </div>
+        <div className="wb-arrow" aria-hidden="true">→</div>
+      </Link>
+
       <div className="section-kicker">Seven concise chapters</div>
       <div className="home-grid">
         {chapters.map((ch) => {

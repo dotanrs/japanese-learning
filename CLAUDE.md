@@ -7,10 +7,18 @@ base teaching conversational Japanese for travellers).
 
 - `src/content/ch*.js` — all learning content. Each file exports a chapter:
   `{ id, title, subchapters: [{ id, title, body, quizTitle?, flashcards, quiz }] }`.
+- `src/content/words.js` — the standalone **Common Words** vocabulary deck (no prose, no
+  quizzes): `{ id, title, intro, scenarios: [{ id, title, icon, blurb, words }] }`, where
+  each word is `{ jp, romaji, en, note? }`. One scenario = one tab at `/#/words`. `jp` is
+  the string fed to speech synthesis, so keep it natural Japanese — no romaji, no
+  bracketed glosses.
 - `src/content/index.js` — imports every chapter into the `raw` array (order = display
-  order) and builds the nav/paging `flatIndex`. **A new chapter must be added here** or
-  it won't appear.
-- `src/components/` — Sidebar, Home, ContentView, Flashcards, Quiz.
+  order), re-exports the word deck, and builds the nav/paging `flatIndex`. **A new chapter
+  must be added here** or it won't appear.
+- `src/components/` — Sidebar, Home, ContentView, Flashcards, Quiz, WordCards.
+- `src/lib/speech.js` — the 🔊 audio: a thin wrapper over the browser's Web Speech API.
+  Voices load asynchronously and a Japanese voice may be absent entirely, so callers must
+  handle the unsupported case (the word cards hide the buttons and explain why).
 - `body` is Markdown rendered with `react-markdown` + `remark-gfm` (GFM tables, etc.).
   There is **no LaTeX/KaTeX** — write any math in Unicode (`≤`, `²`, `Θ`, `√`).
 - Quiz items: an item with `options` is multiple-choice (`answer` = 0-based index,
