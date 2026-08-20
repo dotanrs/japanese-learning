@@ -15,10 +15,20 @@ base teaching conversational Japanese for travellers).
 - `src/content/index.js` — imports every chapter into the `raw` array (order = display
   order), re-exports the word deck, and builds the nav/paging `flatIndex`. **A new chapter
   must be added here** or it won't appear.
-- `src/components/` — Sidebar, Home, ContentView, Flashcards, Quiz, WordCards.
+- `src/components/` — Sidebar, Home, ContentView, Flashcards, Quiz, WordCards, Translator,
+  SpeakButton.
 - `src/lib/speech.js` — the 🔊 audio: a thin wrapper over the browser's Web Speech API.
   Voices load asynchronously and a Japanese voice may be absent entirely, so callers must
   handle the unsupported case (the word cards hide the buttons and explain why).
+- `src/lib/phrasebook.js` + `src/lib/translate.js` — the quick-translate box. **The
+  phrasebook is derived from the content, never hand-written**: it indexes `words.js`, the
+  `translations.js` tooltips, and every chapter table row whose first cell contains
+  Japanese. So a new `| Japanese | Romaji | Meaning |` row becomes translatable for free —
+  and reformatting a phrase table out of that shape silently removes those phrases from
+  the translator. `translate.js` is a lookup, not a translation engine: exact match, then
+  closest phrases, then a word-by-word gloss.
+- `Translator` is rendered by each page under its `h1`, but its state lives in
+  `TranslatorProvider` in `App.jsx`, so what you typed survives navigation.
 - `body` is Markdown rendered with `react-markdown` + `remark-gfm` (GFM tables, etc.).
   There is **no LaTeX/KaTeX** — write any math in Unicode (`≤`, `²`, `Θ`, `√`).
 - Quiz items: an item with `options` is multiple-choice (`answer` = 0-based index,

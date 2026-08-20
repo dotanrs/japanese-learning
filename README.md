@@ -76,10 +76,29 @@ Each card has a 🔊 button that speaks the word using the browser's built-in sp
 synthesis — no dependency, no API key, no network call. Where the device has no Japanese
 voice installed the buttons are hidden and the page says so.
 
+### Quick translate
+
+Every page carries a translate box under its headline, sharing one state — type a phrase,
+navigate, and it is still there. It reads the input's script to pick a direction, so
+English goes to Japanese and Japanese (or romaji) comes back to English, with no toggle to
+set.
+
+The engine is the course itself: `src/lib/phrasebook.js` indexes the Common Words deck,
+the phrase tooltips, and every `| Japanese | Romaji | Meaning |` table row in the chapters
+into ~510 entries, and `src/lib/translate.js` looks the input up in that. So it answers
+with what the course actually teaches, romaji and source chapter included — an exact hit
+where one exists, the closest phrases otherwise, and a word-by-word gloss when nothing
+matches whole. It tolerates romaji spelling (*arigato* → ありがとう) and small typos, and
+says plainly when a phrase isn't covered.
+
+This is a phrasebook lookup, **not** a machine-translation engine: it is offline, private
+and instant, but it only knows the ~510 phrases the course contains.
+
 ### Features
 
-- **Non-linear navigation** — collapsible sidebar, searchable topic filter, home grid, and
-  prev/next paging.
+- **Non-linear navigation** — collapsible sidebar (the logo returns home), searchable topic
+  filter, home grid, and prev/next paging.
+- **🔤 Quick translate** — a shared box on every page, either direction, with audio.
 - **🃏 Flashcards** — click to reveal the answer.
 - **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
@@ -89,10 +108,13 @@ voice installed the buttons are hidden and the page says so.
 
 ```
 src/
-  App.jsx                 # routing + layout
-  components/             # Sidebar, Home, ContentView, Flashcards, Quiz, WordCards
+  App.jsx                 # routing + layout + the shared translator state
+  components/             # Sidebar, Home, ContentView, Flashcards, Quiz,
+                          # WordCards, Translator, SpeakButton
   lib/
     speech.js             # Web Speech API wrapper for the 🔊 buttons
+    phrasebook.js         # builds the JA↔EN index out of the course content
+    translate.js          # the lookup behind the quick-translate box
   content/
     index.js              # aggregates chapters + word deck, builds nav/paging index
     ch1-sounds-and-survival.js … ch7-quirks.js   # chapter content lives here

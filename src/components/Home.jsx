@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { chapters, wordDeck } from '../content/index.js'
+import Translator from './Translator.jsx'
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
           <span>旅</span>
         </div>
       </section>
+      <Translator />
       <Link className="words-banner" to="/words">
         <div className="wb-copy">
           <div className="eyebrow">Vocabulary deck</div>

@@ -30,10 +30,10 @@ export default function Sidebar({ onNavigate }) {
 
   return (
     <>
-      <div className="brand">
+      <NavLink className="brand" to="/" onClick={onNavigate}>
         <span className="brand-seal">日</span>
         <span>Japanese<br />Crash Course</span>
-      </div>
+      </NavLink>
       <div style={{ padding: '0 6px' }}>
         <small className="brand-subtitle">
           Spoken Japanese for curious travellers
