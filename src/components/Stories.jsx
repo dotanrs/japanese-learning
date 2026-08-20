@@ -50,6 +50,7 @@ export default function Stories({ deck }) {
   const [speakingLine, setSpeakingLine] = useState(null)
   const [playing, setPlaying] = useState(false)
   const [canSpeak, setCanSpeak] = useState(false)
+  const [audioFailed, setAudioFailed] = useState(false)
   const stopRef = useRef(null)
 
   useEffect(() => watchJapaneseVoice(setCanSpeak), [])
@@ -70,10 +71,12 @@ export default function Stories({ deck }) {
   const playStory = () => {
     stopStory()
     setPlaying(true)
+    setAudioFailed(false)
     stopRef.current = speakSequence(
       story.lines.map((l) => l.jp),
       {
         onLine: setSpeakingLine,
+        onError: () => setAudioFailed(true),
         onDone: () => {
           setPlaying(false)
           setSpeakingLine(null)
@@ -88,6 +91,7 @@ export default function Stories({ deck }) {
     setActiveId(id)
     setRevealed(new Set())
     setShowCatch(false)
+    setAudioFailed(false)
   }
 
   const toggleLine = (i) =>
@@ -154,6 +158,14 @@ export default function Stories({ deck }) {
             {hasSpeech()
               ? 'No Japanese voice is installed on this device, so the story cannot be read aloud.'
               : 'This browser has no speech synthesis, so the story cannot be read aloud.'}
+          </p>
+        )}
+
+        {canSpeak && audioFailed && (
+          <p className="wc-audio-note">
+            The Japanese voice on this device failed to speak. Some voices
+            synthesise over the network, so they go silent offline — installing an
+            offline Japanese voice in your system settings fixes it.
           </p>
         )}
 

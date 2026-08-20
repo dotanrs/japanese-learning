@@ -51,11 +51,22 @@ function utteranceFor(text) {
   return utterance
 }
 
-export function speakJapanese(text) {
+// `cancel()` fires onerror on most engines, so a stopped utterance is not a
+// failure. Everything else is: notably, some Android voices synthesise on
+// Google's servers and error out with no network, which is the one part of this
+// app that stops working offline.
+const isRealFailure = (event) =>
+  event?.error !== 'canceled' && event?.error !== 'interrupted'
+
+export function speakJapanese(text, { onError } = {}) {
   if (!hasSpeech()) return false
   const synth = window.speechSynthesis
   synth.cancel() // drop whatever the previous card queued
-  synth.speak(utteranceFor(text))
+  const utterance = utteranceFor(text)
+  utterance.onerror = (event) => {
+    if (isRealFailure(event)) onError?.(event)
+  }
+  synth.speak(utterance)
   return true
 }
 
@@ -65,7 +76,7 @@ export function speakJapanese(text) {
 // mid-way is unreliable across engines.
 //
 // Returns a stop function; call it to abandon the run.
-export function speakSequence(texts, { onLine, onDone } = {}) {
+export function speakSequence(texts, { onLine, onDone, onError } = {}) {
   if (!hasSpeech() || texts.length === 0) {
     onDone?.()
     return () => {}
@@ -98,7 +109,12 @@ export function speakSequence(texts, { onLine, onDone } = {}) {
       timer = setTimeout(speakNext, 350)
     }
     utterance.onend = advance
-    utterance.onerror = advance
+    utterance.onerror = (event) => {
+      // Keep going — one unpronounceable line shouldn't end the story — but let
+      // the caller know, because every line failing means the voice is broken.
+      if (isRealFailure(event)) onError?.(event)
+      advance()
+    }
     synth.speak(utterance)
   }
 
