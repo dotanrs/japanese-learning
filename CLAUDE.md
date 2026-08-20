@@ -81,9 +81,17 @@ cache-first, with `registerType: 'autoUpdate'`. Things to keep in mind when chan
 - Icons live in `public/` (`icon-192`, `icon-512`, a `maskable` 512 for Android cropping,
   and `apple-touch-icon.png`, which is the only one iOS reads).
 - **Nothing in the app may fetch at runtime** — that assumption is what makes offline work.
-  The one exception is out of our control: some Android voices synthesise speech over the
-  network, so `speakJapanese`/`speakSequence` take an `onError` callback and the UI reports
-  a voice that is present but silent (🔇 on the button, a note in the stories).
+  Two exceptions are out of our control, and both are handed to the *browser*, never to a
+  server of ours, so they degrade rather than break:
+  - Some Android voices synthesise speech over the network, so `speakJapanese`/
+    `speakSequence` take an `onError` callback and the UI reports a voice that is present
+    but silent (🔇 on the button, a note in the stories).
+  - The built-in Translator API behind the direct-translation line needs a one-time
+    language-pack download. `browserTranslate` rejects with `code: 'offline'` as soon as
+    `navigator.onLine === false` (and if the network drops mid-download), instead of
+    showing progress that cannot move; `useOnline` in `Translator.jsx` retries when the
+    connection returns. Only `navigator.onLine === false` is trustworthy — `true` says
+    nothing about real connectivity, so it is never used to assume a network exists.
 
 ## Adding / editing content
 

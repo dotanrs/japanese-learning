@@ -13,8 +13,28 @@ const TranslatorContext = createContext(null)
 // The browser's own translation of whatever you typed, shown above the course
 // phrases. It answers anything — including sentences the course never teaches —
 // while the phrasebook below it answers with what the course actually says.
+// Whether a language-pack download could even be attempted. Tracked so that
+// reconnecting retries the translation on its own — without this, an offline
+// message would sit there until the reader edited what they had typed.
+function useOnline() {
+  const [online, setOnline] = useState(
+    () => typeof navigator === 'undefined' || navigator.onLine !== false
+  )
+  useEffect(() => {
+    const sync = () => setOnline(navigator.onLine !== false)
+    window.addEventListener('online', sync)
+    window.addEventListener('offline', sync)
+    return () => {
+      window.removeEventListener('online', sync)
+      window.removeEventListener('offline', sync)
+    }
+  }, [])
+  return online
+}
+
 function useDirectTranslation(text, direction) {
   const [state, setState] = useState({ status: 'idle' })
+  const online = useOnline()
   const query = text.trim()
   // Romaji in: the browser translates script, not transliteration, and the
   // phrasebook has already read it as Japanese. Sending it as English would
@@ -57,7 +77,7 @@ function useDirectTranslation(text, direction) {
       live = false
       clearTimeout(timer)
     }
-  }, [query, skip])
+  }, [query, skip, online])
 
   return state
 }
