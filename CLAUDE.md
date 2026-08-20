@@ -12,18 +12,32 @@ base teaching conversational Japanese for travellers).
   each word is `{ jp, romaji, en, note? }`. One scenario = one tab at `/#/words`. `jp` is
   the string fed to speech synthesis, so keep it natural Japanese — no romaji, no
   bracketed glosses.
+- `src/content/stories.js` — the **Short Stories** section: `{ id, title, intro, stories:
+  [{ id, title, jpTitle, icon, blurb, cast, lines, catch }] }`, where each line is
+  `{ speaker?, jp, romaji, en }` and a line with no `speaker` is narration. One story = one
+  tab at `/#/stories`. Keep `jp` to the sentence alone — the speaker label must stay out of
+  it, because `jp` is what speech synthesis reads. Every story needs a `catch` (the turn,
+  explained in English); it is hidden behind a button so it can't spoil the story. Grammar
+  stays inside what the course teaches: -masu forms and the Chapter 6 set phrases.
 - `src/content/index.js` — imports every chapter into the `raw` array (order = display
-  order), re-exports the word deck, and builds the nav/paging `flatIndex`. **A new chapter
-  must be added here** or it won't appear.
-- `src/components/` — Sidebar, Home, ContentView, Flashcards, Quiz, WordCards, Translator,
-  SpeakButton.
+  order), re-exports the word and story decks, and builds the nav/paging `flatIndex`. **A
+  new chapter must be added here** or it won't appear.
+- `src/components/` — Sidebar, Home, ContentView, Flashcards, Quiz, WordCards, Stories,
+  Translator, SpeakButton. The tab strip (`.tabs`/`.tab`) and `SpeakButton` are shared by
+  the word deck and the stories — change them in one place, check both.
 - `src/lib/speech.js` — the 🔊 audio: a thin wrapper over the browser's Web Speech API.
   Voices load asynchronously and a Japanese voice may be absent entirely, so callers must
   handle the unsupported case (the word cards hide the buttons and explain why).
+  `speakSequence` reads a list of lines in order for the stories' play-whole-story button.
+  Note that speaking anything calls `synth.cancel()`, which would otherwise make a running
+  sequence advance — that's why `SpeakButton` takes an `onPlay` hook to stop the story
+  first.
 - `src/lib/phrasebook.js` + `src/lib/translate.js` — the quick-translate box. **The
   phrasebook is derived from the content, never hand-written**: it indexes `words.js`, the
   `translations.js` tooltips, and every chapter table row whose first cell contains
-  Japanese. So a new `| Japanese | Romaji | Meaning |` row becomes translatable for free —
+  Japanese; `stories.js` is deliberately **not** indexed, because story narration ("a year
+  passed") is not a phrase anyone looks up and it crowds out the ones that are.
+  So a new `| Japanese | Romaji | Meaning |` row becomes translatable for free —
   and reformatting a phrase table out of that shape silently removes those phrases from
   the translator. `translate.js` is a lookup, not a translation engine: exact match, then
   closest phrases, then a word-by-word gloss.

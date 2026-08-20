@@ -83,18 +83,18 @@ export default function WordCards({ deck }) {
       <Translator />
       <p className="wc-intro">{deck.intro}</p>
 
-      <div className="wc-tabs" role="tablist" aria-label="Scenario">
+      <div className="tabs" role="tablist" aria-label="Scenario">
         {deck.scenarios.map((s) => (
           <button
             key={s.id}
             role="tab"
             aria-selected={s.id === active.id}
-            className={'wc-tab' + (s.id === active.id ? ' active' : '')}
+            className={'tab' + (s.id === active.id ? ' active' : '')}
             onClick={() => pickScenario(s.id)}
           >
-            <span className="wc-tab-icon" aria-hidden="true">{s.icon}</span>
+            <span className="tab-icon" aria-hidden="true">{s.icon}</span>
             {s.title}
-            <span className="wc-tab-count">{s.words.length}</span>
+            <span className="tab-count">{s.words.length}</span>
           </button>
         ))}
       </div>

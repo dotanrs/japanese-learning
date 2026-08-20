@@ -38,19 +38,77 @@ export function watchJapaneseVoice(onResult) {
   }
 }
 
-export function speakJapanese(text) {
-  if (!hasSpeech()) return false
-  const synth = window.speechSynthesis
-  synth.cancel() // drop whatever the previous card queued
+function utteranceFor(text) {
   const utterance = new SpeechSynthesisUtterance(text)
   utterance.lang = 'ja-JP'
   utterance.rate = 0.85 // learner pace; mora length is meaning-bearing here
-  const voice = synth.getVoices().find(isJa)
+  const voice = window.speechSynthesis.getVoices().find(isJa)
   try {
     if (voice) utterance.voice = voice
   } catch {
     // Some engines reject the assignment; the ja-JP lang hint alone still works.
   }
-  synth.speak(utterance)
+  return utterance
+}
+
+export function speakJapanese(text) {
+  if (!hasSpeech()) return false
+  const synth = window.speechSynthesis
+  synth.cancel() // drop whatever the previous card queued
+  synth.speak(utteranceFor(text))
   return true
+}
+
+// Read a list of lines in order, reporting which one is being spoken so the
+// caller can follow along. Chains on `onend` rather than queueing everything up
+// front, because a queued run cannot be paused between lines and cancelling it
+// mid-way is unreliable across engines.
+//
+// Returns a stop function; call it to abandon the run.
+export function speakSequence(texts, { onLine, onDone } = {}) {
+  if (!hasSpeech() || texts.length === 0) {
+    onDone?.()
+    return () => {}
+  }
+  const synth = window.speechSynthesis
+  synth.cancel()
+
+  let cancelled = false
+  let timer = null
+  let index = 0
+
+  const finish = () => {
+    if (cancelled) return
+    cancelled = true
+    onDone?.()
+  }
+
+  const speakNext = () => {
+    if (cancelled) return
+    if (index >= texts.length) {
+      finish()
+      return
+    }
+    const at = index++
+    onLine?.(at)
+    const utterance = utteranceFor(texts[at])
+    // A beat between lines: back-to-back dialogue is hard to follow.
+    const advance = () => {
+      if (cancelled) return
+      timer = setTimeout(speakNext, 350)
+    }
+    utterance.onend = advance
+    utterance.onerror = advance
+    synth.speak(utterance)
+  }
+
+  speakNext()
+
+  return () => {
+    if (cancelled) return
+    cancelled = true
+    clearTimeout(timer)
+    synth.cancel()
+    onDone?.()
+  }
 }
