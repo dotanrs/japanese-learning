@@ -66,7 +66,7 @@ several weeks unused — reopening it once online restores everything.
 
 ## What's inside
 
-7 chapters · 23 topics · 130 flashcards · 70 self-test questions, plus a standalone
+7 chapters · 24 topics · 136 flashcards · 75 self-test questions, plus a standalone
 **Common Words** deck of 151 vocabulary cards across 7 scenarios and 7 **Short Stories**
 in dialogue.
 

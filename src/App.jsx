@@ -38,6 +38,9 @@ function SubPage() {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [menuCollapsed, setMenuCollapsed] = useState(
+    () => window.localStorage.getItem('menu-collapsed') === 'true'
+  )
   const location = useLocation()
 
   useEffect(() => {
@@ -45,10 +48,20 @@ export default function App() {
     window.scrollTo(0, 0)
   }, [location.pathname])
 
+  useEffect(() => {
+    window.localStorage.setItem('menu-collapsed', String(menuCollapsed))
+  }, [menuCollapsed])
+
   return (
     <TranslatorProvider>
-      <div className="layout">
-        <button className="menu-toggle" onClick={() => setMenuOpen((o) => !o)}>
+      <div className={'layout' + (menuCollapsed ? ' menu-collapsed' : '')}>
+        <button
+          className="menu-toggle"
+          type="button"
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+        >
           ☰
         </button>
         <div
@@ -56,8 +69,28 @@ export default function App() {
           onClick={() => setMenuOpen(false)}
         />
         <aside className={'sidebar' + (menuOpen ? ' open' : '')}>
+          <button
+            className="sidebar-collapse"
+            type="button"
+            onClick={() => setMenuCollapsed(true)}
+            aria-label="Collapse menu"
+            title="Collapse menu"
+          >
+            «
+          </button>
           <Sidebar onNavigate={() => setMenuOpen(false)} />
         </aside>
+        {menuCollapsed && (
+          <button
+            className="sidebar-reopen"
+            type="button"
+            onClick={() => setMenuCollapsed(false)}
+            aria-label="Open menu"
+            title="Open menu"
+          >
+            ☰
+          </button>
+        )}
         <main className="main">
           <Routes>
             <Route path="/" element={<Home />} />
