@@ -314,6 +314,231 @@ Saying *watashi **wa** ikimasu* shifts the meaning to "as for me, I'm going (wha
       ]
     },
     {
+      id: "linking-words",
+      title: "Linking Ideas: And, Or, But, Because, If",
+      body: `## Turn short sentences into a conversation
+
+You can communicate surprisingly well with one idea at a time. Linking words let you add
+an alternative, explain a reason, or say what happens under a condition. Japanese divides
+this work differently from English: the connector often changes depending on whether you
+are joining **nouns** or whole **sentences**.
+
+### Adding things: *to*, *ya*, *soshite*, *sorekara*
+
+Use **と *to*** between nouns for a complete list — English “and”:
+
+| Japanese | Romaji | Meaning |
+|----------|--------|---------|
+| コーヒーとお茶をください | *Koohii to ocha o kudasai* | Coffee and tea, please |
+| 京都と大阪へ行きます | *Kyoto to Osaka e ikimasu* | I’m going to Kyoto and Osaka |
+
+Use **や *ya*** when you are giving examples rather than the whole list: *sushi ya tempura*
+means “sushi, tempura, **and things like that**.” For complete thoughts, use **そして
+*soshite*** (“and”) or **それから *sorekara*** (“and then”):
+
+| Japanese | Romaji | Meaning |
+|----------|--------|---------|
+| 京都へ行きました。そして、奈良へ行きました | *Kyoto e ikimashita. Soshite, Nara e ikimashita* | I went to Kyoto. And I went to Nara. |
+| 朝ご飯を食べます。それから、出かけます | *Asagohan o tabemasu. Sorekara, dekakemasu* | I eat breakfast. Then I go out. |
+
+> **Do not use *to* to join two sentences.** It joins nouns. When actions form one
+> sequence, Japanese normally uses the te-form; Part 4 teaches that pattern.
+
+### Choosing: *ka* and *soretomo*
+
+Between nouns, **か *ka*** means “or”:
+
+| Japanese | Romaji | Meaning |
+|----------|--------|---------|
+| コーヒーかお茶をください | *Koohii ka ocha o kudasai* | Coffee or tea, please |
+| 電車かバスで行きます | *Densha ka basu de ikimasu* | I’ll go by train or bus |
+
+In a question that offers two full alternatives, use **それとも *soretomo***:
+
+> 店で食べますか。それとも、持ち帰りますか。
+>
+> *Mise de tabemasu ka. Soretomo, mochikaerimasu ka.* — Will you eat here, or take it
+> away?
+
+Staff often shorten this to *Koohii desu ka, ocha desu ka* — literally “Is it coffee? Is
+it tea?” **または *matawa*** also means “or,” but it is more common in forms, signs, and
+formal announcements than in everyday conversation.
+
+### Contrast: *demo*, *ga*, and *kedo*
+
+The safest beginner “but” is **でも *demo*** at the start of a new sentence:
+
+| Japanese | Romaji | Meaning |
+|----------|--------|---------|
+| 行きたいです。でも、時間がありません | *Ikitai desu. Demo, jikan ga arimasen* | I want to go, but I don’t have time |
+| おいしいです。でも、高いです | *Oishii desu. Demo, takai desu* | It’s delicious, but expensive |
+
+To connect the ideas in one sentence, add **が *ga*** after a polite clause: *Ikitai desu
+ga, jikan ga arimasen.* In conversation, **けど *kedo*** does the same job and sounds less
+formal: *Ikitai desu kedo…* Trailing off after *kedo* is also a gentle way to imply a
+problem or refusal without stating it bluntly.
+
+### Reasons and results: *kara*, *node*, *dakara*
+
+Put **から *kara*** after the reason. The result can follow, or it can be obvious and left
+unsaid:
+
+| Japanese | Romaji | Meaning |
+|----------|--------|---------|
+| 雨ですから、行きません | *Ame desu kara, ikimasen* | Because it’s raining, I won’t go |
+| 分かりませんから、英語でお願いします | *Wakarimasen kara, eigo de onegai shimasu* | Because I don’t understand, English please |
+
+**ので *node*** also means “because” and usually sounds softer and less forceful. **だから
+*dakara*** begins with the result: *Ame desu. Dakara, ikimasen* — “It’s raining.
+Therefore, I won’t go.”
+
+English often starts with “because”; Japanese commonly gives the situation first and lets
+the conclusion arrive last. That matches the language’s general build-toward-the-end
+rhythm.
+
+### If–then: the practical *-tara* pattern
+
+Japanese does not need a separate word for “then.” The ending **〜たら *-tara*** marks the
+condition; the next clause is what happens if it is met:
+
+> もし安かったら、買います。
+>
+> *Moshi yasukattara, kaimasu.* — If it’s cheap, I’ll buy it.
+
+**もし *moshi*** announces “if,” but it is optional — *-tara* already carries the meaning.
+For now, learn these high-value forms as chunks; Part 4’s verb forms make the pattern
+easier to build yourself:
+
+| Condition | Meaning |
+|-----------|---------|
+| *yasukattara* | if it is cheap |
+| *daijoubu dattara* | if it is OK |
+| *jikan ga attara* | if there is time / if you have time |
+| *ame dattara* | if it rains / if it is rainy |
+| *wakaranakattara* | if you don’t understand |
+
+Useful travel examples:
+
+| Japanese | Romaji | Meaning |
+|----------|--------|---------|
+| 時間があったら、行きます | *Jikan ga attara, ikimasu* | If I have time, I’ll go |
+| 分からなかったら、聞いてください | *Wakaranakattara, kiite kudasai* | If you don’t understand, please ask |
+| だめだったら、別のホテルを探します | *Dame dattara, betsu no hoteru o sagashimasu* | If it’s no good, I’ll look for another hotel |
+
+There are other conditional forms — *to* for automatic results, *nara* for “if that’s the
+case,” and *-ba* for general conditions — but ***-tara* is the best all-purpose choice**
+for plans, possibilities, and tourist situations.
+
+### “Else” and “otherwise”
+
+Japanese usually states the second condition rather than inserting one fixed “else” word:
+
+> 安かったら、買います。高かったら、買いません。
+>
+> *Yasukattara, kaimasu. Takakattara, kaimasen.* — If it’s cheap, I’ll buy it; if it’s
+> expensive, I won’t.
+
+**そうでなければ *sou de nakereba*** means “if not / otherwise,” but it sounds more
+formal. In ordinary speech, two parallel *-tara* conditions are often clearer.
+
+### The pocket set
+
+| Job | Best first choice |
+|-----|-------------------|
+| and (nouns) | *to* |
+| and things like… | *ya* |
+| and / and then (sentences) | *soshite / sorekara* |
+| or (nouns) | *ka* |
+| or (a question with alternatives) | *soretomo* |
+| but | *demo* |
+| because | *kara* |
+| therefore | *dakara* |
+| if | *-tara* (optional *moshi*) |
+`,
+      quizTitle: "Connecting the pieces",
+      flashcards: [
+        {
+          front: "How do you say “and” when joining nouns versus whole thoughts?",
+          back: `Use **と *to*** for a complete list of nouns: *koohii to ocha* (coffee and tea). Use **や *ya*** for examples: *sushi ya tempura* (sushi, tempura, and the like).
+
+For whole thoughts, use **そして *soshite*** (and) or **それから *sorekara*** (and then). *To* does not join two complete sentences.`
+        },
+        {
+          front: "What are the two beginner patterns for “or”?",
+          back: `Use **か *ka*** between nouns: *densha ka basu* (train or bus).
+
+Use **それとも *soretomo*** between alternative questions: *Koko de tabemasu ka. Soretomo, mochikaerimasu ka* — eat here, or take away?`
+        },
+        {
+          front: "Give three ways to express “but.”",
+          back: `- **demo** starts a new sentence and is the safest beginner choice.
+- **ga** follows a polite clause: *Ikitai desu ga…*
+- **kedo** is the conversational equivalent: *Ikitai desu kedo…*
+
+Leaving *ga/kedo* hanging gently implies a difficulty or refusal.`
+        },
+        {
+          front: "How do *kara*, *node*, and *dakara* differ?",
+          back: `**kara** follows the reason: *Ame desu kara, ikimasen* — because it’s raining, I won’t go. **node** works similarly but sounds softer.
+
+**dakara** starts the result: *Ame desu. Dakara, ikimasen* — it’s raining; therefore I won’t go.`
+        },
+        {
+          front: "What is the most useful all-purpose if–then pattern?",
+          back: `Use **〜たら *-tara*** on the condition; no separate “then” is needed: *Yasukattara, kaimasu* — if it’s cheap, I’ll buy it.
+
+Optional **moshi** can announce the condition: *Moshi yasukattara…* Learn common forms such as *jikan ga attara*, *ame dattara*, and *wakaranakattara* as chunks.`
+        },
+        {
+          front: "How does everyday Japanese express “if X, else Y”?",
+          back: `Usually with **two explicit conditions**:
+
+*Yasukattara, kaimasu. Takakattara, kaimasen.* — If it’s cheap, I’ll buy it; if it’s expensive, I won’t.
+
+*Sou de nakereba* means “otherwise,” but is more formal.`
+        }
+      ],
+      quiz: [
+        {
+          question: "You want coffee or tea — just one of them. Which connector belongs in *koohii ___ ocha*?",
+          options: ["to", "ka", "ya", "soshite"],
+          answer: 1,
+          explanation: `**ka** joins noun alternatives: *koohii **ka** ocha*. **to** means both coffee and tea; **ya** gives a non-exhaustive list; **soshite** links complete thoughts, not two nouns.`
+        },
+        {
+          question: "Which is the natural way to link “It’s delicious. But it’s expensive” as two beginner-friendly sentences?",
+          options: [
+            "Oishii desu. To, takai desu.",
+            "Oishii desu. Demo, takai desu.",
+            "Oishii desu. Ka, takai desu.",
+            "Oishii desu. Kara, takai desu."
+          ],
+          answer: 1,
+          explanation: `**Demo** starts a contrasting sentence: *Oishii desu. Demo, takai desu.* You could also make one sentence with *Oishii desu ga…* or the conversational *Oishii desu kedo…*.`
+        },
+        {
+          question: "Complete: “Because I don’t understand, English please.” — *Wakarimasen ___, eigo de onegai shimasu.*",
+          options: ["kara", "soretomo", "to", "tara"],
+          answer: 0,
+          explanation: `**kara** follows the reason: *Wakarimasen **kara**, eigo de onegai shimasu.* A softer alternative is *node*.`
+        },
+        {
+          question: "What does *Moshi jikan ga attara, ikimasu* mean, and which word is optional?",
+          answer: `**“If I have time, I’ll go.”**
+
+*Jikan ga attara* is the condition and *ikimasu* is the result. **Moshi** announces “if,” but it is optional because the *-tara* ending already marks the condition. Japanese needs no separate word for “then.”`
+        },
+        {
+          question: "Translate naturally: “If it’s cheap, I’ll buy it; if it’s expensive, I won’t.”",
+          answer: `**安かったら、買います。高かったら、買いません。**
+
+*Yasukattara, kaimasu. Takakattara, kaimasen.*
+
+Everyday Japanese often expresses an if–else choice as two parallel conditions. The explicit “otherwise” expression *sou de nakereba* is possible, but more formal.`
+        }
+      ]
+    },
+    {
       id: "questions",
       title: "Asking Questions",
       body: `## Questions are almost free: just add か
