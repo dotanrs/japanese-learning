@@ -67,7 +67,7 @@ several weeks unused — reopening it once online restores everything.
 ## What's inside
 
 7 chapters · 24 topics · 136 flashcards · 75 self-test questions, plus a standalone
-**Common Words** deck of 151 vocabulary cards across 7 scenarios and 7 **Short Stories**
+**Common Words** deck of 180 vocabulary cards across 9 scenarios and 7 **Short Stories**
 in dialogue.
 
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
@@ -96,8 +96,8 @@ in dialogue.
 
 ### Common Words (`/#/words`)
 
-A vocabulary-only section, separate from the chapters: tabs for **Essentials, Restaurant,
-Hotel, Shop, Street, Trouble** and **People**, each a grid of flip cards showing the
+A vocabulary-only section, separate from the chapters: tabs for **Particles, Questions,
+Essentials, Restaurant, Hotel, Shop, Street, Trouble** and **People**, each a grid of flip cards showing the
 Japanese, the romaji and the meaning. Swap the prompt direction (日本語 → English or the
 reverse) and reveal or hide a whole scenario at once.
 

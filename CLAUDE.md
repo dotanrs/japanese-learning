@@ -9,7 +9,9 @@ base teaching conversational Japanese for travellers).
   `{ id, title, subchapters: [{ id, title, body, quizTitle?, flashcards, quiz }] }`.
 - `src/content/words.js` — the standalone **Common Words** vocabulary deck (no prose, no
   quizzes): `{ id, title, intro, scenarios: [{ id, title, icon, blurb, words }] }`, where
-  each word is `{ jp, romaji, en, note? }`. One scenario = one tab at `/#/words`. `jp` is
+  each word is `{ jp, romaji, en, note?, example? }`, where `example` is
+  `{ jp, before, focus, after, en }` and the three middle fields form the romaji example.
+  One scenario = one tab at `/#/words`. `jp` is
   the string fed to speech synthesis, so keep it natural Japanese — no romaji, no
   bracketed glosses.
 - `src/content/stories.js` — the **Short Stories** section: `{ id, title, intro, stories:

@@ -5,8 +5,17 @@ import SpeakButton from './SpeakButton.jsx'
 import Translator from './Translator.jsx'
 
 function WordCard({ word, showJapaneseFirst, revealAll, canSpeak }) {
-  const [flipped, setFlipped] = useState(false)
-  const shown = flipped || revealAll
+  const [revealStep, setRevealStep] = useState(0)
+  const hasExample = Boolean(word.example)
+  const twoStepReveal = showJapaneseFirst && hasExample
+  const fullyShown = revealAll || revealStep >= (twoStepReveal ? 2 : 1)
+  const showExample = hasExample && (revealAll || revealStep >= 1)
+  const shown = fullyShown || showExample
+
+  const advanceReveal = () => {
+    const lastStep = twoStepReveal ? 2 : 1
+    setRevealStep((step) => (step >= lastStep ? 0 : step + 1))
+  }
 
   const prompt = showJapaneseFirst ? (
     <>
@@ -29,14 +38,14 @@ function WordCard({ word, showJapaneseFirst, revealAll, canSpeak }) {
   return (
     <div
       className={'word-card' + (shown ? ' open' : '')}
-      onClick={() => setFlipped((f) => !f)}
+      onClick={advanceReveal}
       role="button"
       tabIndex={0}
       aria-expanded={shown}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
-          setFlipped((f) => !f)
+          advanceReveal()
         }
       }}
     >
@@ -45,12 +54,24 @@ function WordCard({ word, showJapaneseFirst, revealAll, canSpeak }) {
         <SpeakButton jp={word.jp} enabled={canSpeak} />
       </div>
       {shown ? (
-        <div className="wc-answer">
-          {answer}
-          {word.note && <span className="wc-note">{word.note}</span>}
+        <div className={'wc-answer' + (!fullyShown ? ' example-only' : '')}>
+          {fullyShown && answer}
+          {fullyShown && word.note && <span className="wc-note">{word.note}</span>}
+          {showExample && (
+            <span className="wc-example">
+              <span className="wc-example-jp">{word.example.jp}</span>
+              <span className="wc-example-romaji">
+                <em>{word.example.before}</em>
+                <strong><em>{word.example.focus}</em></strong>
+                <em>{word.example.after}</em>
+              </span>
+              {fullyShown && <span className="wc-example-en">{word.example.en}</span>}
+            </span>
+          )}
+          {!fullyShown && <div className="wc-hint">Tap again to reveal everything ▾</div>}
         </div>
       ) : (
-        <div className="wc-hint">Tap to reveal ▾</div>
+        <div className="wc-hint">{twoStepReveal ? 'Tap for an example ▾' : 'Tap to reveal ▾'}</div>
       )}
     </div>
   )
