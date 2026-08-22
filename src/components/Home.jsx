@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { chapters, wordDeck, storyDeck } from '../content/index.js'
+import { chapters, wordDeck, storyDeck, puzzleDeck } from '../content/index.js'
 import Translator from './Translator.jsx'
 
 export default function Home() {
@@ -43,6 +43,17 @@ export default function Home() {
             <p>
               {storyDeck.stories.length} dialogue stories, each with a sting in the
               tail. Tap a sentence for the English, or play the whole story aloud.
+            </p>
+          </div>
+          <div className="wb-arrow" aria-hidden="true">→</div>
+        </Link>
+        <Link className="words-banner" to="/puzzles">
+          <div className="wb-copy">
+            <div className="eyebrow">Practice</div>
+            <h2>{puzzleDeck.title}</h2>
+            <p>
+              Drag Japanese words into place across {puzzleDeck.puzzles.length} practical
+              sentences, then unlock a clear explanation of each word-order pattern.
             </p>
           </div>
           <div className="wb-arrow" aria-hidden="true">→</div>

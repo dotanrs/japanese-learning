@@ -8,12 +8,15 @@ import ch7 from './ch7-quirks.js'
 import ch8 from './ch8-relationships-and-position.js'
 import words from './words.js'
 import stories from './stories.js'
+import puzzles from './puzzles.js'
 
 const raw = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8]
 
 export const wordDeck = words
 
 export const storyDeck = stories
+
+export const puzzleDeck = puzzles
 
 export const chapters = raw.map((ch, i) => ({ ...ch, num: i + 1 }))
 
