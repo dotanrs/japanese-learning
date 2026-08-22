@@ -73,29 +73,30 @@ dialogue, and 10 drag-and-drop **Sentence Builder** puzzles.
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
    meaning (*biiru* vs *biru*), pitch accent, devoiced vowels; the 20 phrases that cover a
    whole trip; politeness registers and why *-masu* form is the one to learn
-2. **How a Sentence Is Built** — subject–object–verb order, dropping the subject, avoiding
-   *anata*; the ten core particles (*wa, ga, o, ni, de, no, to, mo, kara, made*), *wa* vs
+2. **How a Sentence Is Built** — predicate-final word order, dropping the subject, avoiding
+   *anata*; eleven core particles (*wa, ga, o, ni, de, no, to, mo, kara, made, e*), *wa* vs
    *ga*, *ni* vs *de*; asking questions with *ka* and question words; ko-so-a-do
    (*kore/sore/are*) and existence with *arimasu/imasu*
-3. **How Words Are Built** — the three vocabulary layers (native, Sino-Japanese, borrowed),
-   suffixes and prefixes that build word families, compounds and sequential voicing, *suru*
-   as a verb-maker; i-adjectives vs na-adjectives; the three verb groups
-4. **Tenses & Verb Forms That Matter** — two tenses only (there is no future), the four
-   polite endings, *-te imasu* for ongoing actions and resulting states; the te-form and its
-   uses (requests, permission, chaining, prohibition); *-tai* (want), potential (can),
-   *-mashou* / *-masen ka* (let's / shall we)
-5. **Numbers, Counting & Time** — numbers and the *man* (10,000) grouping, money and payment
-   phrases; counters and the universal *tsu* escape hatch; clock time, days, months and the
-   irregular days of the month
-6. **Tourist Situations, Line by Line** — eating out (the full scripted visit, dietary
-   needs, convenience-store questions), shopping and tax-free, trains/taxis/directions,
-   hotels, illness and emergencies
-7. **Quirks of the Language** — what Japanese leaves out (articles, plurals, agreement,
-   subjects, "you"); *aizuchi* listening noises, hedging and *chotto* as a refusal, *ne*/*yo*;
-   traps for English speakers (false-friend katakana, *hai* ≠ yes, *daijoubu desu*)
-8. **With, Without, Over and Under** — companion *to* versus tool/method *de*, the
+3. **With, Without, Over and Under** — companion *to* versus tool/method *de*, the
    *nashi de* pattern; relative positions built as reference + *no* + position, choosing
    *ni* for existence and *de* for actions, and *o* for a route through a place
+4. **How Words Are Built** — the three vocabulary layers (native, Sino-Japanese, borrowed),
+   suffixes and prefixes that build word families, compounds and sequential voicing, *suru*
+   as a verb-maker; i-adjectives vs na-adjectives; the three verb groups
+5. **Tenses & Verb Forms That Matter** — two tenses only (there is no future), the four
+   polite endings, *-te imasu* for ongoing actions and resulting states; the te-form and its
+   uses (requests, permission, chaining, prohibition); *-tai* (want), potential (can),
+   *-mashou* / *-masen ka* (let's / shall we); linking ideas with *-te*, *kara*, *kedo*,
+   *-tara*, and related forms
+6. **Numbers, Counting & Time** — numbers and the *man* (10,000) grouping, money and payment
+   phrases; counters and the native *-tsu* series; clock time, days, months and the
+   irregular days of the month
+7. **Tourist Situations, Line by Line** — eating out (the full scripted visit, dietary
+   needs, convenience-store questions), shopping and tax-free, trains/taxis/directions,
+   hotels, illness and emergencies
+8. **Quirks of the Language** — what Japanese leaves out (articles, plurals, agreement,
+   subjects, "you"); *aizuchi* listening noises, hedging and *chotto* as a refusal, *ne*/*yo*;
+   traps for English speakers (false-friend katakana, *hai* ≠ yes, *daijoubu desu*)
 
 ### Common Words (`/#/words`)
 

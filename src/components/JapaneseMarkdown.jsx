@@ -1,6 +1,40 @@
+import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { japaneseTranslations, japaneseTerms } from '../content/translations.js'
+
+// Course prose can mark a deliberately simplified rule with
+// [[note:the reservation]]. It renders as a small clickable asterisk rather
+// than interrupting the beginner-facing explanation with a long aside.
+function textWithEditorialNotes(value) {
+  const children = []
+  const pattern = /\[\[note:([\s\S]*?)\]\]/g
+  let cursor = 0
+  let match
+
+  while ((match = pattern.exec(value)) !== null) {
+    if (match.index > cursor) {
+      children.push({ type: 'text', value: value.slice(cursor, match.index) })
+    }
+    const note = match[1].replace(/\s+/g, ' ').trim()
+    children.push({
+      type: 'element',
+      tagName: 'button',
+      properties: {
+        type: 'button',
+        className: ['editorial-note'],
+        dataNote: note,
+      },
+      children: [{ type: 'text', value: '*' }],
+    })
+    cursor = pattern.lastIndex
+  }
+
+  if (cursor < value.length) {
+    children.push({ type: 'text', value: value.slice(cursor) })
+  }
+  return children
+}
 
 function textWithTooltips(value, claim) {
   const children = []
@@ -72,7 +106,10 @@ function rehypeJapaneseTooltips() {
 
       node.children.forEach((child) => {
         if (!isBlocked && child.type === 'text') {
-          next.push(...textWithTooltips(child.value, claim))
+          textWithEditorialNotes(child.value).forEach((part) => {
+            if (part.type === 'text') next.push(...textWithTooltips(part.value, claim))
+            else next.push(part)
+          })
         } else {
           visit(child, isBlocked)
           next.push(child)
@@ -86,9 +123,42 @@ function rehypeJapaneseTooltips() {
   }
 }
 
+function EditorialNoteButton({ node: _node, children, ...props }) {
+  const [open, setOpen] = useState(false)
+  const note = props['data-note']
+
+  if (!note) return <button {...props}>{children}</button>
+
+  return (
+    <button
+      {...props}
+      className={'editorial-note' + (open ? ' open' : '')}
+      aria-label={`Editorial note: ${note}`}
+      aria-expanded={open}
+      onClick={() => setOpen((value) => !value)}
+      onBlur={() => setOpen(false)}
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') {
+          setOpen(false)
+          event.currentTarget.blur()
+        }
+      }}
+    >
+      <span aria-hidden="true">{children}</span>
+      <span className="editorial-note-popover" role="tooltip">
+        {note}
+      </span>
+    </button>
+  )
+}
+
 export default function JapaneseMarkdown({ children }) {
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeJapaneseTooltips]}>
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeJapaneseTooltips]}
+      components={{ button: EditorialNoteButton }}
+    >
       {children}
     </ReactMarkdown>
   )

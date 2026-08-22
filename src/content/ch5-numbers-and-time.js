@@ -162,7 +162,7 @@ You cannot say "two" on its own the way English does. The number fuses with a **
 that depends on the shape or nature of the thing — a bit like English "two **sheets** of
 paper" or "three **head** of cattle", except Japanese does it for everything.
 
-### The universal escape hatch: the *tsu* counter
+### A useful fallback: the *-tsu* series
 
 The native counting series works for **most physical objects** and is your safety net when
 you don't know the right counter:
@@ -177,8 +177,9 @@ you don't know the right counter:
 
 > これを二つください。 *Kore o futatsu kudasai.* — Two of these, please.
 
-Beyond ten it reverts to plain numbers + *ko* (*juuichi-ko*). **Learn *hitotsu* to *itsutsu*
-and you can shop for anything.**
+The native series ends at ten. Beyond that, use the counter that suits the item; **〜個
+*-ko*** is a useful fallback for many small, discrete objects, but it is not universal.
+Learn *hitotsu* to *itsutsu* and you can handle many ordinary shopping situations.
 
 ### People: the counter you can't avoid
 
@@ -192,8 +193,8 @@ and you can shop for anything.**
 
 Restaurant staff will ask **「何名様ですか」** *Nan-mei-sama desu ka* or **「何人ですか」**
 *Nannin desu ka* ("how many people?"). Answer: **「二人です」** *Futari desu*, or just hold
-up fingers — but note the Japanese gesture for numbers starts with the index finger, and
-holding up fingers works fine either way.
+up fingers. Finger-counting conventions vary, but simply showing the number you mean works
+fine.
 
 ### The counters worth knowing
 
@@ -251,7 +252,7 @@ The counter usually goes **after the particle**, floating just before the verb:
           front: "Recite the general *tsu* counter 1–5, and why it matters.",
           back: `**hitotsu, futatsu, mittsu, yottsu, itsutsu** (then *muttsu, nanatsu, yattsu, kokonotsu, tou*).
 
-It's the **universal escape hatch**: it works for most physical objects, so when you don't know the specific counter you can always say *"Kore o futatsu kudasai."* Nobody will misunderstand.`
+It's a very useful **general-object fallback** for many ordinary items: when pointing at a pastry, souvenir or similar object, *"Kore o futatsu kudasai"* is clear. It does not replace specialised counters for people, nights, machines and every other category.`
         },
         {
           front: "How do you count people?",
@@ -446,7 +447,7 @@ Related: *Nanji ni demasu ka* (what time does it depart?), *Nanpun kakarimasu ka
         },
         {
           front: "Which time expressions take *ni* and which don't?",
-          back: `**Take *ni***: clock times, dates, days, months — anything fixed on a clock or calendar. *Kuji **ni**, getsuyoubi **ni**, sangatsu itsuka **ni***.
+          back: `**Usually take *ni***: precise clock times and dates when they mark when an event happens: *Kuji **ni**, sangatsu itsuka **ni***. Days, months and years can take *ni*, but it is often optional.[[note:Calendar expressions are not one rigid class. に is natural when a date is a specific event time, but broader periods and contextually prominent dates frequently appear without it.]]
 
 **No particle**: relative time words — *kyou, ashita, kinou, ima, konshuu, raigetsu, mainichi*.
 

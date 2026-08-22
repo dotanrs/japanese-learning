@@ -16,7 +16,7 @@ everywhere. Once you can spot them, you can guess dozens of words you have never
 |-------|--------|------|----------|
 | **Native (*wago*)** | Old Japanese | everyday, warm | *mizu* (water), *taberu* (eat), *ookii* (big) |
 | **Sino-Japanese (*kango*)** | Borrowed from Chinese | formal, compact, official | *suidou* (water supply), *shokuji* (a meal), *daigaku* (university) |
-| **Foreign (*gairaigo*)** | Mostly English | modern, technical, commercial | *hoteru*, *takushii*, *kohii*, *chekku-in* |
+| **Foreign (*gairaigo*)** | Mostly English | modern, technical, commercial | *hoteru*, *takushii*, *koohii*, *chekku-in* |
 
 Signs and announcements lean on the Sino layer; conversation leans on the native layer;
 anything invented in the last century is usually the foreign layer. As a visitor, **the
