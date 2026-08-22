@@ -943,7 +943,26 @@ a:hover { text-decoration: underline; }
   border-radius: 8px;
   overflow: visible;
 }
-.sb-tiles li { margin: 0; }
+.sb-tiles li { position: relative; margin: 0; }
+.sb-tiles li.sb-drop-before::before {
+  content: "";
+  position: absolute;
+  z-index: 100;
+  left: -7px;
+  top: 50%;
+  width: 4px;
+  height: 58px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(181,31,46,.14), 0 3px 10px rgba(57,24,25,.22);
+  transform: translateY(-50%);
+  pointer-events: none;
+  animation: sb-drop-pulse .75s ease-in-out infinite alternate;
+}
+@keyframes sb-drop-pulse {
+  from { opacity: .65; transform: translateY(-50%) scaleY(.86); }
+  to { opacity: 1; transform: translateY(-50%) scaleY(1); }
+}
 .sb-tile {
   position: relative;
   display: inline-flex;
@@ -956,14 +975,23 @@ a:hover { text-decoration: underline; }
   border-radius: 7px;
   background: #fffdf9;
   color: var(--text);
-  font: 700 18px/1.25 "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  font: 700 16px/1.25 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   cursor: grab;
+  user-select: none;
+  -webkit-touch-callout: none;
   box-shadow: 0 3px 8px rgba(57,35,29,.08);
   transition: border-color .12s, box-shadow .12s, transform .12s, opacity .12s;
 }
 .sb-tile:hover { border-color: var(--accent); border-bottom-color: var(--accent); transform: translateY(-1px); }
 .sb-tile:focus-visible { outline: 3px solid rgba(181,31,46,.25); outline-offset: 2px; border-color: var(--accent); }
 .sb-tile.selected { color: var(--accent-dark); border-color: var(--accent); border-bottom-color: var(--accent); box-shadow: 0 0 0 3px rgba(181,31,46,.12); }
+.sb-tile.prefix-correct {
+  color: #174f3b;
+  background: #edf7f2;
+  border-color: var(--accent-2);
+  border-bottom-color: var(--accent-2);
+  box-shadow: 0 0 0 2px rgba(39,115,87,.10);
+}
 .sb-tile.dragging { opacity: .45; cursor: grabbing; }
 .sb-grip { color: #a99b90; font-size: 18px; font-weight: 400; }
 .sb-period { font-family: "Yu Gothic", sans-serif; font-size: 24px; font-weight: 700; }
@@ -987,7 +1015,10 @@ a:hover { text-decoration: underline; }
   transform: translate(-50%, 4px);
   transition: opacity .14s ease, transform .14s ease;
 }
-.sb-tile:hover::after, .sb-tile:focus::after { opacity: 1; transform: translate(-50%, 0); }
+.sb-tile.held::after { opacity: 1; transform: translate(-50%, 0); }
+@media (hover: hover) {
+  .sb-tile:hover::after { opacity: 1; transform: translate(-50%, 0); }
+}
 .sb-actions { display: flex; align-items: center; gap: 9px; margin-top: 17px; }
 .sb-check, .sb-next {
   border: 1px solid var(--accent);
@@ -1067,7 +1098,7 @@ a:hover { text-decoration: underline; }
   .sb-progress-row { align-items: flex-start; flex-direction: column; }
   .sb-puzzle-nav { justify-content: flex-start; }
   .sb-tiles { padding: 15px !important; gap: 8px; }
-  .sb-tile { font-size: 16px; min-height: 44px; }
+  .sb-tile { font-size: 15px; min-height: 44px; }
   .sb-puzzle-head { flex-direction: column; }
 }
 

@@ -52,7 +52,7 @@ export default function Home() {
             <div className="eyebrow">Practice</div>
             <h2>{puzzleDeck.title}</h2>
             <p>
-              Drag Japanese words into place across {puzzleDeck.puzzles.length} practical
+              Arrange romaji words and particles across {puzzleDeck.puzzles.length} practical
               sentences, then unlock a clear explanation of each word-order pattern.
             </p>
           </div>

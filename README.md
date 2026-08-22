@@ -129,9 +129,10 @@ read.
 
 ### Sentence Builder (`/#/puzzles`)
 
-Ten practical word-order puzzles. Drag Japanese word groups into place (or use tap-to-swap
-and keyboard arrows), hover or focus a tile for its translation, and check the result to
-unlock an explanation of the sentence pattern.
+Ten practical word-order puzzles. Arrange romaji words with particles such as *wa*, *ga*,
+*o*, *ni* and *de* on their own tiles (or use tap-to-swap and keyboard arrows). Hover or
+hold a tile for its meaning. Checking highlights only the correct opening sequence, and a
+fully correct answer unlocks an explanation of the sentence pattern.
 
 ### Quick translate
 
@@ -172,8 +173,8 @@ it sits *above* the phrasebook rather than replacing it.
 - **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
 - **📖 Short stories** — dialogue with per-sentence translations, grammar breakdowns and
   whole-story playback.
-- **🧩 Sentence Builder** — ten reorderable Japanese sentences with translation hints and
-  an explanation after every correct solution.
+- **🧩 Sentence Builder** — ten reorderable romaji sentences with separate particle tiles,
+  prefix feedback, translation hints and an explanation after every correct solution.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
   open questions (reveal the worked answer).
 - **📴 Offline** — installable to the home screen and fully usable with no network.
