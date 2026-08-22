@@ -67,8 +67,8 @@ several weeks unused — reopening it once online restores everything.
 ## What's inside
 
 8 chapters · 26 topics · 145 flashcards · 81 self-test questions, plus a standalone
-**Common Words** deck of 195 vocabulary cards across 10 scenarios and 7 **Short Stories**
-in dialogue.
+**Common Words** deck of 195 vocabulary cards across 10 scenarios, 7 **Short Stories** in
+dialogue, and 10 drag-and-drop **Sentence Builder** puzzles.
 
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
    meaning (*biiru* vs *biru*), pitch accent, devoiced vowels; the 20 phrases that cover a
@@ -127,6 +127,12 @@ Two reveal levels, on purpose: tapping one sentence gives the full study view, w
 line as it goes. The catch is explained at the end, behind a button so it can't spoil the
 read.
 
+### Sentence Builder (`/#/puzzles`)
+
+Ten practical word-order puzzles. Drag Japanese word groups into place (or use tap-to-swap
+and keyboard arrows), hover or focus a tile for its translation, and check the result to
+unlock an explanation of the sentence pattern.
+
 ### Quick translate
 
 Every page carries a translate box under its headline, sharing one state — type a phrase,
@@ -166,6 +172,8 @@ it sits *above* the phrasebook rather than replacing it.
 - **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
 - **📖 Short stories** — dialogue with per-sentence translations, grammar breakdowns and
   whole-story playback.
+- **🧩 Sentence Builder** — ten reorderable Japanese sentences with translation hints and
+  an explanation after every correct solution.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
   open questions (reveal the worked answer).
 - **📴 Offline** — installable to the home screen and fully usable with no network.
@@ -177,18 +185,19 @@ public/                   # PWA icons + favicon, copied verbatim into the build
 src/
   App.jsx                 # routing + layout + the shared translator state
   components/             # Sidebar, Home, ContentView, Flashcards, Quiz,
-                          # WordCards, Stories, Translator, SpeakButton
+                          # WordCards, Stories, SentenceBuilder, Translator, SpeakButton
   lib/
     speech.js             # Web Speech API wrapper for 🔊 and story playback
     phrasebook.js         # builds the JA↔EN index (with links) out of the course content
     translate.js          # the lookup behind the quick-translate box
     browserTranslate.js   # the browser's built-in Translator API, for the direct line
   content/
-    index.js              # aggregates chapters + word deck, builds nav/paging index
+    index.js              # aggregates chapters + standalone decks, builds nav/paging index
     ch1-sounds-and-survival.js … ch8-relationships-and-position.js
                                                # chapter content lives here
     words.js              # the Common Words vocabulary deck
     stories.js            # the Short Stories dialogues
+    puzzles.js            # the Sentence Builder exercises
 ```
 
 To edit or add chapter content, open the relevant `content/ch*.js` file — each exports a

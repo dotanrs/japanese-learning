@@ -27,11 +27,15 @@ base teaching conversational Japanese for travellers).
   it, because `jp` is what speech synthesis reads. Every story needs a `catch` (the turn,
   explained in English); it is hidden behind a button so it can't spoil the story. Grammar
   stays inside what the course teaches: -masu forms and the Chapter 6 set phrases.
+- `src/content/puzzles.js` — the **Sentence Builder** section: ten word-order exercises.
+  Each puzzle owns its Japanese `pieces`, fixed `scrambled` order, canonical `answer`,
+  optional `acceptedAnswers` for genuinely flexible word orders, and a written grammar
+  `explanation` shown only after a correct check.
 - `src/content/index.js` — imports every chapter into the `raw` array (order = display
-  order), re-exports the word and story decks, and builds the nav/paging `flatIndex`. **A
+  order), re-exports the word, story, and puzzle decks, and builds the nav/paging `flatIndex`. **A
   new chapter must be added here** or it won't appear.
 - `src/components/` — Sidebar, Home, ContentView, Flashcards, Quiz, WordCards, Stories,
-  Translator, SpeakButton. The tab strip (`.tabs`/`.tab`) and `SpeakButton` are shared by
+  SentenceBuilder, Translator, SpeakButton. The tab strip (`.tabs`/`.tab`) and `SpeakButton` are shared by
   the word deck and the stories — change them in one place, check both.
 - `src/lib/speech.js` — the 🔊 audio: a thin wrapper over the browser's Web Speech API.
   Voices load asynchronously and a Japanese voice may be absent entirely, so callers must
