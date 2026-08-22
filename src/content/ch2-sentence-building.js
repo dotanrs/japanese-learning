@@ -4,7 +4,7 @@ export default {
   subchapters: [
     {
       id: "word-order",
-      title: "Word Order: The Verb Goes Last",
+      title: "Word Order: The Predicate Usually Goes Last",
       body: `## Japanese is built backwards from English — and that's a feature
 
 English is **Subject–Verb–Object**: "I eat sushi."
@@ -14,21 +14,26 @@ Japanese is **Subject–Object–Verb**: "I sushi eat."
 >
 > *Watashi wa sushi o tabemasu.* — I sushi eat.
 
-The **verb is always last**. Everything else — who, what, where, when, with whom — piles up
-in front of it, each piece tagged by a little word called a **particle** that says what role
-it plays.
+The **predicate normally comes at the end**. Everything else — who, what, where, when,
+with whom — usually comes before it, each piece tagged by a little word called a
+**particle** that says what role it plays.[[note:This is the dependable neutral pattern,
+not an inviolable law. Sentence-final particles can follow the predicate, obvious
+predicates can be omitted, and conversational afterthoughts sometimes come later.]]
 
 ### Particles are the real grammar
 
-Because every noun carries a tag, **word order between the tagged parts barely matters**:
+Because particles identify each noun's role, **several orders can be grammatical**:
 
 | Sentence | Meaning |
 |----------|---------|
 | *Watashi wa ashita Tokyo e ikimasu.* | I go to Tokyo tomorrow. |
 | *Ashita watashi wa Tokyo e ikimasu.* | Tomorrow I go to Tokyo. |
 
-Both are fine. What you may **not** do is move the verb. English uses position to show who
-did what to whom; Japanese uses tags, which is why it can shuffle freely.
+Both are fine. The predicate still normally comes last. English relies heavily on position
+to show who did what to whom; Japanese particles make the roles clearer, although order
+still changes emphasis and naturalness.[[note:Particles do not make every order equally
+natural. Neutral Japanese tends to put context before new or important information, and
+moving a phrase can make it contrastive or emphatic.]]
 
 ### The two skeleton sentences
 
@@ -86,16 +91,16 @@ A trailing particle with a rising tone does the job of a whole question.
       quizTitle: "Sentence shape",
       flashcards: [
         {
-          front: "What is the basic Japanese word order, and what part is fixed?",
+          front: "What is the basic Japanese word order, and what normally comes last?",
           back: `**Subject–Object–Verb**: *Watashi wa sushi o tabemasu* = "I sushi eat".
 
-The one fixed rule is that the **verb (or *desu*) comes last**. Everything before it can be reordered freely, because each noun carries a particle telling you its role.`
+The dependable neutral pattern is that the **predicate — a verb or *desu* phrase — comes last**. Particles make other phrases relatively flexible, but their order still affects emphasis and naturalness.`
         },
         {
           front: "Why does Japanese get away with flexible word order when English can't?",
           back: `Because roles are marked by **particles**, not position. *wa/ga* mark the topic/subject, *o* the object, *ni/e* the destination, *de* the place of action.
 
-English relies on position ("dog bites man" ≠ "man bites dog"), so it can't shuffle. Japanese tags each noun, so only the verb's final position is fixed.`
+English relies heavily on position ("dog bites man" ≠ "man bites dog"). Japanese tags each noun, so it permits more reordering, while still preferring the predicate at the end and a contextually natural information order.`
         },
         {
           front: "Give the two skeleton sentence patterns that cover most tourist speech.",
@@ -119,15 +124,15 @@ Safest tourist habit: leave "you" out entirely.`
       ],
       quiz: [
         {
-          question: "Put these pieces into a correct Japanese order: *tabemasu* (eat), *sushi o*, *watashi wa*.",
+          question: "Put these pieces into the neutral Japanese order: *tabemasu* (eat), *sushi o*, *watashi wa*.",
           options: [
-            "Watashi wa tabemasu sushi o",
             "Sushi o watashi wa tabemasu",
+            "Watashi wa tabemasu sushi o",
             "Watashi wa sushi o tabemasu",
             "Tabemasu watashi wa sushi o"
           ],
           answer: 2,
-          explanation: `The verb must come **last**. *Watashi wa sushi o tabemasu*. Option B (*Sushi o watashi wa tabemasu*) is actually grammatical too — particles keep the roles clear, and it just fronts "sushi" for emphasis — but the standard, neutral order is topic → object → verb. Anything with the verb not at the end is wrong.`
+          explanation: `The neutral order is **topic → object → predicate**: *Watashi wa sushi o tabemasu*. Option A (*Sushi o watashi wa tabemasu*) is grammatical, but fronting *sushi o* gives it special emphasis; the question asks for the unmarked, neutral order. The other options put the predicate before material that normally belongs in front of it.`
         },
         {
           question: "Your friend orders beer; you want tea. Which sentence correctly uses *watashi wa*?",
@@ -152,10 +157,10 @@ Fragments are entirely normal in Japanese shops — you don't need a subject, an
     },
     {
       id: "particles",
-      title: "Particles: The Ten Tags That Do Everything",
+      title: "Particles: Eleven Tags That Do Almost Everything",
       body: `## Particles are the joints of the language
 
-A particle comes **after** the word it tags. Learn these ten and you can build almost any
+A particle comes **after** the word it tags. Learn these eleven and you can build almost any
 basic sentence.
 
 | Particle | Job | Example |
@@ -193,8 +198,10 @@ The distinction that eats beginners alive. A working approximation:
 
 Rules of thumb that will serve you for a whole trip:
 
-- Questions with *dare / nani / doko* (who/what/where) take **ga**, and so does the answer:
-  *"Dare **ga** ikimasu ka." — "Watashi **ga** ikimasu."*
+- A question word takes the particle required by its role: *dare **ga** ikimasu ka* (who
+  goes?), *nani **o** tabemasu ka* (what will you eat?), *doko **e** ikimasu ka* (where
+  will you go?). When the question word is the subject, it and the answer normally take
+  **ga**: *"Dare **ga** ikimasu ka." — "Watashi **ga** ikimasu."*
 - Existence and availability take **ga**: *Eigo no menyuu **ga** arimasu ka.*
 - Likes, wants and abilities take **ga**: *Sushi **ga** suki desu*, *Nihongo **ga**
   wakarimasu*, *Mizu **ga** hoshii desu*.
@@ -249,7 +256,7 @@ But **clock times and dates take に**: *shichiji **ni***, *getsuyoubi **ni***.
           back: `**wa** = "as for X" — X is old/known, the topic; the new info is what follows.
 **ga** = X **is** the new info — it picks X out as the answer.
 
-Practical triggers for **ga**: question words (*dare ga*, *nani ga*) and their answers; existence (*…ga arimasu*); likes/wants/abilities (*sushi ga suki*, *nihongo ga wakarimasu*). Otherwise default to **wa**.`
+Practical triggers for **ga**: a question word serving as the subject (*dare ga*, *nani ga*) and its answer; existence (*…ga arimasu*); likes/wants/abilities (*sushi ga suki*, *nihongo ga wakarimasu*). Other question words take the particle their role calls for: *nani o*, *doko e/de*. Otherwise, **wa** is a useful topic default.`
         },
         {
           front: "*ni* or *de*: \"I eat at a restaurant\" vs \"I go to a restaurant\"?",
@@ -272,7 +279,7 @@ It only matters for reading signs and menus — spoken, they're simply *wa*, *e*
         },
         {
           front: "Which time expressions take *ni*, and which take no particle?",
-          back: `**Take *ni***: clock times, dates, days, months — anything on a calendar or clock. *Shichiji **ni***, *getsuyoubi **ni***, *sangatsu **ni***.
+          back: `**Usually take *ni***: precise clock times and dates, especially when marking when an event happens: *Shichiji **ni***, *sangatsu itsuka **ni***. Days and broader calendar periods may take *ni* or omit it depending on context.[[note:Unlike a precise clock time, expressions such as days of the week, months and years do not require に in every sentence. It is often omitted in schedules, headings and when the time is already foregrounded.]]
 
 **No particle**: relative time words — *kyou* (today), *ashita* (tomorrow), *kinou* (yesterday), *konshuu* (this week), *maiasa* (every morning).`
         }
@@ -307,7 +314,7 @@ It only matters for reading signs and menus — spoken, they're simply *wa*, *e*
           question: "Someone asks *\"Dare ga ikimasu ka\"* (who's going?) and you're going. How do you answer, and why that particle?",
           answer: `**私が行きます。** — *Watashi **ga** ikimasu.*
 
-Question words (*dare*, *nani*, *doko*) take **ga**, and so does the answer, because you are supplying the **new, identifying** information: *I* am the one going.
+Here *dare* is the **subject**, so it takes **ga**, and so does the answer because you are supplying the **new, identifying** information: *I* am the one going.
 
 Saying *watashi **wa** ikimasu* shifts the meaning to "as for me, I'm going (whatever the others do)" — a contrast, not an answer to the question.`
         }
@@ -342,7 +349,7 @@ means “sushi, tempura, **and things like that**.” For complete thoughts, use
 | 朝ご飯を食べます。それから、出かけます | *Asagohan o tabemasu. Sorekara, dekakemasu* | I eat breakfast. Then I go out. |
 
 > **Do not use *to* to join two sentences.** It joins nouns. When actions form one
-> sequence, Japanese normally uses the te-form; Part 4 teaches that pattern.
+> sequence, Japanese normally uses the te-form; the verb-form lesson above teaches that pattern.
 
 ### Choosing: *ka* and *soretomo*
 
@@ -406,8 +413,7 @@ condition; the next clause is what happens if it is met:
 > *Moshi yasukattara, kaimasu.* — If it’s cheap, I’ll buy it.
 
 **もし *moshi*** announces “if,” but it is optional — *-tara* already carries the meaning.
-For now, learn these high-value forms as chunks; Part 4’s verb forms make the pattern
-easier to build yourself:
+The verb-form lessons above make these high-value chunks easier to build yourself:
 
 | Condition | Meaning |
 |-----------|---------|
@@ -688,7 +694,7 @@ The trap: *"Hai"* here means "that's right — I can't", the opposite of what an
           question: "Build the question \"What's in this?\" (asking about ingredients).",
           answer: `**これは何が入っていますか。** — *Kore wa nani ga haitte imasu ka.*
 
-Breaking it down: *kore wa* (as for this) + *nani ga* (what — question words take *ga*) + *haitte imasu* (is contained / is in it) + *ka*.
+Breaking it down: *kore wa* (as for this) + *nani ga* (what, serving as the subject here) + *haitte imasu* (is contained / is in it) + *ka*.
 
 A simpler version that also works: **「これは何ですか」** *Kore wa nan desu ka* ("what is this?"), or naming the ingredient you're avoiding: **「豚肉が入っていますか」** *Butaniku ga haitte imasu ka* — "does it contain pork?"`
         }
@@ -770,7 +776,7 @@ The single most useful shopping question:
 > 〜はありますか。 *… wa arimasu ka.* — "Do you have …?"
 
 *Eigo no menyuu wa arimasu ka* (English menu?) · *Beji no ryouri wa arimasu ka* (vegetarian
-food?) · *Wai-faii wa arimasu ka* (Wi-Fi?) · *Motto ookii saizu wa arimasu ka* (a bigger
+food?) · *Waifai wa arimasu ka* (Wi-Fi?) · *Motto ookii saizu wa arimasu ka* (a bigger
 size?)
 
 If the answer is **ありません** *arimasen*, they don't have it. If it's **ございます**
@@ -807,7 +813,7 @@ Both also translate as "**to have**": *Yoyaku ga arimasu* (I have a reservation)
           front: "What is the most useful shopping question in Japanese?",
           back: `**〜はありますか** — *… wa arimasu ka* — "Do you have …?"
 
-*Eigo no menyuu wa arimasu ka* · *Wai-faii wa arimasu ka* · *Motto ookii saizu wa arimasu ka*.
+*Eigo no menyuu wa arimasu ka* · *Waifai wa arimasu ka* · *Motto ookii saizu wa arimasu ka*.
 
 Answers: **arimasen** = we don't have it; **gozaimasu** = we do (ultra-polite form of *arimasu*).`
         },

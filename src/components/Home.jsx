@@ -14,8 +14,14 @@ export default function Home() {
             grammar that makes every phrase easier to remember.
           </p>
           <div className="hero-note">
-            <span className="hover-sample">日本語</span>
-            <span>Hover the red-underlined Japanese once for a translation.</span>
+            <span
+              className="hover-sample"
+              tabIndex={0}
+              aria-label="日本語: Japanese language"
+            >
+              日本語
+            </span>
+            <span>Tap, hover or focus red-underlined Japanese for a translation.</span>
           </div>
         </div>
         <div className="sun-mark" aria-hidden="true">
@@ -60,7 +66,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="section-kicker">Seven concise chapters</div>
+      <div className="section-kicker">{chapters.length} concise chapters</div>
       <div className="home-grid">
         {chapters.map((ch) => {
           const first = ch.subchapters[0]

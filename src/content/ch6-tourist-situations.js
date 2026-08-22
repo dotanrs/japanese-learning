@@ -7,8 +7,8 @@ export default {
       title: "Eating Out",
       body: `## A whole restaurant visit, in order
 
-Japanese restaurant interactions are highly scripted, which is great news: the same six or
-seven exchanges happen every time.
+Japanese restaurant interactions are often quite scripted, which is great news: a small set
+of exchanges covers much of a typical visit.
 
 ### 1. Walking in
 
@@ -18,8 +18,10 @@ Then: **何名様ですか** *Nan-mei-sama desu ka* — "How many people?"
 
 You say: **二人です** *Futari desu* (two people) — or hold up fingers.
 
-You may also hear **「喫煙席と禁煙席、どちらがよろしいですか」** (smoking or non-smoking) —
-answer **禁煙席で** *kinen-seki de* (non-smoking) — and, in casual places,
+You may still encounter **「喫煙席と禁煙席、どちらがよろしいですか」** (smoking or non-smoking),
+particularly at an exempt older venue or somewhere with a designated smoking area. Since
+2020, however, indoor dining is non-smoking in principle, so this is no longer a standard
+exchange. If asked, answer **禁煙席で** *kinen-seki de* (non-smoking). In casual places,
 **「カウンターでもよろしいですか」** (is the counter OK?) — **はい、大丈夫です** *Hai,
 daijoubu desu.*
 
@@ -241,8 +243,12 @@ hand. Change is counted back to you, often with both hands and a slight bow.
 
 ### Tax-free shopping
 
-Foreign visitors can buy tax-free (免税 *menzei*) above a threshold at participating shops,
-with your **passport**.
+Eligible foreign visitors can buy tax-free (免税 *menzei*) above the applicable threshold
+at participating shops, using a **passport**.
+
+**Until 31 October 2026**, participating shops can remove the consumption tax at purchase.
+**From 1 November 2026**, visitors pay the tax-inclusive price first; after customs confirms
+that the goods leave Japan within 90 days, the participating retailer refunds the tax.
 
 | Japanese | Meaning |
 |----------|---------|
@@ -416,9 +422,11 @@ No tipping in taxis either.
 
 ### Buses
 
-Many local buses: **board at the back, take a numbered ticket (整理券 *seiriken*), pay at
-the front when you get off**, matching your ticket number to the fare display. Say
-**「〜へ行きますか」** *… e ikimasu ka* to the driver before boarding to confirm.
+Local buses use two common systems. On distance-fare routes, **board at the rear or centre,
+take a numbered ticket (整理券 *seiriken*) or tap your IC card, then pay or tap at the
+front when you get off**. Flat-fare city buses often **board at the front and charge when
+you get on**. Check the door signs and follow the other passengers. Say **「〜へ行きますか」**
+*… e ikimasu ka* to the driver before boarding to confirm.
 
 ### If you're lost
 
@@ -571,7 +579,7 @@ returned; always report it (**遺失物** *ishitsubutsu* = lost property).
 | アレルギーがあります | *Arerugii ga arimasu* | I have an allergy |
 
 Body parts: *atama* (head) · *onaka* (stomach) · *nodo* (throat) · *ha* (tooth) ·
-*se naka* (back) · *ashi* (leg/foot) · *te* (hand/arm) · *me* (eye).
+*senaka* (back) · *ashi* (leg/foot) · *te* (hand/arm) · *me* (eye).
 
 Pattern: **〜が痛いです** *… ga itai desu* — "my … hurts". Point and say it.
 

@@ -407,14 +407,12 @@ export default {
         },
         {
           speaker: "Doctor",
-          jp: "わかりました。私の指が折れていますね。",
-          romaji: "Wakarimashita. Watashi no yubi ga orete imasu ne.",
-          en: "I see. My finger is broken.",
+          jp: "わかりました。指が折れていますね。",
+          romaji: "Wakarimashita. Yubi ga orete imasu ne.",
+          en: "I see. Your finger is broken.",
           parts: [
             { jp: "わかりました", romaji: "wakarimashita", en: "I see", role: "分かる, polite past" },
-            { jp: "私", romaji: "watashi", en: "I", role: "the pronoun — and the whole joke, since it is the doctor's" },
-            { jp: "の", romaji: "no", en: "—", role: "possessive marker: my" },
-            { jp: "指", romaji: "yubi", en: "finger", role: "the noun" },
+            { jp: "指", romaji: "yubi", en: "your finger", role: "the patient's finger; the owner is obvious from context" },
             { jp: "が", romaji: "ga", en: "—", role: "subject marker: what is broken" },
             { jp: "折れています", romaji: "orete imasu", en: "is broken", role: "折れる plus ています: the resulting state" },
             { jp: "ね", romaji: "ne", en: "is it not", role: "sentence-final, inviting agreement" },
@@ -422,7 +420,7 @@ export default {
         },
       ],
       catch:
-        "Every answer was true, and every answer was about the doctor. The pain followed the hand doing the pressing, not the body being pressed.",
+        "Every answer was true, but the painful spots were a distraction. The pain followed the patient's broken finger doing the pressing, not the different parts of the body being pressed.",
     },
     {
       id: "kagi",

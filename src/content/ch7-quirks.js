@@ -174,7 +174,10 @@ communication is **hedging, softening and constant listener feedback**.
 ### Aizuchi: you must make noises while listening
 
 **相槌** *aizuchi* are the little sounds a listener makes to show they're following. In
-Japanese, silence while listening reads as **disinterest or disagreement**, not politeness.
+In many Japanese conversations, sustained silence can read as **distance, uncertainty or
+disagreement** rather than attentive politeness.[[note:This is a conversational tendency,
+not a diagnosis. Personality, region, age, relationship and setting all affect how much
+backchanneling people use, so do not infer disagreement from silence alone.]]
 Expect a listener to react every few seconds:
 
 | Sound | Meaning |
@@ -353,7 +356,7 @@ English sense will confuse people:
 | ハンドル *handoru* | handle | steering wheel |
 | バイク *baiku* | bike | motorcycle (a bicycle is *jitensha*) |
 | ペンション *penshon* | pension | a small guesthouse |
-| サービス *saabisu* | service | free of charge, on the house |
+| サービス *saabisu* | service | service; also a complimentary extra / on the house |
 | テンション *tenshon* | tension | someone's energy/mood level |
 
 Also, borrowed words get **clipped**: *terebi* (television), *pasokon* (personal computer),
@@ -389,14 +392,18 @@ The single most common learner tell. Drop the subject; use names instead of "you
 
 ### The *wa* / *ga* wobble
 
-Nobody expects mastery. Two defaults that cover most cases: **ga** with existence
-(*arimasu/imasu*), question words, likes, wants and abilities; **wa** for everything else.
+Nobody expects mastery. Useful defaults: **ga** with existence (*arimasu/imasu*) and often
+with likes, wants and abilities; **wa** for an established topic. A question word takes the
+particle required by its role: *dare ga*, *nani o*, *doko e/de*.
 
 ### Assuming word order carries meaning
 
-It doesn't — **particles do**. If you drop a particle, meaning gets ambiguous even when the
-order looks English-like. (Casual speech *does* drop particles, but it relies on shared
-context that a tourist often lacks. Keep them.)
+Particles mark grammatical roles more strongly than position does, but **order still
+shapes emphasis and naturalness**.[[note:Japanese word order is flexible, not meaningless.
+Moving a phrase can make it contrastive, emphatic or simply less neutral even when the
+particles keep the basic roles clear.]] If you drop a particle, meaning can become
+ambiguous even when the order looks English-like. Casual speech does drop particles, but
+it relies on shared context that a tourist often lacks. Keep them.
 
 ### Saying *sayounara* to everyone
 
@@ -415,14 +422,18 @@ but it's the sort of thing that makes an interaction feel smoother.
 ### Expecting "no" to sound like "no"
 
 Recap, because it matters most: *chotto…*, *muzukashii desu ne*, a drawn breath, a tilted
-head, or a vague *"kangaete okimasu"* ("I'll think about it") are all **no**. Take them at
-face value and move on graciously.
+head, or a vague *"kangaete okimasu"* ("I'll think about it") can be **signals of a polite
+no**.[[note:None of these expressions mechanically means “no.” Read the whole exchange:
+tone, timing, relationship and whether the speaker offers a concrete next step all matter.]]
+When several cues align, accept the answer graciously instead of pressing.
 
 ### The last one: waiting until you're ready
 
-Japanese speakers are, as a rule, delighted by any attempt. Four words of clumsy Japanese
-with a bow gets you further than perfect English. Say *sumimasen*, point, use *kore o
-kudasai*, thank them — and the trip largely takes care of itself.
+Many Japanese speakers appreciate a visitor's sincere attempt.[[note:Reactions naturally
+vary by person and situation. A short, polite attempt is useful; it does not create an
+obligation for a stranger or busy worker to become a language partner.]] Four words of
+careful Japanese can get you further than English alone. Say *sumimasen*, point, use *kore
+o kudasai*, and thank them — that simple loop handles a surprising number of interactions.
 `,
       quizTitle: "Avoiding the classic mistakes",
       flashcards: [
@@ -431,7 +442,7 @@ kudasai*, thank them — and the trip largely takes care of itself.
           back: `- **manshon** — an apartment block (not a mansion)
 - **baikingu** — a buffet (from "Viking", via a famous Tokyo hotel restaurant)
 - **konsento** — a power outlet (not consent)
-- **saabisu** — free of charge, on the house
+- **saabisu** — service; in some shop and restaurant contexts, a complimentary extra
 
 Borrowed words often shift meaning. Others: *sain* = signature, *sumaato* = slim, *kureemu* = a complaint, *handoru* = steering wheel, *baiku* = motorcycle.`
         },
@@ -480,7 +491,7 @@ Core loop: **sumimasen** → point → **kore o kudasai** → **arigatou gozaima
             "There's a concierge service"
           ],
           answer: 1,
-          explanation: `**konsento** = power outlet (from "concentric plug"). It's a classic false-friend loanword, alongside *sain* (signature), *manshon* (apartment), *baikingu* (buffet) and *saabisu* (free of charge).`
+          explanation: `**konsento** = power outlet (from "concentric plug"). It's a classic false-friend loanword, alongside *sain* (often a signature), *manshon* (apartment block), *baikingu* (buffet) and the complimentary-extra sense of *saabisu*.`
         },
         {
           question: "A shop clerk asks if you want a bag and you reply *\"daijoubu desu\"*. What did they understand?",
