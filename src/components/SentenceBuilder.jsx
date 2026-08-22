@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Translator from './Translator.jsx'
 
@@ -13,20 +13,38 @@ function swapItems(items, firstId, secondId) {
   return next
 }
 
+function insertItem(items, itemId, insertionIndex) {
+  const from = items.indexOf(itemId)
+  if (from < 0) return items
+  const next = items.filter((id) => id !== itemId)
+  const adjustedIndex = from < insertionIndex ? insertionIndex - 1 : insertionIndex
+  const to = Math.max(0, Math.min(adjustedIndex, next.length))
+  next.splice(to, 0, itemId)
+  return next
+}
+
 function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
   const [order, setOrder] = useState(puzzle.scrambled)
   const [selected, setSelected] = useState(null)
   const [dragged, setDragged] = useState(null)
+  const [dropIndex, setDropIndex] = useState(null)
+  const [held, setHeld] = useState(null)
   const [result, setResult] = useState('idle')
+  const [correctPrefix, setCorrectPrefix] = useState(0)
+  const holdTimer = useRef(null)
+  const holdTriggered = useRef(false)
 
   const pieces = useMemo(
     () => new Map(puzzle.pieces.map((piece) => [piece.id, piece])),
     [puzzle]
   )
 
+  useEffect(() => () => window.clearTimeout(holdTimer.current), [])
+
   const changeOrder = (next) => {
     setOrder(next)
     setResult('idle')
+    setCorrectPrefix(0)
   }
 
   const swap = (firstId, secondId) => {
@@ -47,13 +65,46 @@ function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
     swap(id, order[to])
   }
 
+  const insertionIndexFor = (event, index) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    return event.clientX < rect.left + rect.width / 2 ? index : index + 1
+  }
+
+  const placeDragged = (source, insertionIndex) => {
+    if (source) changeOrder(insertItem(order, source, insertionIndex))
+    setDragged(null)
+    setDropIndex(null)
+  }
+
   const check = () => {
     const accepted = puzzle.acceptedAnswers || [puzzle.answer]
-    const correct = accepted.some(
-      (answer) => answer.length === order.length && answer.every((id, i) => id === order[i])
-    )
+    const prefixFor = (answer) => {
+      let length = 0
+      while (length < order.length && order[length] === answer[length]) length += 1
+      return length
+    }
+    const prefix = Math.max(...accepted.map(prefixFor))
+    const correct = prefix === order.length
+    setCorrectPrefix(prefix)
     setResult(correct ? 'correct' : 'wrong')
+    setSelected(null)
     if (correct) onSolved()
+  }
+
+  const startHold = (event, id) => {
+    if (event.pointerType === 'mouse') return
+    window.clearTimeout(holdTimer.current)
+    holdTriggered.current = false
+    holdTimer.current = window.setTimeout(() => {
+      holdTriggered.current = true
+      setHeld(id)
+    }, 450)
+  }
+
+  const endHold = () => {
+    window.clearTimeout(holdTimer.current)
+    holdTimer.current = null
+    setHeld(null)
   }
 
   return (
@@ -72,27 +123,40 @@ function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
       </div>
 
       <p className="sb-instruction">
-        Drag the tiles into place. On touch, tap two tiles to swap them; with a keyboard,
-        focus a tile and use ← or →. Hover or focus for a translation.
+        Drag the romaji tiles into place. On touch, tap two tiles to swap them; with a
+        keyboard, focus a tile and use ← or →. The red marker shows where a dragged tile
+        will land. Hover or hold a tile for its meaning.
       </p>
 
       <ol className="sb-tiles" aria-label="Japanese word order">
         {order.map((id, index) => {
           const piece = pieces.get(id)
           return (
-            <li key={id}>
+            <li key={id} className={dragged && dropIndex === index ? 'sb-drop-before' : ''}>
               <button
                 type="button"
                 className={
                   'sb-tile' +
                   (selected === id ? ' selected' : '') +
-                  (dragged === id ? ' dragging' : '')
+                  (dragged === id ? ' dragging' : '') +
+                  (held === id ? ' held' : '') +
+                  (result !== 'idle' && index < correctPrefix ? ' prefix-correct' : '')
                 }
-                data-translation={`${piece.romaji} — ${piece.en}`}
+                data-translation={piece.en}
                 draggable
                 aria-pressed={selected === id}
-                aria-label={`${piece.jp}, ${piece.romaji}, ${piece.en}. Position ${index + 1} of ${order.length}`}
-                onClick={() => selectOrSwap(id)}
+                aria-label={`${piece.romaji}, ${piece.en}. Position ${index + 1} of ${order.length}`}
+                onClick={() => {
+                  if (holdTriggered.current) {
+                    holdTriggered.current = false
+                    return
+                  }
+                  selectOrSwap(id)
+                }}
+                onPointerDown={(event) => startHold(event, id)}
+                onPointerUp={endHold}
+                onPointerCancel={endHold}
+                onPointerLeave={endHold}
                 onKeyDown={(event) => {
                   if (event.key === 'ArrowLeft') {
                     event.preventDefault()
@@ -104,28 +168,49 @@ function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
                 }}
                 onDragStart={(event) => {
                   setDragged(id)
+                  setDropIndex(index)
                   event.dataTransfer.effectAllowed = 'move'
                   event.dataTransfer.setData('text/plain', id)
                 }}
-                onDragEnd={() => setDragged(null)}
+                onDragEnd={() => {
+                  setDragged(null)
+                  setDropIndex(null)
+                }}
                 onDragOver={(event) => {
                   event.preventDefault()
                   event.dataTransfer.dropEffect = 'move'
+                  setDropIndex(insertionIndexFor(event, index))
                 }}
                 onDrop={(event) => {
                   event.preventDefault()
                   const source = event.dataTransfer.getData('text/plain') || dragged
-                  if (source) swap(source, id)
-                  setDragged(null)
+                  placeDragged(source, insertionIndexFor(event, index))
                 }}
               >
                 <span className="sb-grip" aria-hidden="true">⠿</span>
-                <span lang="ja">{piece.jp}</span>
+                <span lang="ja-Latn">{piece.romaji}</span>
               </button>
             </li>
           )
         })}
-        <li className="sb-period" aria-hidden="true">{puzzle.prompt.endsWith('?') ? '？' : '。'}</li>
+        <li
+          className={
+            'sb-period' + (dragged && dropIndex === order.length ? ' sb-drop-before' : '')
+          }
+          aria-hidden="true"
+          onDragOver={(event) => {
+            event.preventDefault()
+            event.dataTransfer.dropEffect = 'move'
+            setDropIndex(order.length)
+          }}
+          onDrop={(event) => {
+            event.preventDefault()
+            const source = event.dataTransfer.getData('text/plain') || dragged
+            placeDragged(source, order.length)
+          }}
+        >
+          {puzzle.prompt.endsWith('?') ? '？' : '。'}
+        </li>
       </ol>
 
       <div className="sb-actions">
@@ -147,15 +232,16 @@ function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
       <div className="sb-feedback" aria-live="polite">
         {result === 'wrong' && (
           <p className="sb-try-again">
-            Not quite yet. Check the particles, then make sure the action comes last.
+            Not quite yet. The green tiles form the correct opening; start checking again
+            from the first unmarked tile.
           </p>
         )}
         {result === 'correct' && (
           <div className="sb-explanation">
             <div className="sb-correct">Correct — well built.</div>
-            <div className="sb-answer" lang="ja">
-              {order.map((id) => pieces.get(id).jp).join(' ')}
-              {puzzle.prompt.endsWith('?') ? '？' : '。'}
+            <div className="sb-answer" lang="ja-Latn">
+              {order.map((id) => pieces.get(id).romaji).join(' ')}
+              {puzzle.prompt.endsWith('?') ? '?' : '.'}
             </div>
             <div className="sb-pattern">{puzzle.pattern}</div>
             <p>{puzzle.explanation}</p>
