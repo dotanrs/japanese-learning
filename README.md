@@ -134,6 +134,8 @@ Ten practical word-order puzzles. Arrange romaji words with particles such as *w
 hold a tile for its meaning. Checking highlights only the correct opening sequence, and a
 fully correct answer unlocks an explanation of the sentence pattern. Each puzzle's order
 and check result are saved on the device; **Reset** clears that puzzle's saved progress.
+**Hint** highlights the first required tile before checking, or the next tile after the
+verified green sequence once the puzzle has been checked.
 
 ### Quick translate
 

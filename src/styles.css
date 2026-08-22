@@ -992,6 +992,18 @@ a:hover { text-decoration: underline; }
   border-bottom-color: var(--accent-2);
   box-shadow: 0 0 0 2px rgba(39,115,87,.10);
 }
+.sb-tile.hinted {
+  color: #6f4510;
+  background: #fff6df;
+  border-color: var(--warn);
+  border-bottom-color: var(--warn);
+  box-shadow: 0 0 0 3px rgba(166,107,25,.15);
+  animation: sb-hint-pulse .7s ease-in-out infinite alternate;
+}
+@keyframes sb-hint-pulse {
+  from { transform: translateY(0); }
+  to { transform: translateY(-3px); }
+}
 .sb-tile.dragging { opacity: .45; cursor: grabbing; }
 .sb-grip { color: #a99b90; font-size: 18px; font-weight: 400; }
 .sb-period { font-family: "Yu Gothic", sans-serif; font-size: 24px; font-weight: 700; }
@@ -1019,7 +1031,10 @@ a:hover { text-decoration: underline; }
 @media (hover: hover) {
   .sb-tile:hover::after { opacity: 1; transform: translate(-50%, 0); }
 }
-.sb-actions { display: flex; align-items: center; gap: 9px; margin-top: 17px; }
+.sb-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
+.sb-hint-button:disabled { cursor: default; opacity: .45; }
+.sb-hint-copy { flex-basis: 100%; color: var(--warn); font-size: 12.5px; }
+.sb-hint-copy strong { color: #6f4510; }
 .sb-check, .sb-next {
   border: 1px solid var(--accent);
   border-radius: 7px;

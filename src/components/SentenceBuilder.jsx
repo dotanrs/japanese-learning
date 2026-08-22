@@ -4,14 +4,24 @@ import Translator from './Translator.jsx'
 
 const STORAGE_KEY = 'sentence-builder-progress-v1'
 
-function correctPrefixFor(puzzle, order) {
+function answerProgressFor(puzzle, order) {
   const accepted = puzzle.acceptedAnswers || [puzzle.answer]
   const prefixFor = (answer) => {
     let length = 0
     while (length < order.length && order[length] === answer[length]) length += 1
     return length
   }
-  return Math.max(...accepted.map(prefixFor))
+  return accepted.reduce(
+    (best, answer) => {
+      const prefix = prefixFor(answer)
+      return prefix > best.prefix ? { answer, prefix } : best
+    },
+    { answer: accepted[0], prefix: -1 }
+  )
+}
+
+function correctPrefixFor(puzzle, order) {
+  return answerProgressFor(puzzle, order).prefix
 }
 
 function loadProgress(deck) {
@@ -79,6 +89,7 @@ function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset
   const [dragged, setDragged] = useState(null)
   const [dropIndex, setDropIndex] = useState(null)
   const [held, setHeld] = useState(null)
+  const [hintedId, setHintedId] = useState(null)
   const [result, setResult] = useState(() => savedState?.result || 'idle')
   const [correctPrefix, setCorrectPrefix] = useState(() => savedState?.correctPrefix || 0)
   const holdTimer = useRef(null)
@@ -95,6 +106,7 @@ function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset
     setOrder(next)
     setResult('idle')
     setCorrectPrefix(0)
+    setHintedId(null)
     onProgress({ order: next, result: 'idle' })
   }
 
@@ -134,7 +146,14 @@ function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset
     setCorrectPrefix(prefix)
     setResult(nextResult)
     setSelected(null)
+    setHintedId(null)
     onProgress({ order, result: nextResult })
+  }
+
+  const showHint = () => {
+    const answer = result === 'idle' ? puzzle.answer : answerProgressFor(puzzle, order).answer
+    const position = result === 'idle' ? 0 : correctPrefix
+    setHintedId(answer[position] || null)
   }
 
   const startHold = (event, id) => {
@@ -186,6 +205,7 @@ function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset
                   (selected === id ? ' selected' : '') +
                   (dragged === id ? ' dragging' : '') +
                   (held === id ? ' held' : '') +
+                  (hintedId === id ? ' hinted' : '') +
                   (result !== 'idle' && index < correctPrefix ? ' prefix-correct' : '')
                 }
                 data-translation={piece.en}
@@ -264,12 +284,21 @@ function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset
           Check order
         </button>
         <button
+          className="wc-ctl sb-hint-button"
+          type="button"
+          onClick={showHint}
+          disabled={result === 'correct'}
+        >
+          Hint
+        </button>
+        <button
           className="wc-ctl"
           type="button"
           onClick={() => {
             setOrder(puzzle.scrambled)
             setResult('idle')
             setCorrectPrefix(0)
+            setHintedId(null)
             setSelected(null)
             setDragged(null)
             setDropIndex(null)
@@ -278,6 +307,11 @@ function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset
         >
           Reset
         </button>
+        {hintedId && (
+          <span className="sb-hint-copy" aria-live="polite">
+            <strong>{pieces.get(hintedId).romaji}</strong> is the next tile to place.
+          </span>
+        )}
       </div>
 
       <div className="sb-feedback" aria-live="polite">
