@@ -2,6 +2,56 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Translator from './Translator.jsx'
 
+const STORAGE_KEY = 'sentence-builder-progress-v1'
+
+function correctPrefixFor(puzzle, order) {
+  const accepted = puzzle.acceptedAnswers || [puzzle.answer]
+  const prefixFor = (answer) => {
+    let length = 0
+    while (length < order.length && order[length] === answer[length]) length += 1
+    return length
+  }
+  return Math.max(...accepted.map(prefixFor))
+}
+
+function loadProgress(deck) {
+  if (typeof window === 'undefined') return {}
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}')
+    const valid = {}
+    for (const puzzle of deck.puzzles) {
+      const entry = stored[puzzle.id]
+      const pieceIds = puzzle.pieces.map((piece) => piece.id).sort()
+      const orderIds = Array.isArray(entry?.order) ? [...entry.order].sort() : []
+      const hasValidOrder =
+        orderIds.length === pieceIds.length && orderIds.every((id, index) => id === pieceIds[index])
+      if (!hasValidOrder) continue
+      const checked = entry.result === 'wrong' || entry.result === 'correct'
+      const prefix = checked ? correctPrefixFor(puzzle, entry.order) : 0
+      valid[puzzle.id] = {
+        order: entry.order,
+        result: checked ? (prefix === entry.order.length ? 'correct' : 'wrong') : 'idle',
+        correctPrefix: prefix,
+      }
+    }
+    return valid
+  } catch {
+    return {}
+  }
+}
+
+function writeProgress(progress) {
+  try {
+    if (Object.keys(progress).length) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(progress))
+    } else {
+      window.localStorage.removeItem(STORAGE_KEY)
+    }
+  } catch {
+    // Storage can be unavailable in private or locked-down browser contexts.
+  }
+}
+
 function swapItems(items, firstId, secondId) {
   const first = items.indexOf(firstId)
   const second = items.indexOf(secondId)
@@ -23,14 +73,14 @@ function insertItem(items, itemId, insertionIndex) {
   return next
 }
 
-function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
-  const [order, setOrder] = useState(puzzle.scrambled)
+function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset, onNext }) {
+  const [order, setOrder] = useState(() => savedState?.order || puzzle.scrambled)
   const [selected, setSelected] = useState(null)
   const [dragged, setDragged] = useState(null)
   const [dropIndex, setDropIndex] = useState(null)
   const [held, setHeld] = useState(null)
-  const [result, setResult] = useState('idle')
-  const [correctPrefix, setCorrectPrefix] = useState(0)
+  const [result, setResult] = useState(() => savedState?.result || 'idle')
+  const [correctPrefix, setCorrectPrefix] = useState(() => savedState?.correctPrefix || 0)
   const holdTimer = useRef(null)
   const holdTriggered = useRef(false)
 
@@ -45,6 +95,7 @@ function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
     setOrder(next)
     setResult('idle')
     setCorrectPrefix(0)
+    onProgress({ order: next, result: 'idle' })
   }
 
   const swap = (firstId, secondId) => {
@@ -77,18 +128,13 @@ function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
   }
 
   const check = () => {
-    const accepted = puzzle.acceptedAnswers || [puzzle.answer]
-    const prefixFor = (answer) => {
-      let length = 0
-      while (length < order.length && order[length] === answer[length]) length += 1
-      return length
-    }
-    const prefix = Math.max(...accepted.map(prefixFor))
+    const prefix = correctPrefixFor(puzzle, order)
     const correct = prefix === order.length
+    const nextResult = correct ? 'correct' : 'wrong'
     setCorrectPrefix(prefix)
-    setResult(correct ? 'correct' : 'wrong')
+    setResult(nextResult)
     setSelected(null)
-    if (correct) onSolved()
+    onProgress({ order, result: nextResult })
   }
 
   const startHold = (event, id) => {
@@ -221,8 +267,13 @@ function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
           className="wc-ctl"
           type="button"
           onClick={() => {
-            changeOrder(puzzle.scrambled)
+            setOrder(puzzle.scrambled)
+            setResult('idle')
+            setCorrectPrefix(0)
             setSelected(null)
+            setDragged(null)
+            setDropIndex(null)
+            onReset()
           }}
         >
           Reset
@@ -259,12 +310,38 @@ function Puzzle({ puzzle, number, total, solved, onSolved, onNext }) {
 
 export default function SentenceBuilder({ deck }) {
   const [params, setParams] = useSearchParams()
-  const [solved, setSolved] = useState(() => new Set())
+  const [progress, setProgress] = useState(() => loadProgress(deck))
+  const solved = useMemo(
+    () => new Set(Object.entries(progress).filter(([, entry]) => entry.result === 'correct').map(([id]) => id)),
+    [progress]
+  )
   const activeId = params.get('p')
   const activeIndex = Math.max(0, deck.puzzles.findIndex((puzzle) => puzzle.id === activeId))
   const puzzle = deck.puzzles[activeIndex]
 
   const pickPuzzle = (id) => setParams({ p: id }, { replace: true })
+
+  const savePuzzle = (id, entry) => {
+    setProgress((previous) => {
+      const puzzleToSave = deck.puzzles.find((item) => item.id === id)
+      const prefix = entry.result === 'idle' ? 0 : correctPrefixFor(puzzleToSave, entry.order)
+      const next = {
+        ...previous,
+        [id]: { ...entry, correctPrefix: prefix },
+      }
+      writeProgress(next)
+      return next
+    })
+  }
+
+  const resetPuzzle = (id) => {
+    setProgress((previous) => {
+      const next = { ...previous }
+      delete next[id]
+      writeProgress(next)
+      return next
+    })
+  }
 
   return (
     <div className="content lesson-content">
@@ -305,13 +382,9 @@ export default function SentenceBuilder({ deck }) {
         number={activeIndex + 1}
         total={deck.puzzles.length}
         solved={solved.has(puzzle.id)}
-        onSolved={() =>
-          setSolved((previous) => {
-            const next = new Set(previous)
-            next.add(puzzle.id)
-            return next
-          })
-        }
+        savedState={progress[puzzle.id]}
+        onProgress={(entry) => savePuzzle(puzzle.id, entry)}
+        onReset={() => resetPuzzle(puzzle.id)}
         onNext={() => pickPuzzle(deck.puzzles[activeIndex + 1].id)}
       />
     </div>

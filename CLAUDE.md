@@ -31,7 +31,8 @@ base teaching conversational Japanese for travellers).
   Each puzzle owns its Japanese `pieces`, fixed `scrambled` order, canonical `answer`,
   optional `acceptedAnswers` for genuinely flexible word orders, and a written grammar
   `explanation` shown only after a correct check. Tiles display `romaji`, and particles
-  such as `wa`, `ga`, `o`, `ni`, and `de` stay separate from the words they mark.
+  such as `wa`, `ga`, `o`, `ni`, and `de` stay separate from the words they mark. Per-puzzle
+  order and check state live in local storage; Reset removes only that puzzle's entry.
 - `src/content/index.js` — imports every chapter into the `raw` array (order = display
   order), re-exports the word, story, and puzzle decks, and builds the nav/paging `flatIndex`. **A
   new chapter must be added here** or it won't appear.
