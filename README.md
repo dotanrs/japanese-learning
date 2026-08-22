@@ -132,7 +132,8 @@ read.
 Ten practical word-order puzzles. Arrange romaji words with particles such as *wa*, *ga*,
 *o*, *ni* and *de* on their own tiles (or use tap-to-swap and keyboard arrows). Hover or
 hold a tile for its meaning. Checking highlights only the correct opening sequence, and a
-fully correct answer unlocks an explanation of the sentence pattern.
+fully correct answer unlocks an explanation of the sentence pattern. Each puzzle's order
+and check result are saved on the device; **Reset** clears that puzzle's saved progress.
 
 ### Quick translate
 
