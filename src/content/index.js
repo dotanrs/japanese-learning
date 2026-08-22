@@ -5,10 +5,11 @@ import ch4 from './ch4-verbs-in-action.js'
 import ch5 from './ch5-numbers-and-time.js'
 import ch6 from './ch6-tourist-situations.js'
 import ch7 from './ch7-quirks.js'
+import ch8 from './ch8-relationships-and-position.js'
 import words from './words.js'
 import stories from './stories.js'
 
-const raw = [ch1, ch2, ch3, ch4, ch5, ch6, ch7]
+const raw = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8]
 
 export const wordDeck = words
 

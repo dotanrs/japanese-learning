@@ -66,8 +66,8 @@ several weeks unused — reopening it once online restores everything.
 
 ## What's inside
 
-7 chapters · 24 topics · 136 flashcards · 75 self-test questions, plus a standalone
-**Common Words** deck of 180 vocabulary cards across 9 scenarios and 7 **Short Stories**
+8 chapters · 26 topics · 145 flashcards · 81 self-test questions, plus a standalone
+**Common Words** deck of 195 vocabulary cards across 10 scenarios and 7 **Short Stories**
 in dialogue.
 
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
@@ -93,13 +93,18 @@ in dialogue.
 7. **Quirks of the Language** — what Japanese leaves out (articles, plurals, agreement,
    subjects, "you"); *aizuchi* listening noises, hedging and *chotto* as a refusal, *ne*/*yo*;
    traps for English speakers (false-friend katakana, *hai* ≠ yes, *daijoubu desu*)
+8. **With, Without, Over and Under** — companion *to* versus tool/method *de*, the
+   *nashi de* pattern; relative positions built as reference + *no* + position, choosing
+   *ni* for existence and *de* for actions, and *o* for a route through a place
 
 ### Common Words (`/#/words`)
 
-A vocabulary-only section, separate from the chapters: tabs for **Particles, Questions,
-Essentials, Restaurant, Hotel, Shop, Street, Trouble** and **People**, each a grid of flip cards showing the
-Japanese, the romaji and the meaning. Swap the prompt direction (日本語 → English or the
-reverse) and reveal or hide a whole scenario at once.
+A vocabulary-only section, separate from the chapters: tabs for **Particles, With & Where,
+Questions, Essentials, Restaurant, Hotel, Shop, Street, Trouble** and **People**, each a
+grid of flip cards showing the Japanese, the romaji and the meaning. Swap the prompt
+direction (日本語 → English or the reverse) and reveal or hide a whole scenario at once.
+In Japanese-first mode, cards in **With & Where** use the two-step reveal: the first tap
+shows the word in a sentence, and the second reveals its meaning and usage note.
 
 Each card has a 🔊 button that speaks the word using the browser's built-in speech
 synthesis — no dependency, no API key, no network call. Where the device has no Japanese
@@ -180,7 +185,8 @@ src/
     browserTranslate.js   # the browser's built-in Translator API, for the direct line
   content/
     index.js              # aggregates chapters + word deck, builds nav/paging index
-    ch1-sounds-and-survival.js … ch7-quirks.js   # chapter content lives here
+    ch1-sounds-and-survival.js … ch8-relationships-and-position.js
+                                               # chapter content lives here
     words.js              # the Common Words vocabulary deck
     stories.js            # the Short Stories dialogues
 ```
