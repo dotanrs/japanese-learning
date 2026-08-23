@@ -68,7 +68,7 @@ several weeks unused — reopening it once online restores everything.
 
 8 chapters · 26 topics · 145 flashcards · 81 self-test questions, plus a standalone
 **Common Words** deck of 195 vocabulary cards across 10 scenarios, 7 **Short Stories** in
-dialogue, and 20 drag-and-drop **Sentence Builder** puzzles across two difficulty levels.
+dialogue, and 30 drag-and-drop **Sentence Builder** puzzles across two difficulty levels.
 
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
    meaning (*biiru* vs *biru*), pitch accent, devoiced vowels; the 20 phrases that cover a
@@ -130,7 +130,7 @@ read.
 
 ### Sentence Builder (`/#/puzzles`)
 
-Twenty practical word-order puzzles: ten Foundation exercises and ten longer, multi-clause
+Thirty practical word-order puzzles: ten Foundation exercises and twenty longer, multi-clause
 Advanced challenges. Arrange romaji words with particles such as *wa*, *ga*,
 *o*, *ni* and *de* on their own tiles (or use tap-to-swap and keyboard arrows). Hover or
 hold a tile for its meaning. Filter the set with the **question**, **timing**, and
