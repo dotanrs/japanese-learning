@@ -5,7 +5,7 @@ import Translator from './Translator.jsx'
 const STORAGE_KEY = 'sentence-builder-progress-v1'
 
 function answerProgressFor(puzzle, order) {
-  const accepted = puzzle.acceptedAnswers || [puzzle.answer]
+  const accepted = [puzzle.answer]
   const prefixFor = (answer) => {
     let length = 0
     while (length < order.length && order[length] === answer[length]) length += 1
@@ -356,6 +356,22 @@ function Puzzle({
             </div>
             <div className="sb-pattern">{puzzle.pattern}</div>
             <p>{puzzle.explanation}</p>
+            {puzzle.alsoAcceptable?.length > 0 && (
+              <div className="sb-also-acceptable">
+                <div className="sb-also-title">Also acceptable</div>
+                <ul>
+                  {puzzle.alsoAcceptable.map((alternative) => (
+                    <li key={alternative.answer.join('-')}>
+                      <strong lang="ja-Latn">
+                        {alternative.answer.map((id) => pieces.get(id).romaji).join(' ')}
+                        {puzzle.prompt.endsWith('?') ? '?' : '.'}
+                      </strong>
+                      <p>{alternative.explanation}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             {number < total && (
               <button className="sb-next" type="button" onClick={onNext}>
                 Next puzzle →

@@ -136,7 +136,8 @@ Advanced challenges. Arrange romaji words with particles such as *wa*, *ga*,
 hold a tile for its meaning. Filter the set with the **question**, **timing**, and
 **reasons** tags; multiple selected tags show puzzles matching any selection. Checking
 highlights only the correct opening sequence, and a
-fully correct answer unlocks an explanation of the sentence pattern. Each puzzle's order
+fully correct answer unlocks an explanation of the sentence pattern plus a separate
+**Also acceptable** list when less-neutral word orders are possible. Each puzzle's order
 and check result are saved on the device; **Reset** clears that puzzle's saved progress.
 **Hint** highlights the first required tile before checking, or the next tile after the
 verified green sequence once the puzzle has been checked.

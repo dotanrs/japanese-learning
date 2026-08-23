@@ -30,10 +30,10 @@ base teaching conversational Japanese for travellers).
 - `src/content/puzzles.js` — the **Sentence Builder** section: thirty word-order exercises
   split into Foundation and Advanced difficulty levels.
   The deck declares its available `tags`, and every puzzle owns a `tags` array, Japanese
-  `pieces`, fixed `scrambled` order, canonical `answer`, optional `acceptedAnswers` for
-  genuinely flexible word orders, and a written grammar `explanation` shown only after a
-  correct check. When another tile order is grammatical but less neutral, the explanation
-  names it even if the checker keeps the canonical answer. Tiles display `romaji`, and particles
+  `pieces`, fixed `scrambled` order, canonical `answer`, and a written grammar `explanation`
+  shown only after a correct check. Optional `alsoAcceptable` entries each own an `answer`
+  tile-id array and an `explanation` of why that order is grammatical but less neutral; the
+  checker still requires the canonical answer. Tiles display `romaji`, and particles
   such as `wa`, `ga`, `o`, `ni`, and `de` stay separate from the words they mark. Per-puzzle
   order and check state live in local storage; Reset removes only that puzzle's entry.
 - `src/content/index.js` — imports every chapter into the `raw` array (order = display
