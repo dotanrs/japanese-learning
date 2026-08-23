@@ -1,12 +1,14 @@
 const puzzles = {
   id: 'sentence-builder',
   title: 'Sentence Builder',
+  tags: ['question', 'timing', 'reasons'],
   intro:
     'Start with the Foundation sentences, then tackle longer, multi-clause Advanced challenges. Particles are separate tiles, so every wa, ga, o, ni, and de has to land in the right place.',
   puzzles: [
     {
       id: 'morning-coffee',
       difficulty: 'Foundation',
+      tags: ['timing'],
       title: 'Morning coffee',
       icon: '☕',
       prompt: 'I drink coffee every morning.',
@@ -31,6 +33,7 @@ const puzzles = {
     {
       id: 'station',
       difficulty: 'Foundation',
+      tags: ['question'],
       title: 'Find the station',
       icon: '🚉',
       prompt: 'Where is the train station?',
@@ -50,6 +53,7 @@ const puzzles = {
     {
       id: 'ramen',
       difficulty: 'Foundation',
+      tags: [],
       title: 'Ramen stop',
       icon: '🍜',
       prompt: 'I will eat ramen at the restaurant.',
@@ -69,6 +73,7 @@ const puzzles = {
     {
       id: 'kyoto',
       difficulty: 'Foundation',
+      tags: ['timing'],
       title: 'Kyoto tomorrow',
       icon: '🚄',
       prompt: 'Tomorrow I will go to Kyoto by train.',
@@ -93,6 +98,7 @@ const puzzles = {
     {
       id: 'tickets',
       difficulty: 'Foundation',
+      tags: [],
       title: 'Two tickets',
       icon: '🎫',
       prompt: 'Please give me two tickets.',
@@ -111,6 +117,7 @@ const puzzles = {
     {
       id: 'did-not-understand',
       difficulty: 'Foundation',
+      tags: [],
       title: 'Lost in translation',
       icon: '💬',
       prompt: 'I did not understand Japanese.',
@@ -129,6 +136,7 @@ const puzzles = {
     {
       id: 'photo',
       difficulty: 'Foundation',
+      tags: ['question'],
       title: 'A photo here',
       icon: '📷',
       prompt: 'May I take a picture here?',
@@ -152,6 +160,7 @@ const puzzles = {
     {
       id: 'hotel',
       difficulty: 'Foundation',
+      tags: [],
       title: 'Hotel location',
       icon: '🏨',
       prompt: 'The hotel is near the station.',
@@ -173,6 +182,7 @@ const puzzles = {
     {
       id: 'rainy-taxi',
       difficulty: 'Foundation',
+      tags: ['reasons'],
       title: 'Rainy taxi',
       icon: '☔',
       prompt: 'Because it is raining, I will go by taxi.',
@@ -195,6 +205,7 @@ const puzzles = {
     {
       id: 'souvenir',
       difficulty: 'Foundation',
+      tags: [],
       title: 'Family souvenir',
       icon: '🎁',
       prompt: 'I want to buy a small souvenir for my family.',
@@ -216,6 +227,7 @@ const puzzles = {
     {
       id: 'time-if',
       difficulty: 'Advanced',
+      tags: ['timing', 'reasons'],
       title: 'If there is time',
       icon: '🕰️',
       prompt: 'If I have time tomorrow, I will go to the museum.',
@@ -237,6 +249,7 @@ const puzzles = {
     {
       id: 'slowly-again',
       difficulty: 'Advanced',
+      tags: ['reasons'],
       title: 'One more time',
       icon: '🔁',
       prompt: 'If I do not understand, please speak slowly one more time.',
@@ -261,6 +274,7 @@ const puzzles = {
     {
       id: 'english-please',
       difficulty: 'Advanced',
+      tags: ['reasons'],
       title: 'Switch languages',
       icon: '🗣️',
       prompt: 'Because I do not understand Japanese, English please.',
@@ -283,6 +297,7 @@ const puzzles = {
     {
       id: 'complex-directions',
       difficulty: 'Advanced',
+      tags: [],
       title: 'Two-step directions',
       icon: '🧭',
       prompt: 'Go straight, then turn right at the next corner.',
@@ -307,6 +322,7 @@ const puzzles = {
     {
       id: 'travel-together',
       difficulty: 'Advanced',
+      tags: ['timing'],
       title: 'Travelling together',
       icon: '🚆',
       prompt: 'Tomorrow I will go to Kyoto by train with a friend.',
@@ -336,6 +352,7 @@ const puzzles = {
     {
       id: 'between-buildings',
       difficulty: 'Advanced',
+      tags: [],
       title: 'Between two buildings',
       icon: '🏙️',
       prompt: 'There is a convenience store between the bank and the hotel.',
@@ -359,6 +376,7 @@ const puzzles = {
     {
       id: 'checkout-luggage',
       difficulty: 'Advanced',
+      tags: ['question', 'timing'],
       title: 'After check-out',
       icon: '🧳',
       prompt: 'Could you hold my luggage after check-out?',
@@ -382,6 +400,7 @@ const puzzles = {
     {
       id: 'bullet-train-tickets',
       difficulty: 'Advanced',
+      tags: ['timing'],
       title: 'Timed ticket request',
       icon: '🎟️',
       prompt: 'Two tickets for tomorrow’s 3 p.m. bullet train, please.',
@@ -406,6 +425,7 @@ const puzzles = {
     {
       id: 'broken-air-conditioner',
       difficulty: 'Advanced',
+      tags: ['question', 'reasons'],
       title: 'Room problem',
       icon: '🛎️',
       prompt: 'Because the air conditioner is broken, could you change my room?',
@@ -430,6 +450,7 @@ const puzzles = {
     {
       id: 'rain-plan',
       difficulty: 'Advanced',
+      tags: ['timing', 'reasons'],
       title: 'A rainy alternative',
       icon: '🌧️',
       prompt: 'If it rains tomorrow, I will not go to the park; I will go to the museum.',

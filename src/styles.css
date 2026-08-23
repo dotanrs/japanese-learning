@@ -930,6 +930,33 @@ a:hover { text-decoration: underline; }
 .side-decks .words-banner { margin-top: 30px; }
 
 /* Sentence builder */
+.sb-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+.sb-filter-label {
+  margin-right: 3px;
+  color: var(--text-dim);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.sb-filter-chip {
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elev);
+  color: var(--text-dim);
+  font: 700 12px/1 Inter, sans-serif;
+  cursor: pointer;
+}
+.sb-filter-chip:hover { border-color: var(--accent); color: var(--accent); }
+.sb-filter-chip.active { border-color: var(--accent); background: var(--accent); color: #fff; }
+.sb-filter-chip span { margin-left: 3px; opacity: .72; font-size: 10px; }
 .sb-progress-row {
   display: flex;
   align-items: center;
@@ -942,6 +969,7 @@ a:hover { text-decoration: underline; }
 }
 .sb-progress-copy { color: var(--text-dim); font-size: 13px; white-space: nowrap; }
 .sb-progress-copy strong { color: var(--accent); font-size: 18px; }
+.sb-progress-copy small { display: block; margin-top: 2px; font-size: 10px; }
 .sb-puzzle-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px 18px; }
 .sb-level-nav { display: grid; gap: 5px; }
 .sb-level-label { color: var(--text-dim); font-size: 9.5px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
@@ -972,6 +1000,8 @@ a:hover { text-decoration: underline; }
 .sb-puzzle-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
 .sb-puzzle-head h2 { margin: 3px 0 0; padding: 0; border: 0; font-size: 25px; }
 .sb-step { color: var(--accent); font-size: 10.5px; font-weight: 750; text-transform: uppercase; letter-spacing: .13em; }
+.sb-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.sb-tag { padding: 3px 7px; border: 1px solid rgba(181,31,46,.2); border-radius: 999px; background: rgba(181,31,46,.06); color: var(--accent-dark); font-size: 10px; font-weight: 700; }
 .sb-solved-badge { color: var(--accent-2); background: rgba(39,115,87,.09); border: 1px solid rgba(39,115,87,.25); border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; }
 .sb-prompt { margin-top: 22px; padding: 15px 17px; border-left: 3px solid var(--accent); background: var(--bg-elev2); }
 .sb-prompt-label { display: block; color: var(--text-dim); font-size: 10px; font-weight: 750; text-transform: uppercase; letter-spacing: .13em; }

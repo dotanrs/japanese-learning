@@ -29,9 +29,10 @@ base teaching conversational Japanese for travellers).
   stays inside what the course teaches: -masu forms and the Chapter 6 set phrases.
 - `src/content/puzzles.js` — the **Sentence Builder** section: twenty word-order exercises
   split into Foundation and Advanced difficulty levels.
-  Each puzzle owns its Japanese `pieces`, fixed `scrambled` order, canonical `answer`,
-  optional `acceptedAnswers` for genuinely flexible word orders, and a written grammar
-  `explanation` shown only after a correct check. Tiles display `romaji`, and particles
+  The deck declares its available `tags`, and every puzzle owns a `tags` array, Japanese
+  `pieces`, fixed `scrambled` order, canonical `answer`, optional `acceptedAnswers` for
+  genuinely flexible word orders, and a written grammar `explanation` shown only after a
+  correct check. Tiles display `romaji`, and particles
   such as `wa`, `ga`, `o`, `ni`, and `de` stay separate from the words they mark. Per-puzzle
   order and check state live in local storage; Reset removes only that puzzle's entry.
 - `src/content/index.js` — imports every chapter into the `raw` array (order = display
