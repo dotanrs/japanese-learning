@@ -133,7 +133,9 @@ read.
 Twenty practical word-order puzzles: ten Foundation exercises and ten longer, multi-clause
 Advanced challenges. Arrange romaji words with particles such as *wa*, *ga*,
 *o*, *ni* and *de* on their own tiles (or use tap-to-swap and keyboard arrows). Hover or
-hold a tile for its meaning. Checking highlights only the correct opening sequence, and a
+hold a tile for its meaning. Filter the set with the **question**, **timing**, and
+**reasons** tags; multiple selected tags show puzzles matching any selection. Checking
+highlights only the correct opening sequence, and a
 fully correct answer unlocks an explanation of the sentence pattern. Each puzzle's order
 and check result are saved on the device; **Reset** clears that puzzle's saved progress.
 **Hint** highlights the first required tile before checking, or the next tile after the

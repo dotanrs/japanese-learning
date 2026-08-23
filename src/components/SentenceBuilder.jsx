@@ -191,6 +191,11 @@ function Puzzle({
             {puzzle.difficulty || 'Practice'} · Puzzle {levelNumber} of {levelTotal}
           </div>
           <h2><span aria-hidden="true">{puzzle.icon}</span> {puzzle.title}</h2>
+          {puzzle.tags.length > 0 && (
+            <div className="sb-tags" aria-label="Puzzle tags">
+              {puzzle.tags.map((tag) => <span className="sb-tag" key={tag}>{tag}</span>)}
+            </div>
+          )}
         </div>
         {solved && <span className="sb-solved-badge">Solved ✓</span>}
       </div>
@@ -362,24 +367,65 @@ export default function SentenceBuilder({ deck }) {
     () => new Set(Object.entries(progress).filter(([, entry]) => entry.result === 'correct').map(([id]) => id)),
     [progress]
   )
+  const selectedTags = useMemo(() => {
+    const requested = (params.get('tags') || '').split(',').filter(Boolean)
+    return deck.tags.filter((tag) => requested.includes(tag))
+  }, [deck.tags, params])
+  const visiblePuzzles = useMemo(
+    () => selectedTags.length === 0
+      ? deck.puzzles
+      : deck.puzzles.filter((item) => item.tags.some((tag) => selectedTags.includes(tag))),
+    [deck.puzzles, selectedTags]
+  )
   const activeId = params.get('p')
-  const activeIndex = Math.max(0, deck.puzzles.findIndex((puzzle) => puzzle.id === activeId))
-  const puzzle = deck.puzzles[activeIndex]
+  const activeIndex = Math.max(0, visiblePuzzles.findIndex((item) => item.id === activeId))
+  const puzzle = visiblePuzzles[activeIndex]
   const difficultyGroups = useMemo(
     () => deck.puzzles.reduce((groups, item, index) => {
       const label = item.difficulty || 'Practice'
       const group = groups.find((entry) => entry.label === label)
-      if (group) group.puzzles.push({ item, index })
-      else groups.push({ label, puzzles: [{ item, index }] })
+      if (group) group.puzzles.push({ item, index, levelIndex: group.puzzles.length })
+      else groups.push({ label, puzzles: [{ item, index, levelIndex: 0 }] })
       return groups
     }, []),
     [deck]
+  )
+  const visibleDifficultyGroups = useMemo(
+    () => difficultyGroups
+      .map((group) => ({
+        ...group,
+        puzzles: group.puzzles.filter(({ item }) => visiblePuzzles.includes(item)),
+      }))
+      .filter((group) => group.puzzles.length > 0),
+    [difficultyGroups, visiblePuzzles]
   )
   const activeDifficulty = puzzle.difficulty || 'Practice'
   const activeGroup = difficultyGroups.find((group) => group.label === activeDifficulty)
   const activeLevelIndex = activeGroup.puzzles.findIndex(({ item }) => item.id === puzzle.id)
 
-  const pickPuzzle = (id) => setParams({ p: id }, { replace: true })
+  const writeParams = (id, tags = selectedTags) => {
+    const next = new URLSearchParams()
+    next.set('p', id)
+    if (tags.length > 0) next.set('tags', tags.join(','))
+    setParams(next, { replace: true })
+  }
+
+  const pickPuzzle = (id) => writeParams(id)
+
+  const chooseTags = (tags) => {
+    const matches = tags.length === 0
+      ? deck.puzzles
+      : deck.puzzles.filter((item) => item.tags.some((tag) => tags.includes(tag)))
+    const nextPuzzle = matches.some((item) => item.id === puzzle.id) ? puzzle : matches[0]
+    writeParams(nextPuzzle.id, tags)
+  }
+
+  const toggleTag = (tag) => {
+    const nextTags = selectedTags.includes(tag)
+      ? selectedTags.filter((item) => item !== tag)
+      : deck.tags.filter((item) => selectedTags.includes(item) || item === tag)
+    chooseTags(nextTags)
+  }
 
   const savePuzzle = (id, entry) => {
     setProgress((previous) => {
@@ -412,16 +458,44 @@ export default function SentenceBuilder({ deck }) {
       <Translator />
       <p className="wc-intro">{deck.intro}</p>
 
+      <div className="sb-filter" aria-label="Filter puzzles by tag">
+        <span className="sb-filter-label">Filter by tag</span>
+        <button
+          type="button"
+          className={'sb-filter-chip' + (selectedTags.length === 0 ? ' active' : '')}
+          aria-pressed={selectedTags.length === 0}
+          onClick={() => chooseTags([])}
+        >
+          All <span>{deck.puzzles.length}</span>
+        </button>
+        {deck.tags.map((tag) => {
+          const active = selectedTags.includes(tag)
+          const count = deck.puzzles.filter((item) => item.tags.includes(tag)).length
+          return (
+            <button
+              type="button"
+              className={'sb-filter-chip' + (active ? ' active' : '')}
+              aria-pressed={active}
+              onClick={() => toggleTag(tag)}
+              key={tag}
+            >
+              {tag} <span>{count}</span>
+            </button>
+          )
+        })}
+      </div>
+
       <div className="sb-progress-row">
         <div className="sb-progress-copy">
           <strong>{solved.size}</strong> of {deck.puzzles.length} solved
+          {selectedTags.length > 0 && <small>{visiblePuzzles.length} matching</small>}
         </div>
         <div className="sb-puzzle-nav" aria-label="Choose a sentence puzzle">
-          {difficultyGroups.map((group) => (
+          {visibleDifficultyGroups.map((group) => (
             <div className="sb-level-nav" key={group.label}>
               <span className="sb-level-label">{group.label}</span>
               <div className="sb-level-dots">
-                {group.puzzles.map(({ item, index }, levelIndex) => (
+                {group.puzzles.map(({ item, levelIndex }) => (
                   <button
                     key={item.id}
                     type="button"
@@ -447,14 +521,14 @@ export default function SentenceBuilder({ deck }) {
         key={puzzle.id}
         puzzle={puzzle}
         number={activeIndex + 1}
-        total={deck.puzzles.length}
+        total={visiblePuzzles.length}
         levelNumber={activeLevelIndex + 1}
         levelTotal={activeGroup.puzzles.length}
         solved={solved.has(puzzle.id)}
         savedState={progress[puzzle.id]}
         onProgress={(entry) => savePuzzle(puzzle.id, entry)}
         onReset={() => resetPuzzle(puzzle.id)}
-        onNext={() => pickPuzzle(deck.puzzles[activeIndex + 1].id)}
+        onNext={() => pickPuzzle(visiblePuzzles[activeIndex + 1].id)}
       />
     </div>
   )
