@@ -83,6 +83,14 @@ function insertItem(items, itemId, insertionIndex) {
   return next
 }
 
+function chunksOf(items, size) {
+  const chunks = []
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size))
+  }
+  return chunks
+}
+
 function Puzzle({
   puzzle,
   number,
@@ -371,15 +379,6 @@ export default function SentenceBuilder({ deck }) {
     const requested = (params.get('tags') || '').split(',').filter(Boolean)
     return deck.tags.filter((tag) => requested.includes(tag))
   }, [deck.tags, params])
-  const visiblePuzzles = useMemo(
-    () => selectedTags.length === 0
-      ? deck.puzzles
-      : deck.puzzles.filter((item) => item.tags.some((tag) => selectedTags.includes(tag))),
-    [deck.puzzles, selectedTags]
-  )
-  const activeId = params.get('p')
-  const activeIndex = Math.max(0, visiblePuzzles.findIndex((item) => item.id === activeId))
-  const puzzle = visiblePuzzles[activeIndex]
   const difficultyGroups = useMemo(
     () => deck.puzzles.reduce((groups, item, index) => {
       const label = item.difficulty || 'Practice'
@@ -390,6 +389,19 @@ export default function SentenceBuilder({ deck }) {
     }, []),
     [deck]
   )
+  const orderedPuzzles = useMemo(
+    () => difficultyGroups.flatMap((group) => group.puzzles.map(({ item }) => item)),
+    [difficultyGroups]
+  )
+  const visiblePuzzles = useMemo(
+    () => selectedTags.length === 0
+      ? orderedPuzzles
+      : orderedPuzzles.filter((item) => item.tags.some((tag) => selectedTags.includes(tag))),
+    [orderedPuzzles, selectedTags]
+  )
+  const activeId = params.get('p')
+  const activeIndex = Math.max(0, visiblePuzzles.findIndex((item) => item.id === activeId))
+  const puzzle = visiblePuzzles[activeIndex]
   const visibleDifficultyGroups = useMemo(
     () => difficultyGroups
       .map((group) => ({
@@ -414,8 +426,8 @@ export default function SentenceBuilder({ deck }) {
 
   const chooseTags = (tags) => {
     const matches = tags.length === 0
-      ? deck.puzzles
-      : deck.puzzles.filter((item) => item.tags.some((tag) => tags.includes(tag)))
+      ? orderedPuzzles
+      : orderedPuzzles.filter((item) => item.tags.some((tag) => tags.includes(tag)))
     const nextPuzzle = matches.some((item) => item.id === puzzle.id) ? puzzle : matches[0]
     writeParams(nextPuzzle.id, tags)
   }
@@ -494,22 +506,26 @@ export default function SentenceBuilder({ deck }) {
           {visibleDifficultyGroups.map((group) => (
             <div className="sb-level-nav" key={group.label}>
               <span className="sb-level-label">{group.label}</span>
-              <div className="sb-level-dots">
-                {group.puzzles.map(({ item, levelIndex }) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={
-                      'sb-puzzle-dot' +
-                      (item.id === puzzle.id ? ' active' : '') +
-                      (solved.has(item.id) ? ' complete' : '')
-                    }
-                    aria-label={`${group.label} puzzle ${levelIndex + 1}: ${item.title}${solved.has(item.id) ? ', solved' : ''}`}
-                    aria-current={item.id === puzzle.id ? 'step' : undefined}
-                    onClick={() => pickPuzzle(item.id)}
-                  >
-                    {solved.has(item.id) ? '✓' : levelIndex + 1}
-                  </button>
+              <div className="sb-level-dot-rows">
+                {chunksOf(group.puzzles, 10).map((row) => (
+                  <div className="sb-level-dots" key={row[0].item.id}>
+                    {row.map(({ item, levelIndex }) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className={
+                          'sb-puzzle-dot' +
+                          (item.id === puzzle.id ? ' active' : '') +
+                          (solved.has(item.id) ? ' complete' : '')
+                        }
+                        aria-label={`${group.label} puzzle ${levelIndex + 1}: ${item.title}${solved.has(item.id) ? ', solved' : ''}`}
+                        aria-current={item.id === puzzle.id ? 'step' : undefined}
+                        onClick={() => pickPuzzle(item.id)}
+                      >
+                        {solved.has(item.id) ? '✓' : levelIndex + 1}
+                      </button>
+                    ))}
+                  </div>
                 ))}
               </div>
             </div>

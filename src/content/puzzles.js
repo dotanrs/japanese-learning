@@ -473,7 +473,7 @@ const puzzles = {
     },
     {
       id: 'breakfast-at-seven',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['timing'],
       title: 'Breakfast at seven',
       icon: '🍳',
@@ -494,7 +494,7 @@ const puzzles = {
     },
     {
       id: 'late-yesterday',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['question', 'timing', 'reasons'],
       title: 'Late yesterday',
       icon: '⏰',
@@ -514,7 +514,7 @@ const puzzles = {
     },
     {
       id: 'bento-before-boarding',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['timing'],
       title: 'Bento before boarding',
       icon: '🍱',
@@ -537,7 +537,7 @@ const puzzles = {
     },
     {
       id: 'hotel-rain-plan',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['reasons'],
       title: 'Rain plan',
       icon: '🌦️',
@@ -558,7 +558,7 @@ const puzzles = {
     },
     {
       id: 'sick-day',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['timing', 'reasons'],
       title: 'Sick day',
       icon: '🤒',
@@ -582,7 +582,7 @@ const puzzles = {
     },
     {
       id: 'opening-time',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['question', 'timing'],
       title: 'Opening time',
       icon: '🕘',
@@ -603,7 +603,7 @@ const puzzles = {
     },
     {
       id: 'missed-train',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['reasons'],
       title: 'Missed train',
       icon: '🚫',
@@ -624,7 +624,7 @@ const puzzles = {
     },
     {
       id: 'after-work',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['timing'],
       title: 'After work',
       icon: '🤝',
@@ -646,7 +646,7 @@ const puzzles = {
     },
     {
       id: 'good-price',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['reasons'],
       title: 'A good price',
       icon: '🏷️',
@@ -667,7 +667,7 @@ const puzzles = {
     },
     {
       id: 'reason-to-study',
-      difficulty: 'Advanced',
+      difficulty: 'Foundation',
       tags: ['question', 'reasons'],
       title: 'Reason to study',
       icon: '📚',
