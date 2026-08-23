@@ -130,7 +130,7 @@ read.
 
 ### Sentence Builder (`/#/puzzles`)
 
-Thirty practical word-order puzzles: ten Foundation exercises and twenty longer, multi-clause
+Thirty practical word-order puzzles: twenty Foundation exercises and ten longer, multi-clause
 Advanced challenges. Arrange romaji words with particles such as *wa*, *ga*,
 *o*, *ni* and *de* on their own tiles (or use tap-to-swap and keyboard arrows). Hover or
 hold a tile for its meaning. Filter the set with the **question**, **timing**, and
