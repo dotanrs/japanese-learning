@@ -83,7 +83,18 @@ function insertItem(items, itemId, insertionIndex) {
   return next
 }
 
-function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset, onNext }) {
+function Puzzle({
+  puzzle,
+  number,
+  total,
+  levelNumber,
+  levelTotal,
+  solved,
+  savedState,
+  onProgress,
+  onReset,
+  onNext,
+}) {
   const [order, setOrder] = useState(() => savedState?.order || puzzle.scrambled)
   const [selected, setSelected] = useState(null)
   const [dragged, setDragged] = useState(null)
@@ -176,7 +187,9 @@ function Puzzle({ puzzle, number, total, solved, savedState, onProgress, onReset
     <section className={'sb-puzzle' + (result === 'correct' ? ' solved' : '')}>
       <div className="sb-puzzle-head">
         <div>
-          <div className="sb-step">Puzzle {number} of {total}</div>
+          <div className="sb-step">
+            {puzzle.difficulty || 'Practice'} · Puzzle {levelNumber} of {levelTotal}
+          </div>
           <h2><span aria-hidden="true">{puzzle.icon}</span> {puzzle.title}</h2>
         </div>
         {solved && <span className="sb-solved-badge">Solved ✓</span>}
@@ -352,6 +365,19 @@ export default function SentenceBuilder({ deck }) {
   const activeId = params.get('p')
   const activeIndex = Math.max(0, deck.puzzles.findIndex((puzzle) => puzzle.id === activeId))
   const puzzle = deck.puzzles[activeIndex]
+  const difficultyGroups = useMemo(
+    () => deck.puzzles.reduce((groups, item, index) => {
+      const label = item.difficulty || 'Practice'
+      const group = groups.find((entry) => entry.label === label)
+      if (group) group.puzzles.push({ item, index })
+      else groups.push({ label, puzzles: [{ item, index }] })
+      return groups
+    }, []),
+    [deck]
+  )
+  const activeDifficulty = puzzle.difficulty || 'Practice'
+  const activeGroup = difficultyGroups.find((group) => group.label === activeDifficulty)
+  const activeLevelIndex = activeGroup.puzzles.findIndex(({ item }) => item.id === puzzle.id)
 
   const pickPuzzle = (id) => setParams({ p: id }, { replace: true })
 
@@ -391,21 +417,28 @@ export default function SentenceBuilder({ deck }) {
           <strong>{solved.size}</strong> of {deck.puzzles.length} solved
         </div>
         <div className="sb-puzzle-nav" aria-label="Choose a sentence puzzle">
-          {deck.puzzles.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              className={
-                'sb-puzzle-dot' +
-                (item.id === puzzle.id ? ' active' : '') +
-                (solved.has(item.id) ? ' complete' : '')
-              }
-              aria-label={`Puzzle ${index + 1}: ${item.title}${solved.has(item.id) ? ', solved' : ''}`}
-              aria-current={item.id === puzzle.id ? 'step' : undefined}
-              onClick={() => pickPuzzle(item.id)}
-            >
-              {solved.has(item.id) ? '✓' : index + 1}
-            </button>
+          {difficultyGroups.map((group) => (
+            <div className="sb-level-nav" key={group.label}>
+              <span className="sb-level-label">{group.label}</span>
+              <div className="sb-level-dots">
+                {group.puzzles.map(({ item, index }, levelIndex) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={
+                      'sb-puzzle-dot' +
+                      (item.id === puzzle.id ? ' active' : '') +
+                      (solved.has(item.id) ? ' complete' : '')
+                    }
+                    aria-label={`${group.label} puzzle ${levelIndex + 1}: ${item.title}${solved.has(item.id) ? ', solved' : ''}`}
+                    aria-current={item.id === puzzle.id ? 'step' : undefined}
+                    onClick={() => pickPuzzle(item.id)}
+                  >
+                    {solved.has(item.id) ? '✓' : levelIndex + 1}
+                  </button>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -415,6 +448,8 @@ export default function SentenceBuilder({ deck }) {
         puzzle={puzzle}
         number={activeIndex + 1}
         total={deck.puzzles.length}
+        levelNumber={activeLevelIndex + 1}
+        levelTotal={activeGroup.puzzles.length}
         solved={solved.has(puzzle.id)}
         savedState={progress[puzzle.id]}
         onProgress={(entry) => savePuzzle(puzzle.id, entry)}
