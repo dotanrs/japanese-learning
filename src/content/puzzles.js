@@ -22,13 +22,16 @@ const puzzles = {
       ],
       scrambled: ['koohii', 'nomimasu', 'wa', 'maiasa', 'o', 'watashi'],
       answer: ['watashi', 'wa', 'maiasa', 'koohii', 'o', 'nomimasu'],
-      acceptedAnswers: [
-        ['watashi', 'wa', 'maiasa', 'koohii', 'o', 'nomimasu'],
-        ['maiasa', 'watashi', 'wa', 'koohii', 'o', 'nomimasu'],
+      alsoAcceptable: [
+        {
+          answer: ['maiasa', 'watashi', 'wa', 'koohii', 'o', 'nomimasu'],
+          explanation:
+            'The time phrase may naturally lead the sentence, but the preferred answer first establishes watashi as the topic and then adds the time context.',
+        },
       ],
       pattern: 'Topic + time + object + verb',
       explanation:
-        'Wa comes immediately after watashi to mark “I” as the topic. Maiasa needs no particle. O follows koohii to mark coffee as the direct object, and nomimasu, the action, comes last. The time phrase may also lead the sentence, so “maiasa watashi wa …” is accepted too.',
+        'Wa comes immediately after watashi to mark “I” as the topic. Maiasa needs no particle. O follows koohii to mark coffee as the direct object, and nomimasu, the action, comes last.',
     },
     {
       id: 'station',
@@ -66,9 +69,16 @@ const puzzles = {
       ],
       scrambled: ['tabemasu', 'o', 'resutoran', 'raamen', 'de'],
       answer: ['resutoran', 'de', 'raamen', 'o', 'tabemasu'],
+      alsoAcceptable: [
+        {
+          answer: ['raamen', 'o', 'resutoran', 'de', 'tabemasu'],
+          explanation:
+            'The particles keep both roles clear, so the food can come first. It foregrounds ramen, while the preferred answer uses the place as neutral opening context.',
+        },
+      ],
       pattern: 'Place + de + object + o + verb',
       explanation:
-        'De follows resutoran and marks it as the place where eating happens. O follows raamen and marks ramen as what is eaten. Tabemasu comes last; this polite non-past form can mean either “eat” or “will eat,” with context supplying the future meaning here. “Raamen o resutoran de tabemasu” is also valid and foregrounds the food; the checked answer uses the place as opening context.',
+        'De follows resutoran and marks it as the place where eating happens. O follows raamen and marks ramen as what is eaten. Tabemasu comes last; this polite non-past form can mean either “eat” or “will eat,” with context supplying the future meaning here.',
     },
     {
       id: 'kyoto',
@@ -87,13 +97,16 @@ const puzzles = {
       ],
       scrambled: ['ni', 'ikimasu', 'densha', 'ashita', 'kyouto', 'de'],
       answer: ['ashita', 'densha', 'de', 'kyouto', 'ni', 'ikimasu'],
-      acceptedAnswers: [
-        ['ashita', 'densha', 'de', 'kyouto', 'ni', 'ikimasu'],
-        ['ashita', 'kyouto', 'ni', 'densha', 'de', 'ikimasu'],
+      alsoAcceptable: [
+        {
+          answer: ['ashita', 'kyouto', 'ni', 'densha', 'de', 'ikimasu'],
+          explanation:
+            'The destination and means phrases can trade places because their particles preserve their roles. The preferred answer gives the travel method before the destination as a neutral progression.',
+        },
       ],
       pattern: 'Time + means/de + destination/ni + movement verb',
       explanation:
-        'Ashita sets the time without a particle. De must follow densha to mark the means of travel, while ni must follow Kyouto to mark the destination. Ikimasu finishes the thought. The train phrase and the Kyoto phrase may trade places, so both natural versions are accepted.',
+        'Ashita sets the time without a particle. De must follow densha to mark the means of travel, while ni must follow Kyouto to mark the destination. Ikimasu finishes the thought.',
     },
     {
       id: 'tickets',
@@ -110,9 +123,16 @@ const puzzles = {
       ],
       scrambled: ['kudasai', 'o', 'nimai', 'kippu'],
       answer: ['kippu', 'o', 'nimai', 'kudasai'],
+      alsoAcceptable: [
+        {
+          answer: ['kippu', 'nimai', 'o', 'kudasai'],
+          explanation:
+            'This treats “two tickets” as one noun phrase before o. It is grammatical, but the preferred answer uses the more common floating-counter pattern.',
+        },
+      ],
       pattern: 'Object + o + quantity/counter + kudasai',
       explanation:
-        'O follows kippu and marks tickets as the thing requested. Nimai means “two” using mai, the counter for flat objects such as tickets, and normally follows the counted item. Kudasai comes last to make the polite request “please give me …”. “Kippu nimai o kudasai” is also grammatical, treating “two tickets” as one noun phrase before o; the checked answer uses the more common floating-counter pattern.',
+        'O follows kippu and marks tickets as the thing requested. Nimai means “two” using mai, the counter for flat objects such as tickets, and normally follows the counted item. Kudasai comes last to make the polite request “please give me …”.',
     },
     {
       id: 'did-not-understand',
@@ -153,9 +173,16 @@ const puzzles = {
       ],
       scrambled: ['ka', 'shashin', 'mo', 'koko', 'ii', 'o', 'desu', 'de', 'totte'],
       answer: ['koko', 'de', 'shashin', 'o', 'totte', 'mo', 'ii', 'desu', 'ka'],
+      alsoAcceptable: [
+        {
+          answer: ['shashin', 'o', 'koko', 'de', 'totte', 'mo', 'ii', 'desu', 'ka'],
+          explanation:
+            'The particles still identify the object and location when these phrases swap. This order emphasizes the photo, while the preferred answer sets the location first.',
+        },
+      ],
       pattern: 'Place/de + object/o + te-form + mo ii desu ka',
       explanation:
-        'De follows koko to mark where the action happens, and o follows shashin to mark what is taken. Totte is the te-form of toru. The sequence mo ii desu ka literally asks “is it okay even if …?” Together, te-form + mo ii desu ka is the standard way to ask permission. “Shashin o koko de totte mo ii desu ka” is also valid and emphasizes the photo; the checked answer leads with the location.',
+        'De follows koko to mark where the action happens, and o follows shashin to mark what is taken. Totte is the te-form of toru. The sequence mo ii desu ka literally asks “is it okay even if …?” Together, te-form + mo ii desu ka is the standard way to ask permission.',
     },
     {
       id: 'hotel',
@@ -175,9 +202,16 @@ const puzzles = {
       ],
       scrambled: ['ni', 'arimasu', 'no', 'hoteru', 'chikaku', 'wa', 'eki'],
       answer: ['hoteru', 'wa', 'eki', 'no', 'chikaku', 'ni', 'arimasu'],
+      alsoAcceptable: [
+        {
+          answer: ['eki', 'no', 'chikaku', 'ni', 'hoteru', 'wa', 'arimasu'],
+          explanation:
+            'Putting the location first is grammatical, but wa then gives the hotel a contrastive nuance. The preferred answer is the neutral topic-first version.',
+        },
+      ],
       pattern: 'Topic/wa + reference/no + location/ni + arimasu',
       explanation:
-        'Wa follows hoteru to mark the hotel as the topic. No links eki to chikaku, forming “the station’s vicinity,” and ni marks that vicinity as the hotel’s location. Arimasu is used for the existence or location of an inanimate thing; a person or animal would use imasu. “Eki no chikaku ni hoteru wa arimasu” is also grammatical with a contrastive nuance on the hotel; the checked answer is the neutral topic-first version.',
+        'Wa follows hoteru to mark the hotel as the topic. No links eki to chikaku, forming “the station’s vicinity,” and ni marks that vicinity as the hotel’s location. Arimasu is used for the existence or location of an inanimate thing; a person or animal would use imasu.',
     },
     {
       id: 'rainy-taxi',
@@ -220,9 +254,16 @@ const puzzles = {
       ],
       scrambled: ['desu', 'omiyage', 'ni', 'kaitai', 'kazoku', 'o', 'chiisai'],
       answer: ['kazoku', 'ni', 'chiisai', 'omiyage', 'o', 'kaitai', 'desu'],
+      alsoAcceptable: [
+        {
+          answer: ['chiisai', 'omiyage', 'o', 'kazoku', 'ni', 'kaitai', 'desu'],
+          explanation:
+            'The particles preserve the object and recipient roles when those phrases swap. This foregrounds the souvenir, while the preferred answer introduces its recipient first.',
+        },
+      ],
       pattern: 'Recipient/ni + adjective + object/o + desire + desu',
       explanation:
-        'Ni follows kazoku to mark the family as the intended recipient. The i-adjective chiisai goes directly before omiyage, the noun it describes, and o follows that noun to mark it as the object. Kaitai means “want to buy,” and desu makes the statement polite. “Chiisai omiyage o kazoku ni kaitai desu” is also valid and foregrounds the souvenir; the checked answer introduces the recipient first.',
+        'Ni follows kazoku to mark the family as the intended recipient. The i-adjective chiisai goes directly before omiyage, the noun it describes, and o follows that noun to mark it as the object. Kaitai means “want to buy,” and desu makes the statement polite.',
     },
     {
       id: 'time-if',
@@ -242,9 +283,16 @@ const puzzles = {
       ],
       scrambled: ['ni', 'jikan', 'ikimasu', 'ashita', 'attara', 'hakubutsukan', 'ga'],
       answer: ['ashita', 'jikan', 'ga', 'attara', 'hakubutsukan', 'ni', 'ikimasu'],
+      alsoAcceptable: [
+        {
+          answer: ['jikan', 'ga', 'attara', 'ashita', 'hakubutsukan', 'ni', 'ikimasu'],
+          explanation:
+            'This is valid when tomorrow is understood as part of the result. The preferred answer places ashita first so it clearly frames the whole condition-and-result sentence.',
+        },
+      ],
       pattern: 'Time + condition/-tara + destination/ni + result',
       explanation:
-        'Ashita sets the time for the whole sentence. Ga marks jikan as what exists, and attara turns arimasu into the condition “if there is time.” The result follows without a separate word for “then”: hakubutsukan takes ni as the destination, and ikimasu stays last. “Jikan ga attara ashita hakubutsukan ni ikimasu” is also valid when tomorrow is understood as part of the result; the checked answer establishes tomorrow as the overall context.',
+        'Ashita sets the time for the whole sentence. Ga marks jikan as what exists, and attara turns arimasu into the condition “if there is time.” The result follows without a separate word for “then”: hakubutsukan takes ni as the destination, and ikimasu stays last.',
     },
     {
       id: 'slowly-again',
@@ -263,13 +311,16 @@ const puzzles = {
       ],
       scrambled: ['ichido', 'kudasai', 'wakaranakattara', 'hanashite', 'mou', 'yukkuri'],
       answer: ['wakaranakattara', 'mou', 'ichido', 'yukkuri', 'hanashite', 'kudasai'],
-      acceptedAnswers: [
-        ['wakaranakattara', 'mou', 'ichido', 'yukkuri', 'hanashite', 'kudasai'],
-        ['wakaranakattara', 'yukkuri', 'mou', 'ichido', 'hanashite', 'kudasai'],
+      alsoAcceptable: [
+        {
+          answer: ['wakaranakattara', 'yukkuri', 'mou', 'ichido', 'hanashite', 'kudasai'],
+          explanation:
+            'The manner phrase and “one more time” can trade places. This is natural, but the preferred answer keeps the fixed phrase mou ichido together before adding how to speak.',
+        },
       ],
       pattern: 'Condition/-tara + frequency + manner + te-form + kudasai',
       explanation:
-        'Wakaranakattara is the complete “if I do not understand” condition. Mou ichido forms the fixed phrase “one more time,” while yukkuri describes how to speak. Hanashite is the te-form of hanasu, and kudasai turns it into a polite request. The frequency and manner phrases can trade places, so both natural orders are accepted.',
+        'Wakaranakattara is the complete “if I do not understand” condition. Mou ichido forms the fixed phrase “one more time,” while yukkuri describes how to speak. Hanashite is the te-form of hanasu, and kudasai turns it into a polite request.',
     },
     {
       id: 'english-please',
@@ -340,14 +391,21 @@ const puzzles = {
       ],
       scrambled: ['de', 'e', 'tomodachi', 'ashita', 'ikimasu', 'ni-together', 'kyouto', 'to', 'densha', 'issho'],
       answer: ['ashita', 'tomodachi', 'to', 'issho', 'ni-together', 'densha', 'de', 'kyouto', 'e', 'ikimasu'],
-      acceptedAnswers: [
-        ['ashita', 'tomodachi', 'to', 'issho', 'ni-together', 'densha', 'de', 'kyouto', 'e', 'ikimasu'],
-        ['ashita', 'tomodachi', 'to', 'issho', 'ni-together', 'kyouto', 'e', 'densha', 'de', 'ikimasu'],
-        ['ashita', 'densha', 'de', 'tomodachi', 'to', 'issho', 'ni-together', 'kyouto', 'e', 'ikimasu'],
+      alsoAcceptable: [
+        {
+          answer: ['ashita', 'tomodachi', 'to', 'issho', 'ni-together', 'kyouto', 'e', 'densha', 'de', 'ikimasu'],
+          explanation:
+            'The destination can precede the means because e and de keep their roles clear. The preferred answer presents companion, means, then destination in a smoother neutral sequence.',
+        },
+        {
+          answer: ['ashita', 'densha', 'de', 'tomodachi', 'to', 'issho', 'ni-together', 'kyouto', 'e', 'ikimasu'],
+          explanation:
+            'The train phrase can come before the companion phrase without changing the roles. It foregrounds the travel method, while the preferred answer keeps the companion closer to the opening context.',
+        },
       ],
       pattern: 'Time + companion/to issho ni + means/de + destination/e + verb',
       explanation:
-        'To marks tomodachi as the companion and issho ni completes “together.” De marks densha as the means of travel, while e marks Kyouto as the destination. The particles keep those roles clear, so several neutral phrase orders are accepted, but each particle must stay beside its phrase and ikimasu remains last.',
+        'To marks tomodachi as the companion and issho ni completes “together.” De marks densha as the means of travel, while e marks Kyouto as the destination. Each particle must stay beside its phrase, and ikimasu remains last.',
     },
     {
       id: 'between-buildings',
@@ -369,9 +427,16 @@ const puzzles = {
       ],
       scrambled: ['arimasu', 'no', 'ginkou', 'ga', 'aida', 'hoteru', 'ni', 'to', 'konbini'],
       answer: ['ginkou', 'to', 'hoteru', 'no', 'aida', 'ni', 'konbini', 'ga', 'arimasu'],
+      alsoAcceptable: [
+        {
+          answer: ['hoteru', 'to', 'ginkou', 'no', 'aida', 'ni', 'konbini', 'ga', 'arimasu'],
+          explanation:
+            'The two endpoints of “between” can trade places without changing the location. The preferred answer follows the bank-then-hotel order used in the English prompt.',
+        },
+      ],
       pattern: 'A to B no aida ni + thing/ga + arimasu',
       explanation:
-        'To joins the two reference points, ginkou and hoteru. No connects that pair to aida, creating “the space between the bank and the hotel,” and ni marks it as the location. Ga marks konbini as the thing that exists, and arimasu is used because it is inanimate. “Hoteru to ginkou no aida ni konbini ga arimasu” is equally valid because the two endpoints of “between” can trade places; the checked answer follows the prompt’s order.',
+        'To joins the two reference points, ginkou and hoteru. No connects that pair to aida, creating “the space between the bank and the hotel,” and ni marks it as the location. Ga marks konbini as the thing that exists, and arimasu is used because it is inanimate.',
     },
     {
       id: 'checkout-luggage',
@@ -393,9 +458,16 @@ const puzzles = {
       ],
       scrambled: ['moraemasu', 'nimotsu', 'de', 'ka', 'ato', 'azukatte', 'no', 'o', 'chekkuauto'],
       answer: ['chekkuauto', 'no', 'ato', 'de', 'nimotsu', 'o', 'azukatte', 'moraemasu', 'ka'],
+      alsoAcceptable: [
+        {
+          answer: ['nimotsu', 'o', 'chekkuauto', 'no', 'ato', 'de', 'azukatte', 'moraemasu', 'ka'],
+          explanation:
+            'The object can come before the time phrase because o preserves its role. This foregrounds the luggage, while the preferred answer opens with the time-setting phrase.',
+        },
+      ],
       pattern: 'Event/no ato de + object/o + te-form + moraemasu ka',
       explanation:
-        'No links chekkuauto to ato, and de completes the time expression “after check-out.” O marks nimotsu as what the hotel will hold. The te-form azukatte connects to moraemasu ka, literally asking whether you can receive that favour; this is softer than a direct te-form + kudasai request. “Nimotsu o chekkuauto no ato de azukatte moraemasu ka” is also valid and foregrounds the luggage; the checked answer opens with the time phrase.',
+        'No links chekkuauto to ato, and de completes the time expression “after check-out.” O marks nimotsu as what the hotel will hold. The te-form azukatte connects to moraemasu ka, literally asking whether you can receive that favour; this is softer than a direct te-form + kudasai request.',
     },
     {
       id: 'bullet-train-tickets',
@@ -488,9 +560,16 @@ const puzzles = {
       ],
       scrambled: ['asagohan', 'ni', 'mainichi', 'tabemasu', 'shichiji', 'o'],
       answer: ['mainichi', 'shichiji', 'ni', 'asagohan', 'o', 'tabemasu'],
+      alsoAcceptable: [
+        {
+          answer: ['mainichi', 'asagohan', 'o', 'shichiji', 'ni', 'tabemasu'],
+          explanation:
+            'The object can come before the clock time because o and ni keep the roles clear. The preferred answer uses the more neutral progression from broad frequency to specific time, then object.',
+        },
+      ],
       pattern: 'Frequency + clock time/ni + object/o + verb',
       explanation:
-        'Mainichi sets the frequency and needs no particle. A specific clock time takes ni, so it follows shichiji. O marks asagohan as the object, and the verb tabemasu comes last. “Mainichi asagohan o shichiji ni tabemasu” is also valid, with the breakfast phrase placed before the clock time; the checked answer uses the more neutral context-first order.',
+        'Mainichi sets the frequency and needs no particle. A specific clock time takes ni, so it follows shichiji. O marks asagohan as the object, and the verb tabemasu comes last.',
     },
     {
       id: 'late-yesterday',
@@ -508,9 +587,16 @@ const puzzles = {
       ],
       scrambled: ['ka', 'wa', 'okuremashita', 'kinou', 'naze'],
       answer: ['kinou', 'wa', 'naze', 'okuremashita', 'ka'],
+      alsoAcceptable: [
+        {
+          answer: ['naze', 'kinou', 'wa', 'okuremashita', 'ka'],
+          explanation:
+            'Starting with naze is grammatical when “why” is strongly foregrounded. The preferred answer first establishes yesterday as the topic, which is the more neutral information order.',
+        },
+      ],
       pattern: 'Time/wa + reason question word + past verb + ka',
       explanation:
-        'Kinou wa establishes yesterday as the topic. Naze asks for the reason, okuremashita is the polite past form of “be late,” and the final ka marks the question. “You” is omitted because it is understood from context. “Naze kinou wa okuremashita ka” is also grammatical when “why” is strongly foregrounded, but the checked answer uses the neutral topic-first order.',
+        'Kinou wa establishes yesterday as the topic. Naze asks for the reason, okuremashita is the polite past form of “be late,” and the final ka marks the question. “You” is omitted because it is understood from context.',
     },
     {
       id: 'bento-before-boarding',
@@ -531,9 +617,16 @@ const puzzles = {
       ],
       scrambled: ['mae', 'o', 'noru', 'ni-time', 'densha', 'kaimasu', 'obentou', 'ni-train'],
       answer: ['densha', 'ni-train', 'noru', 'mae', 'ni-time', 'obentou', 'o', 'kaimasu'],
+      alsoAcceptable: [
+        {
+          answer: ['obentou', 'o', 'densha', 'ni-train', 'noru', 'mae', 'ni-time', 'kaimasu'],
+          explanation:
+            'The object can lead because o still identifies what will be bought. This foregrounds the bento, while the preferred answer uses the before-boarding clause as opening time context.',
+        },
+      ],
       pattern: 'Plain verb + mae ni + object/o + main verb',
       explanation:
-        'Ni marks densha as the target of noru, “to board.” A verb before mae uses its plain non-past form, so noru mae ni means “before boarding.” O marks the bento as the object of kaimasu. “Obentou o densha ni noru mae ni kaimasu” is also valid and foregrounds the bento; the checked answer leads with the time-setting clause.',
+        'Ni marks densha as the target of noru, “to board.” A verb before mae uses its plain non-past form, so noru mae ni means “before boarding.” O marks the bento as the object of kaimasu.',
     },
     {
       id: 'hotel-rain-plan',
@@ -576,9 +669,16 @@ const puzzles = {
       ],
       scrambled: ['ni', 'deshita-go', 'kinou', 'byouki', 'shigoto', 'kara', 'wa', 'ikimasen', 'deshita-sick'],
       answer: ['byouki', 'deshita-sick', 'kara', 'kinou', 'wa', 'shigoto', 'ni', 'ikimasen', 'deshita-go'],
+      alsoAcceptable: [
+        {
+          answer: ['kinou', 'wa', 'byouki', 'deshita-sick', 'kara', 'shigoto', 'ni', 'ikimasen', 'deshita-go'],
+          explanation:
+            'Yesterday can be established before the reason clause. This is valid, but the preferred answer keeps the complete reason first and then states its result in a clearer cause-to-effect order.',
+        },
+      ],
       pattern: 'Past reason + kara + time/wa + destination/ni + negative past verb',
       explanation:
-        'Byouki deshita means “was sick,” and kara turns it into the reason. Kinou wa sets yesterday as the time frame. Ni marks work as the destination, while ikimasen deshita means “did not go.” “Kinou wa byouki deshita kara shigoto ni ikimasen deshita” is also valid when yesterday is established first; the checked answer keeps the reason clause together before the result.',
+        'Byouki deshita means “was sick,” and kara turns it into the reason. Kinou wa sets yesterday as the time frame. Ni marks work as the destination, while ikimasen deshita means “did not go.”',
     },
     {
       id: 'opening-time',
@@ -597,9 +697,16 @@ const puzzles = {
       ],
       scrambled: ['ni', 'ka', 'mise', 'akimasu', 'wa', 'nanji'],
       answer: ['mise', 'wa', 'nanji', 'ni', 'akimasu', 'ka'],
+      alsoAcceptable: [
+        {
+          answer: ['nanji', 'ni', 'mise', 'wa', 'akimasu', 'ka'],
+          explanation:
+            'The time question can lead when it is strongly foregrounded. The preferred answer first identifies the shop as the topic, which is the neutral question pattern.',
+        },
+      ],
       pattern: 'Topic/wa + time question/ni + verb + ka',
       explanation:
-        'Wa marks the shop as the topic. Nanji asks “what time” and takes ni, just as a stated clock time would. Akimasu means “opens,” and the final ka makes it a polite question. “Nanji ni mise wa akimasu ka” is also grammatical when the time question is strongly foregrounded, but the checked answer uses the neutral topic-first order.',
+        'Wa marks the shop as the topic. Nanji asks “what time” and takes ni, just as a stated clock time would. Akimasu means “opens,” and the final ka makes it a polite question.',
     },
     {
       id: 'missed-train',
@@ -640,9 +747,16 @@ const puzzles = {
       ],
       scrambled: ['ato', 'aimasu', 'ni', 'shigoto', 'tomodachi', 'de', 'no'],
       answer: ['shigoto', 'no', 'ato', 'de', 'tomodachi', 'ni', 'aimasu'],
+      alsoAcceptable: [
+        {
+          answer: ['tomodachi', 'ni', 'shigoto', 'no', 'ato', 'de', 'aimasu'],
+          explanation:
+            'The person being met can lead because ni preserves that role. This foregrounds the friend, while the preferred answer opens with the time phrase as neutral context.',
+        },
+      ],
       pattern: 'Noun/no ato de + person/ni + au',
       explanation:
-        'No connects shigoto and ato, forming “after work”; de completes the expression no ato de. With au, the person being met is marked with ni. The verb aimasu comes last. “Tomodachi ni shigoto no ato de aimasu” is also valid and foregrounds the friend; the checked answer uses the time phrase as opening context.',
+        'No connects shigoto and ato, forming “after work”; de completes the expression no ato de. With au, the person being met is marked with ni. The verb aimasu comes last.',
     },
     {
       id: 'good-price',
@@ -683,9 +797,16 @@ const puzzles = {
       ],
       scrambled: ['imasu', 'nihongo', 'naze', 'ka', 'benkyou', 'o', 'shite'],
       answer: ['naze', 'nihongo', 'o', 'benkyou', 'shite', 'imasu', 'ka'],
+      alsoAcceptable: [
+        {
+          answer: ['nihongo', 'o', 'naze', 'benkyou', 'shite', 'imasu', 'ka'],
+          explanation:
+            'The object can lead because o preserves its role. This foregrounds Japanese, while the preferred answer puts the reason question word first for a more neutral request for explanation.',
+        },
+      ],
       pattern: 'Reason question word + object/o + te imasu + ka',
       explanation:
-        'Naze asks for the reason. O marks Japanese as what is being studied. Benkyou shite imasu describes an ongoing activity, and the final ka makes it a polite question. The understood “you” is omitted. “Nihongo o naze benkyou shite imasu ka” is also grammatical when Japanese is foregrounded; the checked answer uses the neutral question-word-first order.',
+        'Naze asks for the reason. O marks Japanese as what is being studied. Benkyou shite imasu describes an ongoing activity, and the final ka makes it a polite question. The understood “you” is omitted.',
     },
   ],
 }
