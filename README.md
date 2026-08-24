@@ -67,8 +67,9 @@ several weeks unused — reopening it once online restores everything.
 ## What's inside
 
 8 chapters · 26 topics · 145 flashcards · 81 self-test questions, plus a standalone
-**Common Words** deck of 195 vocabulary cards across 10 scenarios, 7 **Short Stories** in
-dialogue, and 30 drag-and-drop **Sentence Builder** puzzles across two difficulty levels.
+**Common Words** deck of 195 vocabulary cards across 10 scenarios, 37 **Common Phrases**
+across 6 topics, 7 **Short Stories** in dialogue, and 30 drag-and-drop **Sentence Builder**
+puzzles across two difficulty levels.
 
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
    meaning (*biiru* vs *biru*), pitch accent, devoiced vowels; the 20 phrases that cover a
@@ -111,6 +112,13 @@ Each card has a 🔊 button that speaks the word using the browser's built-in sp
 synthesis — no dependency, no API key, no network call. Where the device has no Japanese
 voice installed the buttons are hidden and the page says so.
 
+### Common Phrases (`/#/phrases`)
+
+The survival expressions from **The 20 Phrases That Cover Most of a Trip**, expanded into
+37 flashcards under **Greetings & Courtesies, Sumimasen, Getting Through an Interaction,
+Introducing Yourself, Around Food**, and **Goodbye**. Cards default to English → Japanese
+and reveal the Japanese, romaji, and a short usage or grammar explanation in one step.
+
 ### Short Stories (`/#/stories`)
 
 Seven very short stories, one per tab, almost entirely dialogue — two Ikkyū riddles, three
@@ -133,8 +141,8 @@ read.
 Thirty practical word-order puzzles: twenty Foundation exercises and ten longer, multi-clause
 Advanced challenges. Arrange romaji words with particles such as *wa*, *ga*,
 *o*, *ni* and *de* on their own tiles (or use tap-to-swap and keyboard arrows). Hover or
-hold a tile for its meaning. Filter the set with the **question**, **timing**, and
-**reasons** tags; multiple selected tags show puzzles matching any selection. Checking
+hold a tile for its meaning. Filter the set with the **question**, **timing**, **reasons**,
+and **negation** tags; multiple selected tags show puzzles matching any selection. Checking
 highlights only the correct opening sequence, and a
 fully correct answer unlocks an explanation of the sentence pattern plus a separate
 **Also acceptable** list when less-neutral word orders are possible. Each puzzle's order
@@ -149,9 +157,9 @@ navigate, and it is still there. It reads the input's script to pick a direction
 English goes to Japanese and Japanese (or romaji) comes back to English, with no toggle to
 set.
 
-The engine is the course itself: `src/lib/phrasebook.js` indexes the Common Words deck,
-the phrase tooltips, and every `| Japanese | Romaji | Meaning |` table row in the chapters
-into ~510 entries, and `src/lib/translate.js` looks the input up in that. So it answers
+The engine is the course itself: `src/lib/phrasebook.js` indexes the Common Words and
+Common Phrases decks, the phrase tooltips, and every `| Japanese | Romaji | Meaning |`
+table row in the chapters, and `src/lib/translate.js` looks the input up in that. So it answers
 with what the course actually teaches, romaji and source chapter included — an exact hit
 where one exists, the closest phrases otherwise, and a word-by-word gloss when nothing
 matches whole. It tolerates romaji spelling (*arigato* → ありがとう) and small typos, and
@@ -179,9 +187,10 @@ it sits *above* the phrasebook rather than replacing it.
   chapter.
 - **🃏 Flashcards** — click to reveal the answer.
 - **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
+- **🗣️ Phrase cards** — English-first travel phrases with one-tap answers and usage notes.
 - **📖 Short stories** — dialogue with per-sentence translations, grammar breakdowns and
   whole-story playback.
-- **🧩 Sentence Builder** — ten reorderable romaji sentences with separate particle tiles,
+- **🧩 Sentence Builder** — thirty reorderable romaji sentences with separate particle tiles,
   prefix feedback, translation hints and an explanation after every correct solution.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
   open questions (reveal the worked answer).
@@ -205,6 +214,7 @@ src/
     ch1-sounds-and-survival.js … ch8-relationships-and-position.js
                                                # chapter content lives here
     words.js              # the Common Words vocabulary deck
+    phrases.js            # the Common Phrases survival-phrase deck
     stories.js            # the Short Stories dialogues
     puzzles.js            # the Sentence Builder exercises
 ```

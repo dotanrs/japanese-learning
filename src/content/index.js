@@ -7,6 +7,7 @@ import ch6 from './ch6-tourist-situations.js'
 import ch7 from './ch7-quirks.js'
 import ch8 from './ch8-relationships-and-position.js'
 import words from './words.js'
+import phrases from './phrases.js'
 import stories from './stories.js'
 import puzzles from './puzzles.js'
 
@@ -28,6 +29,8 @@ const verbsInAction = {
 const raw = [ch1, sentenceBuilding, ch8, ch3, verbsInAction, ch5, ch6, ch7]
 
 export const wordDeck = words
+
+export const phraseDeck = phrases
 
 export const storyDeck = stories
 

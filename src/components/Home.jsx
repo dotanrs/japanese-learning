@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { chapters, wordDeck, storyDeck, puzzleDeck } from '../content/index.js'
+import { chapters, wordDeck, phraseDeck, storyDeck, puzzleDeck } from '../content/index.js'
 import Translator from './Translator.jsx'
 
 export default function Home() {
@@ -38,6 +38,18 @@ export default function Home() {
               {wordDeck.scenarios.reduce((n, s) => n + s.words.length, 0)} words you
               will actually use, on flashcards, split into{' '}
               {wordDeck.scenarios.length} scenarios. Tap 🔊 to hear any of them.
+            </p>
+          </div>
+          <div className="wb-arrow" aria-hidden="true">→</div>
+        </Link>
+        <Link className="words-banner" to="/phrases">
+          <div className="wb-copy">
+            <div className="eyebrow">Phrase deck</div>
+            <h2>{phraseDeck.title}</h2>
+            <p>
+              {phraseDeck.scenarios.reduce((n, s) => n + s.words.length, 0)} practical
+              phrases across {phraseDeck.scenarios.length} moments, with English-first
+              prompts and a quick explanation on every reveal.
             </p>
           </div>
           <div className="wb-arrow" aria-hidden="true">→</div>

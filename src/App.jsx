@@ -7,7 +7,7 @@ import WordCards from './components/WordCards.jsx'
 import Stories from './components/Stories.jsx'
 import SentenceBuilder from './components/SentenceBuilder.jsx'
 import { TranslatorProvider } from './components/Translator.jsx'
-import { chapters, flatIndex, wordDeck, storyDeck, puzzleDeck } from './content/index.js'
+import { chapters, flatIndex, wordDeck, phraseDeck, storyDeck, puzzleDeck } from './content/index.js'
 
 function SubPage() {
   const { chapterId, subId } = useParams()
@@ -96,7 +96,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/ch/:chapterId/:subId" element={<SubPage />} />
-            <Route path="/words" element={<WordCards deck={wordDeck} />} />
+            <Route path="/words" element={<WordCards key="words" deck={wordDeck} />} />
+            <Route path="/phrases" element={<WordCards key="phrases" deck={phraseDeck} />} />
             <Route path="/stories" element={<Stories deck={storyDeck} />} />
             <Route path="/puzzles" element={<SentenceBuilder deck={puzzleDeck} />} />
             <Route path="*" element={<Navigate to="/" replace />} />

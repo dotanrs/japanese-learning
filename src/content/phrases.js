@@ -1,0 +1,100 @@
+// Practical phrase flashcards drawn from “The 20 Phrases That Cover Most of a
+// Trip”. Each card adds a short usage note so the learner gets context with the
+// answer, not just a bare translation.
+export default {
+  id: 'common-phrases',
+  title: 'Common Phrases',
+  breadcrumb: 'Phrases',
+  defaultJapaneseFirst: false,
+  twoStepReveal: false,
+  intro:
+    'The survival phrases from the first chapter, grouped by moment. Cards start ' +
+    'with English: say the Japanese, then tap once for the answer and a quick usage note.',
+  scenarios: [
+    {
+      id: 'greetings-courtesies',
+      title: 'Greetings & Courtesies',
+      icon: '👋',
+      blurb: 'Polite, dependable phrases for opening and smoothing everyday encounters.',
+      words: [
+        { jp: 'おはようございます', romaji: 'ohayou gozaimasu', en: 'Good morning', note: 'The polite morning greeting, normally used until around 10 a.m.' },
+        { jp: 'こんにちは', romaji: 'konnichiwa', en: 'Hello / good day', note: 'The standard daytime greeting; the final は is pronounced wa.' },
+        { jp: 'こんばんは', romaji: 'konbanwa', en: 'Good evening', note: 'Use this when greeting someone in the evening.' },
+        { jp: 'ありがとうございます', romaji: 'arigatou gozaimasu', en: 'Thank you', note: 'The full polite form and the safest default with strangers or staff.' },
+        { jp: 'どうも', romaji: 'doumo', en: 'Thanks / hi', note: 'A compact casual acknowledgement; useful, but less formal than arigatou gozaimasu.' },
+        { jp: 'はい', romaji: 'hai', en: 'Yes', note: 'Often also means “I hear you” rather than agreement with the whole statement.' },
+        { jp: 'いいえ', romaji: 'iie', en: 'No', note: 'A direct no; Japanese often softens refusals with daijoubu desu or chotto instead.' },
+        { jp: 'お願いします', romaji: 'onegai shimasu', en: 'Please', note: 'The workhorse for requesting an action or service; it literally asks a favour.' },
+        { jp: '大丈夫です', romaji: 'daijoubu desu', en: "It’s fine / I’m OK / no thanks", note: 'Context and gesture decide whether this accepts reassurance or politely declines an offer.' },
+        { jp: '失礼します', romaji: 'shitsurei shimasu', en: 'Excuse me', note: 'Polite when entering, leaving, or interrupting; literally, “I am being rude.”' },
+      ],
+    },
+    {
+      id: 'sumimasen',
+      title: 'Sumimasen',
+      icon: '🙇',
+      blurb: 'One phrase for attention, apology, gratitude, and making your way through.',
+      words: [
+        { jp: 'すみません', romaji: 'sumimasen', en: 'Excuse me / sorry / thank you', note: 'Say it briskly to get attention, softly to apologize or thank someone for their trouble, and while passing through a crowd.' },
+      ],
+    },
+    {
+      id: 'getting-through',
+      title: 'Getting Through an Interaction',
+      icon: '💬',
+      blurb: 'Point, ask, slow things down, and recover when the conversation outruns you.',
+      words: [
+        { jp: 'これをください', romaji: 'kore o kudasai', en: 'This one, please', note: 'Point as you say it. Kore means the item near you; kudasai asks someone to give it to you.' },
+        { jp: 'いくらですか', romaji: 'ikura desu ka', en: 'How much is it?', note: 'A complete polite price question; pointing supplies the item.' },
+        { jp: '〜はどこですか', romaji: '… wa doko desu ka', en: 'Where is …?', note: 'Put the place or thing before wa: toire wa doko desu ka? means “Where is the toilet?”' },
+        { jp: '英語のメニューはありますか', romaji: 'eigo no menyuu wa arimasu ka', en: 'Do you have an English menu?', note: 'Arimasu ka asks whether an inanimate thing is available.' },
+        { jp: 'わかりません', romaji: 'wakarimasen', en: "I don’t understand", note: 'A polite negative. The missing subject is understood from the situation.' },
+        { jp: '日本語がわかりません', romaji: 'nihongo ga wakarimasen', en: "I don’t understand Japanese", note: 'With wakaru, the thing understood is marked by ga, not the object marker o.' },
+        { jp: 'もう一度お願いします', romaji: 'mou ichido onegai shimasu', en: 'One more time, please', note: 'Use this to ask someone to repeat what they just said.' },
+        { jp: 'ゆっくりお願いします', romaji: 'yukkuri onegai shimasu', en: 'Slowly, please', note: 'A compact request for slower speech; combine it with mou ichido for a slow repeat.' },
+        { jp: '英語ができますか', romaji: 'eigo ga dekimasu ka', en: 'Can you speak English?', note: 'Literally asks whether English is possible; polite and readily understood.' },
+        { jp: 'ちょっと待ってください', romaji: 'chotto matte kudasai', en: 'Please wait a moment', note: 'Matte is the te-form of matsu, “wait”; kudasai turns it into a polite request.' },
+        { jp: '書いてください', romaji: 'kaite kudasai', en: 'Please write it down', note: 'A useful extra when a name, address, or price is hard to catch by ear.' },
+      ],
+    },
+    {
+      id: 'introducing-yourself',
+      title: 'Introducing Yourself',
+      icon: '🤝',
+      blurb: 'A four-part introduction you can prepare once and reuse everywhere.',
+      words: [
+        { jp: 'はじめまして', romaji: 'hajimemashite', en: 'Nice to meet you', note: 'Use only at a first meeting; it opens a self-introduction.' },
+        { jp: '〜です', romaji: '[name] desu', en: 'I’m [name]', note: 'Put your name before desu. Japanese normally omits the word for “I” here.' },
+        { jp: '〜から来ました', romaji: '[country] kara kimashita', en: 'I came from [country]', note: 'Replace the blank with your country; kara means “from,” and kimashita is polite past “came.”' },
+        { jp: 'よろしくお願いします', romaji: 'yoroshiku onegai shimasu', en: 'Pleased to meet you', note: 'There is no exact English equivalent: it asks for goodwill and means something like “let’s get along.”' },
+      ],
+    },
+    {
+      id: 'around-food',
+      title: 'Around Food',
+      icon: '🍜',
+      blurb: 'The ritual phrases and practical requests that bookend a good meal.',
+      words: [
+        { jp: 'いただきます', romaji: 'itadakimasu', en: 'I gratefully receive', note: 'Said just before eating to acknowledge the food and everyone involved in providing it.' },
+        { jp: 'ごちそうさまでした', romaji: 'gochisousama deshita', en: 'Thank you for the meal', note: 'Say it after eating, including when leaving a restaurant.' },
+        { jp: 'おいしいです', romaji: 'oishii desu', en: 'It’s delicious', note: 'A simple compliment that is always warmly received.' },
+        { jp: 'お会計お願いします', romaji: 'o-kaikei onegai shimasu', en: 'The bill, please', note: 'Use this when you are ready to pay; many restaurants expect payment at the register.' },
+        { jp: 'おすすめは何ですか', romaji: 'osusume wa nan desu ka', en: 'What do you recommend?', note: 'Osusume means a recommendation or house specialty.' },
+      ],
+    },
+    {
+      id: 'goodbye',
+      title: 'Goodbye',
+      icon: '🌙',
+      blurb: 'Choose a light everyday parting instead of reaching automatically for sayounara.',
+      words: [
+        { jp: 'さようなら', romaji: 'sayounara', en: 'Goodbye / farewell', note: 'Heavier than everyday English “goodbye”; it can suggest a long separation.' },
+        { jp: 'またね', romaji: 'mata ne', en: 'See you', note: 'A light, casual goodbye for friends and people you expect to meet again.' },
+        { jp: '失礼します', romaji: 'shitsurei shimasu', en: 'Excuse me, I’m leaving', note: 'A polite exit from an office, shop, lesson, or formal interaction.' },
+        { jp: 'ありがとうございました', romaji: 'arigatou gozaimashita', en: 'Thank you very much', note: 'The past polite form thanks someone for a completed service; ideal as you leave a shop.' },
+        { jp: 'また会いましょう', romaji: 'mata aimashou', en: 'Let’s meet again', note: 'A friendly, slightly warmer parting when you genuinely hope to see someone again.' },
+        { jp: '気をつけて', romaji: 'ki o tsukete', en: 'Take care', note: 'Literally “be careful”; say it to someone who is heading off or travelling.' },
+      ],
+    },
+  ],
+}

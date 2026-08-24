@@ -1,7 +1,7 @@
 const puzzles = {
   id: 'sentence-builder',
   title: 'Sentence Builder',
-  tags: ['question', 'timing', 'reasons'],
+  tags: ['question', 'timing', 'reasons', 'negation'],
   intro:
     'Start with the Foundation sentences, then tackle longer, multi-clause Advanced challenges. Particles are separate tiles, so every wa, ga, o, ni, and de has to land in the right place.',
   puzzles: [
@@ -137,9 +137,9 @@ const puzzles = {
     {
       id: 'did-not-understand',
       difficulty: 'Foundation',
-      tags: [],
       title: 'Lost in translation',
       icon: '💬',
+      tags: ['negation'],
       prompt: 'I did not understand Japanese.',
       pieces: [
         { id: 'nihongo', jp: 'にほんご', romaji: 'nihongo', en: 'Japanese language' },
@@ -297,7 +297,7 @@ const puzzles = {
     {
       id: 'slowly-again',
       difficulty: 'Advanced',
-      tags: ['reasons'],
+      tags: ['reasons', 'negation'],
       title: 'One more time',
       icon: '🔁',
       prompt: 'If I do not understand, please speak slowly one more time.',
@@ -325,7 +325,7 @@ const puzzles = {
     {
       id: 'english-please',
       difficulty: 'Advanced',
-      tags: ['reasons'],
+      tags: ['reasons', 'negation'],
       title: 'Switch languages',
       icon: '🗣️',
       prompt: 'Because I do not understand Japanese, English please.',
@@ -522,7 +522,7 @@ const puzzles = {
     {
       id: 'rain-plan',
       difficulty: 'Advanced',
-      tags: ['timing', 'reasons'],
+      tags: ['timing', 'reasons', 'negation'],
       title: 'A rainy alternative',
       icon: '🌧️',
       prompt: 'If it rains tomorrow, I will not go to the park; I will go to the museum.',
@@ -652,7 +652,7 @@ const puzzles = {
     {
       id: 'sick-day',
       difficulty: 'Foundation',
-      tags: ['timing', 'reasons'],
+      tags: ['timing', 'reasons', 'negation'],
       title: 'Sick day',
       icon: '🤒',
       prompt: 'Because I was sick, I did not go to work yesterday.',

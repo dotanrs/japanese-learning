@@ -1,6 +1,6 @@
 // A searchable Japanese ↔ English phrasebook, built from content the course
-// already ships: the Common Words deck, the tooltip translations, and every
-// three- or two-column phrase table inside the chapter bodies.
+// already ships: the Common Words and Common Phrases decks, the tooltip
+// translations, and every three- or two-column phrase table in the chapters.
 //
 // Nothing here is hand-maintained — add a table row or a word and it becomes
 // translatable. Built lazily on first lookup and memoised, since it walks
@@ -8,7 +8,7 @@
 //
 // Every entry also carries the route it came from, so a result can send you to
 // the page that teaches it.
-import { chapters, wordDeck } from '../content/index.js'
+import { chapters, wordDeck, phraseDeck } from '../content/index.js'
 import { japaneseTranslations } from '../content/translations.js'
 
 // Hiragana, katakana, CJK ideographs, half-width katakana.
@@ -108,6 +108,12 @@ export function phrasebook() {
   // `?s=` picks the scenario tab, so the link lands on the right deck.
   wordDeck.scenarios.forEach((sc) =>
     sc.words.forEach((w) => add(w, `Common Words · ${sc.title}`, `/words?s=${sc.id}`))
+  )
+
+  phraseDeck.scenarios.forEach((sc) =>
+    sc.words.forEach((phrase) =>
+      add(phrase, `Common Phrases · ${sc.title}`, `/phrases?s=${sc.id}`)
+    )
   )
 
   const pages = []

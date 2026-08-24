@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { chapters, wordDeck, storyDeck, puzzleDeck } from '../content/index.js'
+import { chapters, wordDeck, phraseDeck, storyDeck, puzzleDeck } from '../content/index.js'
 
 export default function Sidebar({ onNavigate }) {
   const location = useLocation()
@@ -18,6 +18,7 @@ export default function Sidebar({ onNavigate }) {
   // Standalone sections match on their own title or any of their activities.
   const standalone = [
     { to: '/words', icon: '🗂️', title: wordDeck.title, tabs: wordDeck.scenarios },
+    { to: '/phrases', icon: '🗣️', title: phraseDeck.title, tabs: phraseDeck.scenarios },
     { to: '/stories', icon: '📖', title: storyDeck.title, tabs: storyDeck.stories },
     { to: '/puzzles', icon: '🧩', title: puzzleDeck.title, tabs: puzzleDeck.puzzles },
   ].filter(

@@ -4,10 +4,10 @@ import { hasSpeech, watchJapaneseVoice } from '../lib/speech.js'
 import SpeakButton from './SpeakButton.jsx'
 import Translator from './Translator.jsx'
 
-function WordCard({ word, showJapaneseFirst, revealAll, canSpeak }) {
+function WordCard({ word, showJapaneseFirst, revealAll, canSpeak, allowTwoStepReveal }) {
   const [revealStep, setRevealStep] = useState(0)
   const hasExample = Boolean(word.example)
-  const twoStepReveal = showJapaneseFirst && hasExample
+  const twoStepReveal = allowTwoStepReveal && showJapaneseFirst && hasExample
   const fullyShown = revealAll || revealStep >= (twoStepReveal ? 2 : 1)
   const showExample = hasExample && (revealAll || revealStep >= 1)
   const shown = fullyShown || showExample
@@ -78,10 +78,12 @@ function WordCard({ word, showJapaneseFirst, revealAll, canSpeak }) {
 }
 
 export default function WordCards({ deck }) {
-  // The open tab lives in the URL (`#/words?s=restaurant`), so the translate
-  // box and any other link can point at one scenario.
+  // The open tab lives in the URL, so the translate box and other links can
+  // point directly at one topic in either deck.
   const [params, setParams] = useSearchParams()
-  const [showJapaneseFirst, setShowJapaneseFirst] = useState(true)
+  const [showJapaneseFirst, setShowJapaneseFirst] = useState(
+    () => deck.defaultJapaneseFirst ?? true
+  )
   const [revealAll, setRevealAll] = useState(false)
   const [canSpeak, setCanSpeak] = useState(false)
 
@@ -102,7 +104,7 @@ export default function WordCards({ deck }) {
   return (
     <div className="content lesson-content">
       <div className="breadcrumb">
-        Vocabulary <span>／</span> By scenario
+        {deck.breadcrumb || 'Vocabulary'} <span>／</span> By topic
       </div>
       <h1>{deck.title}</h1>
       <Translator />
@@ -161,6 +163,7 @@ export default function WordCards({ deck }) {
             showJapaneseFirst={showJapaneseFirst}
             revealAll={revealAll}
             canSpeak={canSpeak}
+            allowTwoStepReveal={deck.twoStepReveal !== false}
           />
         ))}
       </div>
