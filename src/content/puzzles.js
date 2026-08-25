@@ -3,7 +3,7 @@ const puzzles = {
   title: 'Sentence Builder',
   tags: ['question', 'timing', 'reasons', 'negation'],
   intro:
-    'Start with the Foundation sentences, then tackle longer, multi-clause Advanced challenges. Particles are separate tiles, so every wa, ga, o, ni, and de has to land in the right place.',
+    'Start with single-focus Foundation sentences, combine concepts in Intermediate, then tackle longer, multi-clause Advanced challenges. Particles are separate tiles, so every wa, ga, o, ni, and de has to land in the right place.',
   puzzles: [
     {
       id: 'morning-coffee',
@@ -264,6 +264,66 @@ const puzzles = {
       pattern: 'Recipient/ni + adjective + object/o + desire + desu',
       explanation:
         'Ni follows kazoku to mark the family as the intended recipient. The i-adjective chiisai goes directly before omiyage, the noun it describes, and o follows that noun to mark it as the object. Kaitai means “want to buy,” and desu makes the statement polite.',
+    },
+    {
+      id: 'train-at-nine',
+      difficulty: 'Foundation',
+      tags: ['timing'],
+      title: 'Nine o’clock train',
+      icon: '🕘',
+      prompt: 'The train leaves at nine.',
+      pieces: [
+        { id: 'densha', jp: 'でんしゃ', romaji: 'densha', en: 'train' },
+        { id: 'wa', jp: 'は', romaji: 'wa', en: 'topic marker' },
+        { id: 'kuji', jp: 'くじ', romaji: 'kuji', en: 'nine o’clock' },
+        { id: 'ni', jp: 'に', romaji: 'ni', en: 'at / time marker' },
+        { id: 'demasu', jp: 'でます', romaji: 'demasu', en: 'leaves / departs' },
+      ],
+      scrambled: ['ni', 'demasu', 'densha', 'kuji', 'wa'],
+      answer: ['densha', 'wa', 'kuji', 'ni', 'demasu'],
+      pattern: 'Topic/wa + clock time/ni + verb',
+      explanation:
+        'Wa marks densha as the topic. A specific clock time takes ni, so ni follows kuji. Demasu, the action “leaves,” comes last.',
+    },
+    {
+      id: 'is-this-a-map',
+      difficulty: 'Foundation',
+      tags: ['question'],
+      title: 'A map?',
+      icon: '🗺️',
+      prompt: 'Is this a map?',
+      pieces: [
+        { id: 'kore', jp: 'これ', romaji: 'kore', en: 'this' },
+        { id: 'wa', jp: 'は', romaji: 'wa', en: 'topic marker' },
+        { id: 'chizu', jp: 'ちず', romaji: 'chizu', en: 'map' },
+        { id: 'desu', jp: 'です', romaji: 'desu', en: 'is / polite copula' },
+        { id: 'ka', jp: 'か', romaji: 'ka', en: 'question marker' },
+      ],
+      scrambled: ['chizu', 'ka', 'kore', 'desu', 'wa'],
+      answer: ['kore', 'wa', 'chizu', 'desu', 'ka'],
+      pattern: 'Topic/wa + noun + desu + ka',
+      explanation:
+        'Wa marks kore, “this,” as the topic. Chizu identifies it as a map, desu makes the sentence polite, and the final ka turns the statement into a question.',
+    },
+    {
+      id: 'no-meat',
+      difficulty: 'Foundation',
+      tags: ['negation'],
+      title: 'No meat',
+      icon: '🥩',
+      prompt: 'I do not eat meat.',
+      pieces: [
+        { id: 'watashi', jp: 'わたし', romaji: 'watashi', en: 'I / me' },
+        { id: 'wa', jp: 'は', romaji: 'wa', en: 'topic marker' },
+        { id: 'niku', jp: 'にく', romaji: 'niku', en: 'meat' },
+        { id: 'o', jp: 'を', romaji: 'o', en: 'direct-object marker' },
+        { id: 'tabemasen', jp: 'たべません', romaji: 'tabemasen', en: 'do not eat' },
+      ],
+      scrambled: ['tabemasen', 'niku', 'wa', 'watashi', 'o'],
+      answer: ['watashi', 'wa', 'niku', 'o', 'tabemasen'],
+      pattern: 'Topic/wa + object/o + negative verb',
+      explanation:
+        'Wa marks watashi as the topic, and o marks niku as what is eaten. Tabemasen is the polite negative form of tabemasu, so it means “do not eat.”',
     },
     {
       id: 'time-if',
@@ -573,7 +633,7 @@ const puzzles = {
     },
     {
       id: 'late-yesterday',
-      difficulty: 'Foundation',
+      difficulty: 'Intermediate',
       tags: ['question', 'timing', 'reasons'],
       title: 'Late yesterday',
       icon: '⏰',
@@ -651,7 +711,7 @@ const puzzles = {
     },
     {
       id: 'sick-day',
-      difficulty: 'Foundation',
+      difficulty: 'Intermediate',
       tags: ['timing', 'reasons', 'negation'],
       title: 'Sick day',
       icon: '🤒',
@@ -682,7 +742,7 @@ const puzzles = {
     },
     {
       id: 'opening-time',
-      difficulty: 'Foundation',
+      difficulty: 'Intermediate',
       tags: ['question', 'timing'],
       title: 'Opening time',
       icon: '🕘',
@@ -781,7 +841,7 @@ const puzzles = {
     },
     {
       id: 'reason-to-study',
-      difficulty: 'Foundation',
+      difficulty: 'Intermediate',
       tags: ['question', 'reasons'],
       title: 'Reason to study',
       icon: '📚',

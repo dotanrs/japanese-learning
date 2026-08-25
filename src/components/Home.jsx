@@ -71,8 +71,8 @@ export default function Home() {
             <h2>{puzzleDeck.title}</h2>
             <p>
               Arrange romaji words and particles across {puzzleDeck.puzzles.length} practical
-              sentences in Foundation and Advanced levels, then unlock a clear explanation
-              of each word-order pattern.
+              sentences in Foundation, Intermediate, and Advanced levels, then unlock a clear
+              explanation of each word-order pattern.
             </p>
           </div>
           <div className="wb-arrow" aria-hidden="true">→</div>

@@ -396,13 +396,22 @@ export default function SentenceBuilder({ deck }) {
     return deck.tags.filter((tag) => requested.includes(tag))
   }, [deck.tags, params])
   const difficultyGroups = useMemo(
-    () => deck.puzzles.reduce((groups, item, index) => {
-      const label = item.difficulty || 'Practice'
-      const group = groups.find((entry) => entry.label === label)
-      if (group) group.puzzles.push({ item, index, levelIndex: group.puzzles.length })
-      else groups.push({ label, puzzles: [{ item, index, levelIndex: 0 }] })
-      return groups
-    }, []),
+    () => {
+      const order = ['Foundation', 'Intermediate', 'Advanced']
+      return deck.puzzles
+        .reduce((groups, item, index) => {
+          const label = item.difficulty || 'Practice'
+          const group = groups.find((entry) => entry.label === label)
+          if (group) group.puzzles.push({ item, index, levelIndex: group.puzzles.length })
+          else groups.push({ label, puzzles: [{ item, index, levelIndex: 0 }] })
+          return groups
+        }, [])
+        .sort((a, b) => {
+          const aIndex = order.indexOf(a.label)
+          const bIndex = order.indexOf(b.label)
+          return (aIndex === -1 ? order.length : aIndex) - (bIndex === -1 ? order.length : bIndex)
+        })
+    },
     [deck]
   )
   const orderedPuzzles = useMemo(

@@ -27,8 +27,8 @@ base teaching conversational Japanese for travellers).
   it, because `jp` is what speech synthesis reads. Every story needs a `catch` (the turn,
   explained in English); it is hidden behind a button so it can't spoil the story. Grammar
   stays inside what the course teaches: -masu forms and the Chapter 6 set phrases.
-- `src/content/puzzles.js` — the **Sentence Builder** section: thirty word-order exercises
-  split into Foundation and Advanced difficulty levels.
+- `src/content/puzzles.js` — the **Sentence Builder** section: thirty-three word-order exercises
+  split into Foundation, Intermediate, and Advanced difficulty levels.
   The deck declares its available `tags`, and every puzzle owns a `tags` array, Japanese
   `pieces`, fixed `scrambled` order, canonical `answer`, and a written grammar `explanation`
   shown only after a correct check. Optional `alsoAcceptable` entries each own an `answer`

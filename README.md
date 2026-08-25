@@ -138,8 +138,9 @@ read.
 
 ### Sentence Builder (`/#/puzzles`)
 
-Thirty practical word-order puzzles: twenty Foundation exercises and ten longer, multi-clause
-Advanced challenges. Arrange romaji words with particles such as *wa*, *ga*,
+Thirty-three practical word-order puzzles: nineteen single-focus Foundation exercises, four
+Intermediate exercises that combine concepts, and ten longer, multi-clause Advanced challenges.
+Arrange romaji words with particles such as *wa*, *ga*,
 *o*, *ni* and *de* on their own tiles (or use tap-to-swap and keyboard arrows). Hover or
 hold a tile for its meaning. Filter the set with the **question**, **timing**, **reasons**,
 and **negation** tags; multiple selected tags show puzzles matching any selection. Checking
@@ -190,7 +191,7 @@ it sits *above* the phrasebook rather than replacing it.
 - **🗣️ Phrase cards** — English-first travel phrases with one-tap answers and usage notes.
 - **📖 Short stories** — dialogue with per-sentence translations, grammar breakdowns and
   whole-story playback.
-- **🧩 Sentence Builder** — thirty reorderable romaji sentences with separate particle tiles,
+- **🧩 Sentence Builder** — thirty-three reorderable romaji sentences with separate particle tiles,
   prefix feedback, translation hints and an explanation after every correct solution.
 - **🧠 Test-yourself** — multiple-choice (instant right/wrong feedback + explanation) and
   open questions (reveal the worked answer).
