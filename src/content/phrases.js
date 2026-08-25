@@ -30,20 +30,12 @@ export default {
       ],
     },
     {
-      id: 'sumimasen',
-      title: 'Sumimasen',
-      icon: '🙇',
-      blurb: 'One phrase for attention, apology, gratitude, and making your way through.',
-      words: [
-        { jp: 'すみません', romaji: 'sumimasen', en: 'Excuse me / sorry / thank you', note: 'Say it briskly to get attention, softly to apologize or thank someone for their trouble, and while passing through a crowd.' },
-      ],
-    },
-    {
       id: 'getting-through',
       title: 'Getting Through an Interaction',
       icon: '💬',
       blurb: 'Point, ask, slow things down, and recover when the conversation outruns you.',
       words: [
+        { jp: 'すみません', romaji: 'sumimasen', en: 'Excuse me / sorry / thank you', note: 'Say it briskly to get attention, softly to apologize or thank someone for their trouble, and while passing through a crowd.' },
         { jp: 'これをください', romaji: 'kore o kudasai', en: 'This one, please', note: 'Point as you say it. Kore means the item near you; kudasai asks someone to give it to you.' },
         { jp: 'いくらですか', romaji: 'ikura desu ka', en: 'How much is it?', note: 'A complete polite price question; pointing supplies the item.' },
         { jp: '〜はどこですか', romaji: '… wa doko desu ka', en: 'Where is …?', note: 'Put the place or thing before wa: toire wa doko desu ka? means “Where is the toilet?”' },
@@ -78,6 +70,8 @@ export default {
         { jp: 'いただきます', romaji: 'itadakimasu', en: 'I gratefully receive', note: 'Said just before eating to acknowledge the food and everyone involved in providing it.' },
         { jp: 'ごちそうさまでした', romaji: 'gochisousama deshita', en: 'Thank you for the meal', note: 'Say it after eating, including when leaving a restaurant.' },
         { jp: 'おいしいです', romaji: 'oishii desu', en: 'It’s delicious', note: 'A simple compliment that is always warmly received.' },
+        { jp: '私はベジタリアンです', romaji: 'watashi wa bejitarian desu', en: 'I am a vegetarian', note: 'Clearly says you are vegetarian, but it does not by itself rule out fish stock; ask about dashi if you need to avoid it.' },
+        { jp: '肉が入っていないものはありますか', romaji: 'niku ga haitte inai mono wa arimasu ka', en: 'What do you have without meat?', note: 'Literally, “Do you have anything that does not contain meat?” It may not exclude fish or fish stock.' },
         { jp: 'お会計お願いします', romaji: 'o-kaikei onegai shimasu', en: 'The bill, please', note: 'Use this when you are ready to pay; many restaurants expect payment at the register.' },
         { jp: 'おすすめは何ですか', romaji: 'osusume wa nan desu ka', en: 'What do you recommend?', note: 'Osusume means a recommendation or house specialty.' },
       ],
@@ -92,6 +86,7 @@ export default {
         { jp: 'またね', romaji: 'mata ne', en: 'See you', note: 'A light, casual goodbye for friends and people you expect to meet again.' },
         { jp: '失礼します', romaji: 'shitsurei shimasu', en: 'Excuse me, I’m leaving', note: 'A polite exit from an office, shop, lesson, or formal interaction.' },
         { jp: 'ありがとうございました', romaji: 'arigatou gozaimashita', en: 'Thank you very much', note: 'The past polite form thanks someone for a completed service; ideal as you leave a shop.' },
+        { jp: 'お会いできてよかったです', romaji: 'o-ai dekite yokatta desu', en: 'It was nice meeting you', note: 'Natural and warm when parting, though less automatic than the English phrase. At the start of a first meeting, use hajimemashite instead.' },
         { jp: 'また会いましょう', romaji: 'mata aimashou', en: 'Let’s meet again', note: 'A friendly, slightly warmer parting when you genuinely hope to see someone again.' },
         { jp: '気をつけて', romaji: 'ki o tsukete', en: 'Take care', note: 'Literally “be careful”; say it to someone who is heading off or travelling.' },
       ],
