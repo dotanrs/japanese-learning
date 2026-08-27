@@ -67,9 +67,9 @@ several weeks unused — reopening it once online restores everything.
 ## What's inside
 
 8 chapters · 26 topics · 145 flashcards · 81 self-test questions, plus a standalone
-**Common Words** deck of 195 vocabulary cards across 10 scenarios, 37 **Common Phrases**
-across 6 topics, 7 **Short Stories** in dialogue, and 30 drag-and-drop **Sentence Builder**
-puzzles across two difficulty levels.
+**Common Words** deck of 195 vocabulary cards across 10 scenarios, 261 **Common Phrases**
+across 22 moments, 13 **Short Stories** in dialogue, and 33 drag-and-drop **Sentence Builder**
+puzzles across three difficulty levels.
 
 1. **Sounds & Survival Kit** — the mora/beat system, the five vowels, vowel length as
    meaning (*biiru* vs *biru*), pitch accent, devoiced vowels; the 20 phrases that cover a
@@ -114,27 +114,45 @@ voice installed the buttons are hidden and the page says so.
 
 ### Common Phrases (`/#/phrases`)
 
-The survival expressions from **The 20 Phrases That Cover Most of a Trip**, expanded into
-37 flashcards under **Greetings & Courtesies, Sumimasen, Getting Through an Interaction,
-Introducing Yourself, Around Food**, and **Goodbye**. Cards default to English → Japanese
-and reveal the Japanese, romaji, and a short usage or grammar explanation in one step.
+Almost every sentence the chapters teach, pulled out of the prose and regrouped by the
+moment you would say it: 261 flashcards across 22 tabs — **Greetings & Courtesies, Getting
+Through an Interaction, Introducing Yourself, Questions That Get Answers, Asking Someone To
+Do Something, Reacting & Apologising, Around the Table, Ordering a Meal, What You Can't Eat,
+Paying, In a Shop, What the Staff Will Say, Asking the Way, Trains & Taxis, At the Hotel,
+Trouble & Lost Things, Feeling Unwell, Times & Opening Hours, Talking About Your Trip,
+Saying How & Where, Joining Ideas** and **Goodbye**. Cards default to English → Japanese and
+reveal the Japanese, romaji, and a short usage or grammar explanation in one step.
+
+Every card is a whole sentence — single words live in the Common Words deck, so the two
+decks complement each other rather than overlap. **What the Staff Will Say** is the one tab
+you only ever need to recognise: *irasshaimase*, *atatamemasu ka*, *ikkatsu de yoroshii desu
+ka* and the rest of what is said *to* you at a till.
 
 ### Short Stories (`/#/stories`)
 
-Seven very short stories, one per tab, almost entirely dialogue — two Ikkyū riddles, three
-jokes built on a literal reading, a Zen story, and a restaurant scene where a textbook
-phrase backfires. Each runs six to nine lines and turns on a pun or a reversal.
+Thirteen very short pieces, one per tab, almost entirely dialogue, in two kinds.
+
+**Six everyday interactions**, eleven to thirteen lines each: asking the way and confirming
+the one word that matters, ordering ramen with no meat *and* no fish stock, checking in at a
+hotel desk, the four yes-or-no questions asked at a convenience-store till, buying a train
+ticket with a transfer, and trying a jacket on in a shop. Each ends with a **What to notice**
+panel naming the pattern that carried the exchange — *kara*/*made*, the noun-replacing *no*,
+*daijoubu desu* as a polite refusal.
+
+**Seven stories with a sting in the tail** — two Ikkyū riddles, three jokes built on a
+literal reading, a Zen story, and a restaurant scene where a textbook phrase backfires. Each
+runs six to nine lines and turns on a pun or a reversal, explained in a **The catch** panel.
 
 Every line shows the Japanese and its romaji. **Tap a sentence** for its English plus a
 word-by-word breakdown: every chunk of the sentence in order, with what it means and the
 job it does — *topic marker*, *object marker*, *te-form of 渡る*, *potential negative of
-縛る*. 267 chunks across the 49 lines, all hand-written.
+縛る*. 565 chunks across the 118 lines, all hand-written.
 
 Two reveal levels, on purpose: tapping one sentence gives the full study view, while
-**Show all English** gives translations only, since seven breakdowns at once is a wall.
+**Show all English** gives translations only, since a dozen breakdowns at once is a wall.
 🔊 reads a single line and **Play story** reads the whole thing in order, highlighting each
-line as it goes. The catch is explained at the end, behind a button so it can't spoil the
-read.
+line as it goes. The catch (or the takeaway) sits at the end behind a button, so it can't
+spoil the read.
 
 ### Sentence Builder (`/#/puzzles`)
 
@@ -167,7 +185,7 @@ matches whole. It tolerates romaji spelling (*arigato* → ありがとう) and 
 says plainly when a phrase isn't covered.
 
 This is a phrasebook lookup, **not** a machine-translation engine: it is offline, private
-and instant, but it only knows the ~510 phrases the course contains. Each result names the
+and instant, but it only knows the ~760 phrases the course contains. Each result names the
 chapter or word-deck scenario it comes from, **and links to it** — so a phrase you like is
 one click from the page that teaches it.
 
@@ -188,7 +206,8 @@ it sits *above* the phrasebook rather than replacing it.
   chapter.
 - **🃏 Flashcards** — click to reveal the answer.
 - **🗂️ Word cards** — the Common Words deck, tabbed by scenario, with spoken audio.
-- **🗣️ Phrase cards** — English-first travel phrases with one-tap answers and usage notes.
+- **🗣️ Phrase cards** — English-first travel phrases with one-tap answers and usage notes,
+  covering nearly every sentence the chapters teach.
 - **📖 Short stories** — dialogue with per-sentence translations, grammar breakdowns and
   whole-story playback.
 - **🧩 Sentence Builder** — thirty-three reorderable romaji sentences with separate particle tiles,

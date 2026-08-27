@@ -14,8 +14,16 @@ base teaching conversational Japanese for travellers).
   One scenario = one tab at `/#/words`. `jp` is
   the string fed to speech synthesis, so keep it natural Japanese — no romaji, no
   bracketed glosses.
+- `src/content/phrases.js` — the **Common Phrases** deck at `/#/phrases`. Same shape as
+  `words.js` (it is rendered by the same `WordCards`), plus deck-level `breadcrumb`,
+  `defaultJapaneseFirst: false` and `twoStepReveal: false` — so cards start with English
+  and reveal in one tap. Every card carries a `note`; none carries an `example`, because a
+  card here **is** a sentence. That is the division of labour with `words.js`: single words
+  there, whole sentences here. The content is meant to be the chapters' own sentences
+  regrouped by moment (ordering, paying, asking the way…), so when a chapter gains a phrase
+  table, this deck is where the sentences belong too.
 - `src/content/stories.js` — the **Short Stories** section: `{ id, title, intro, stories:
-  [{ id, title, jpTitle, icon, blurb, cast, lines, catch }] }`, where each line is
+  [{ id, title, jpTitle, icon, blurb, cast, lines, catch?, takeaway? }] }`, where each line is
   `{ speaker?, jp, romaji, en, parts }` and a line with no `speaker` is narration.
   `parts` is the grammar breakdown shown beside the translation — one entry per chunk, in
   order, each `{ jp, romaji, en, role }`, where `en` is the chunk's meaning (`"—"` when it
@@ -24,9 +32,13 @@ base teaching conversational Japanese for travellers).
   checkable, and it catches a skipped word straight away. Don't try to derive `parts`
   automatically: naive segmentation gets conjugated verbs (渡りませんでした) confidently wrong. One story = one
   tab at `/#/stories`. Keep `jp` to the sentence alone — the speaker label must stay out of
-  it, because `jp` is what speech synthesis reads. Every story needs a `catch` (the turn,
-  explained in English); it is hidden behind a button so it can't spoil the story. Grammar
-  stays inside what the course teaches: -masu forms and the Chapter 6 set phrases.
+  it, because `jp` is what speech synthesis reads. A story ends with **either** a `catch`
+  (the turn, explained in English) **or** a `takeaway` (the pattern an everyday interaction
+  was built to teach) — never both, and the panel is skipped entirely if a story has
+  neither. Both are hidden behind a button so a `catch` can't spoil the story. The everyday
+  interactions (directions, ordering, hotel desk, till, ticket window, fitting room) come
+  first in the array, since `Stories` opens on `stories[0]`. Grammar stays inside what the
+  course teaches: -masu forms and the Chapter 6 set phrases.
 - `src/content/puzzles.js` — the **Sentence Builder** section: thirty-three word-order exercises
   split into Foundation, Intermediate, and Advanced difficulty levels.
   The deck declares its available `tags`, and every puzzle owns a `tags` array, Japanese
@@ -50,7 +62,7 @@ base teaching conversational Japanese for travellers).
   sequence advance — that's why `SpeakButton` takes an `onPlay` hook to stop the story
   first.
 - `src/lib/phrasebook.js` + `src/lib/translate.js` — the quick-translate box. **The
-  phrasebook is derived from the content, never hand-written**: it indexes `words.js`, the
+  phrasebook is derived from the content, never hand-written**: it indexes `words.js`, `phrases.js`, the
   `translations.js` tooltips, and every chapter table row whose first cell contains
   Japanese; `stories.js` is deliberately **not** indexed, because story narration ("a year
   passed") is not a phrase anyone looks up and it crowds out the ones that are.

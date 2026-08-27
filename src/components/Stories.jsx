@@ -209,18 +209,20 @@ export default function Stories({ deck }) {
           ))}
         </ol>
 
-        <div className="story-catch">
-          {showCatch ? (
-            <>
-              <div className="sc-tag">The catch</div>
-              <JapaneseMarkdown>{story.catch}</JapaneseMarkdown>
-            </>
-          ) : (
-            <button className="reveal-btn" onClick={() => setShowCatch(true)}>
-              Show the catch ▾
-            </button>
-          )}
-        </div>
+        {(story.catch || story.takeaway) && (
+          <div className="story-catch">
+            {showCatch ? (
+              <>
+                <div className="sc-tag">{story.catch ? 'The catch' : 'What to notice'}</div>
+                <JapaneseMarkdown>{story.catch || story.takeaway}</JapaneseMarkdown>
+              </>
+            ) : (
+              <button className="reveal-btn" onClick={() => setShowCatch(true)}>
+                {story.catch ? 'Show the catch ▾' : 'What to notice ▾'}
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

@@ -59,8 +59,9 @@ export default function Home() {
             <div className="eyebrow">Reading</div>
             <h2>{storyDeck.title}</h2>
             <p>
-              {storyDeck.stories.length} dialogue stories, each with a sting in the
-              tail. Tap a sentence for the English, or play the whole story aloud.
+              {storyDeck.stories.length} dialogue pieces — everyday interactions and
+              stories with a sting in the tail. Tap a sentence for the English, or play
+              the whole story aloud.
             </p>
           </div>
           <div className="wb-arrow" aria-hidden="true">→</div>
