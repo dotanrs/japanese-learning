@@ -117,11 +117,11 @@ export function StarredProvider({ children }) {
     })
   }, [])
 
-  const updateCard = useCallback((card) => {
+  const replaceCard = useCallback((originalId, card) => {
     const copied = copyCard(card)
     if (!copied) return
     setCards((current) =>
-      current.map((item) => (item.id === copied.id ? copied : item))
+      current.map((item) => (item.id === originalId ? copied : item))
     )
   }, [])
 
@@ -165,8 +165,8 @@ export function StarredProvider({ children }) {
   )
 
   const value = useMemo(
-    () => ({ cards, isStarred, addCard, toggleCard, updateCard, removeCard, importCards }),
-    [cards, isStarred, addCard, toggleCard, updateCard, removeCard, importCards]
+    () => ({ cards, isStarred, addCard, toggleCard, replaceCard, removeCard, importCards }),
+    [cards, isStarred, addCard, toggleCard, replaceCard, removeCard, importCards]
   )
 
   return <StarredContext.Provider value={value}>{children}</StarredContext.Provider>

@@ -10,6 +10,13 @@ function makeCustomId() {
   return `custom:${Date.now()}:${Math.random().toString(36).slice(2)}`
 }
 
+function makeEditedId() {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return `edited:${crypto.randomUUID()}`
+  }
+  return `edited:${Date.now()}:${Math.random().toString(36).slice(2)}`
+}
+
 function emptyExample() {
   return { jp: '', before: '', focus: '', after: '', en: '' }
 }
@@ -37,7 +44,7 @@ async function copyToClipboard(text) {
 }
 
 export default function Starred() {
-  const { cards, addCard, updateCard, removeCard, importCards } = useStarred()
+  const { cards, addCard, replaceCard, removeCard, importCards } = useStarred()
   const [revealAll, setRevealAll] = useState(false)
   const [canSpeak, setCanSpeak] = useState(false)
   const [japanese, setJapanese] = useState('')
@@ -181,8 +188,11 @@ export default function Starred() {
     if (editingId) {
       const current = cards.find((card) => card.id === editingId)
       if (current) {
-        updateCard({
+        const detachFromOriginal =
+          !current.custom && (!current.edited || current.id.startsWith('deck:'))
+        replaceCard(editingId, {
           ...current,
+          id: detachFromOriginal ? makeEditedId() : current.id,
           jp,
           romaji: savedRomaji,
           en,
