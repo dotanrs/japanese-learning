@@ -511,7 +511,7 @@ export default function Starred() {
             <span className="section-kicker">Permanent action</span>
             <h2 id="delete-confirm-title">Delete this flashcard?</h2>
             <p id="delete-confirm-description">
-              “{deleteCandidate.jp}” will be removed from your starred deck.
+              “{deleteCandidate.jp || deleteCandidate.romaji}” will be removed from your starred deck.
             </p>
             <div className="import-modal-actions">
               <button className="wc-ctl" type="button" onClick={() => setDeleteCandidate(null)}>
