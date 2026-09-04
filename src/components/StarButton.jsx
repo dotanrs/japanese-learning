@@ -3,7 +3,8 @@ import { useStarred } from './StarredProvider.jsx'
 export default function StarButton({ card }) {
   const { isStarred, toggleCard } = useStarred()
   const selected = isStarred(card.id)
-  const label = selected ? `Remove ${card.jp} from starred` : `Save ${card.jp} to starred`
+  const cardName = card.jp || card.romaji
+  const label = selected ? `Remove ${cardName} from starred` : `Save ${cardName} to starred`
 
   return (
     <button
@@ -21,4 +22,3 @@ export default function StarButton({ card }) {
     </button>
   )
 }
-

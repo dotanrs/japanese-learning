@@ -22,7 +22,6 @@ function copyExample(example) {
 function copyCard(card, fallbackId) {
   if (!card || typeof card !== 'object') return null
   if (typeof card.jp !== 'string' || typeof card.en !== 'string') return null
-  if (!card.jp || !card.en) return null
 
   const optionalStrings = ['romaji', 'note', 'source']
   if (
@@ -32,6 +31,7 @@ function copyCard(card, fallbackId) {
   ) {
     return null
   }
+  if ((!card.jp && !card.romaji) || !card.en) return null
 
   const example = copyExample(card.example)
   if (example === null) return null

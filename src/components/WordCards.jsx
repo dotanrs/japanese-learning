@@ -26,11 +26,17 @@ export function WordCard({
     setRevealStep((step) => (step >= lastStep ? 0 : step + 1))
   }
 
-  const prompt = showJapaneseFirst ? (
+  const japaneseSide = word.jp ? (
     <>
       <span className="wc-jp">{word.jp}</span>
       <span className="wc-romaji">{word.romaji}</span>
     </>
+  ) : (
+    <span className="wc-romaji-primary">{word.romaji}</span>
+  )
+
+  const prompt = showJapaneseFirst ? (
+    japaneseSide
   ) : (
     <span className="wc-en-prompt">{word.en}</span>
   )
@@ -38,10 +44,7 @@ export function WordCard({
   const answer = showJapaneseFirst ? (
     <span className="wc-en">{word.en}</span>
   ) : (
-    <>
-      <span className="wc-jp">{word.jp}</span>
-      <span className="wc-romaji">{word.romaji}</span>
-    </>
+    japaneseSide
   )
 
   return (
@@ -49,7 +52,7 @@ export function WordCard({
       className={'word-card' + (shown ? ' open' : '')}
       onClick={advanceReveal}
       tabIndex={0}
-      aria-label={`Flashcard: ${showJapaneseFirst ? word.jp : word.en}${shown ? ', revealed' : ''}`}
+      aria-label={`Flashcard: ${showJapaneseFirst ? (word.jp || word.romaji) : word.en}${shown ? ', revealed' : ''}`}
       onKeyDown={(e) => {
         if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault()
@@ -64,8 +67,8 @@ export function WordCard({
             <button
               className="edit-card-btn"
               type="button"
-              aria-label={`Edit ${word.jp}`}
-              title={`Edit ${word.jp}`}
+              aria-label={`Edit ${word.jp || word.romaji}`}
+              title={`Edit ${word.jp || word.romaji}`}
               onClick={(event) => {
                 event.stopPropagation()
                 onEdit()

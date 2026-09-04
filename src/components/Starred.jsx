@@ -62,6 +62,11 @@ export default function Starred() {
   const importInputRef = useRef(null)
   const customPanelRef = useRef(null)
   const japaneseInputRef = useRef(null)
+  const cardFormValid = Boolean(
+    (japanese.trim() || romaji.trim()) &&
+    translation.trim() &&
+    explanation.trim()
+  )
 
   useEffect(() => watchJapaneseVoice(setCanSpeak), [])
 
@@ -183,7 +188,7 @@ export default function Starred() {
           en: example.en.trim(),
         }
       : undefined
-    if (!jp || !en || (!editingId && !note)) return
+    if ((!jp && !savedRomaji) || !en || !note) return
 
     if (editingId) {
       const current = cards.find((card) => card.id === editingId)
@@ -260,7 +265,7 @@ export default function Starred() {
             <span>
               <span className="section-kicker">Make it yours</span>
               <strong id="custom-card-heading">Add a custom flashcard</strong>
-              <small>Japanese, translation, explanation, and optional examples</small>
+              <small>Japanese or romaji, translation, explanation, and optional examples</small>
             </span>
             <span className="custom-card-toggle-icon" aria-hidden="true">＋</span>
           </button>
@@ -290,17 +295,16 @@ export default function Starred() {
         )}
         {formOpen && <form className="custom-card-form" onSubmit={saveCard}>
           <label>
-            Japanese phrase
+            Japanese phrase <span className="field-optional">(optional if romaji is filled)</span>
             <input
               ref={japaneseInputRef}
               value={japanese}
               onChange={(event) => setJapanese(event.target.value)}
               placeholder="例：お元気ですか"
-              required
             />
           </label>
           <label>
-            Romaji
+            Romaji <span className="field-optional">(required if Japanese is blank)</span>
             <input
               value={romaji}
               onChange={(event) => setRomaji(event.target.value)}
@@ -323,7 +327,7 @@ export default function Starred() {
               onChange={(event) => setExplanation(event.target.value)}
               placeholder="お元気 means well; ですか makes it a polite question."
               rows="3"
-              required={!editingId}
+              required
             />
           </label>
           <fieldset className="custom-card-example">
@@ -381,7 +385,7 @@ export default function Starred() {
             {editingId && (
               <button className="wc-ctl" type="button" onClick={resetCardForm}>Cancel editing</button>
             )}
-            <button className="custom-card-submit" type="submit">
+            <button className="custom-card-submit" type="submit" disabled={!cardFormValid}>
               {editingId ? 'Save changes' : 'Add to starred'}
             </button>
           </div>
