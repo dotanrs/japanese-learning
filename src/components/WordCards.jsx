@@ -12,6 +12,7 @@ export function WordCard({
   canSpeak,
   allowTwoStepReveal,
   starCard,
+  onEdit,
 }) {
   const [revealStep, setRevealStep] = useState(0)
   const hasExample = Boolean(word.example)
@@ -59,6 +60,20 @@ export function WordCard({
       <div className="wc-head">
         <div className="wc-prompt">{prompt}</div>
         <div className="wc-actions">
+          {onEdit && (
+            <button
+              className="edit-card-btn"
+              type="button"
+              aria-label={`Edit ${word.jp}`}
+              title={`Edit ${word.jp}`}
+              onClick={(event) => {
+                event.stopPropagation()
+                onEdit()
+              }}
+            >
+              <span aria-hidden="true">✎</span>
+            </button>
+          )}
           {starCard && <StarButton card={starCard} />}
           <SpeakButton jp={word.jp} enabled={canSpeak} />
         </div>

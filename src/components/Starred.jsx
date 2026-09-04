@@ -10,6 +10,10 @@ function makeCustomId() {
   return `custom:${Date.now()}:${Math.random().toString(36).slice(2)}`
 }
 
+function emptyExample() {
+  return { jp: '', before: '', focus: '', after: '', en: '' }
+}
+
 async function copyToClipboard(text) {
   if (navigator.clipboard?.writeText) {
     try {
@@ -33,17 +37,24 @@ async function copyToClipboard(text) {
 }
 
 export default function Starred() {
-  const { cards, addCard, importCards } = useStarred()
+  const { cards, addCard, updateCard, removeCard, importCards } = useStarred()
   const [revealAll, setRevealAll] = useState(false)
   const [canSpeak, setCanSpeak] = useState(false)
   const [japanese, setJapanese] = useState('')
+  const [romaji, setRomaji] = useState('')
   const [translation, setTranslation] = useState('')
   const [explanation, setExplanation] = useState('')
+  const [example, setExample] = useState(emptyExample)
+  const [editingId, setEditingId] = useState(null)
+  const [formOpen, setFormOpen] = useState(false)
+  const [deleteCandidate, setDeleteCandidate] = useState(null)
   const [importOpen, setImportOpen] = useState(false)
   const [importJson, setImportJson] = useState('')
   const [importFeedback, setImportFeedback] = useState(null)
   const [transferStatus, setTransferStatus] = useState('')
   const importInputRef = useRef(null)
+  const customPanelRef = useRef(null)
+  const japaneseInputRef = useRef(null)
 
   useEffect(() => watchJapaneseVoice(setCanSpeak), [])
 
@@ -56,6 +67,15 @@ export default function Starred() {
     window.addEventListener('keydown', closeOnEscape)
     return () => window.removeEventListener('keydown', closeOnEscape)
   }, [importOpen])
+
+  useEffect(() => {
+    if (!deleteCandidate) return undefined
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setDeleteCandidate(null)
+    }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [deleteCandidate])
 
   const exportCards = async () => {
     const json = JSON.stringify({ version: 1, cards }, null, 2)
@@ -100,24 +120,95 @@ export default function Starred() {
     }
   }
 
-  const addCustomCard = (event) => {
-    event.preventDefault()
-    const jp = japanese.trim()
-    const en = translation.trim()
-    const note = explanation.trim()
-    if (!jp || !en || !note) return
-
-    addCard({
-      id: makeCustomId(),
-      jp,
-      en,
-      note,
-      source: 'Custom card',
-      custom: true,
-    })
+  const resetCardForm = () => {
     setJapanese('')
+    setRomaji('')
     setTranslation('')
     setExplanation('')
+    setExample(emptyExample())
+    setEditingId(null)
+    setFormOpen(false)
+  }
+
+  const editCard = (card) => {
+    setFormOpen(true)
+    setEditingId(card.id)
+    setJapanese(card.jp)
+    setRomaji(card.romaji || '')
+    setTranslation(card.en)
+    setExplanation(card.note || '')
+    setExample(card.example ? { ...card.example } : emptyExample())
+    requestAnimationFrame(() => {
+      customPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      japaneseInputRef.current?.focus()
+    })
+  }
+
+  const deleteCard = (card) => {
+    removeCard(card.id)
+    setDeleteCandidate(null)
+    resetCardForm()
+  }
+
+  const requestDelete = () => {
+    const current = cards.find((card) => card.id === editingId)
+    if (!current) return
+    if (current.custom || current.edited) {
+      setDeleteCandidate(current)
+    } else {
+      deleteCard(current)
+    }
+  }
+
+  const saveCard = (event) => {
+    event.preventDefault()
+    const jp = japanese.trim()
+    const savedRomaji = romaji.trim()
+    const en = translation.trim()
+    const note = explanation.trim()
+    const hasExample = Object.values(example).some((value) => value.trim())
+    const savedExample = hasExample
+      ? {
+          jp: example.jp.trim(),
+          before: example.before,
+          focus: example.focus.trim(),
+          after: example.after,
+          en: example.en.trim(),
+        }
+      : undefined
+    if (!jp || !en || (!editingId && !note)) return
+
+    if (editingId) {
+      const current = cards.find((card) => card.id === editingId)
+      if (current) {
+        updateCard({
+          ...current,
+          jp,
+          romaji: savedRomaji,
+          en,
+          note,
+          example: savedExample,
+          source:
+            !current.custom && !current.source.endsWith('[edited]')
+              ? `${current.source}${current.source ? ' ' : ''}[edited]`
+              : current.source,
+          edited: true,
+        })
+      }
+    } else {
+      addCard({
+        id: makeCustomId(),
+        jp,
+        romaji: savedRomaji,
+        en,
+        note,
+        example: savedExample,
+        source: 'Custom card',
+        custom: true,
+        edited: false,
+      })
+    }
+    resetCardForm()
   }
 
   return (
@@ -140,20 +231,70 @@ export default function Starred() {
         </span>
       </div>
 
-      <section className="custom-card-panel" aria-labelledby="custom-card-heading">
-        <div>
-          <span className="section-kicker">Make it yours</span>
-          <h2 id="custom-card-heading">Add a custom flashcard</h2>
-          <p>Give the phrase, its translation, and the explanation you want to remember.</p>
-        </div>
-        <form className="custom-card-form" onSubmit={addCustomCard}>
+      <section
+        ref={customPanelRef}
+        className={
+          'custom-card-panel' +
+          (editingId ? ' editing' : '') +
+          (!formOpen ? ' minimized' : '')
+        }
+        aria-labelledby="custom-card-heading"
+      >
+        {!formOpen ? (
+          <button
+            className="custom-card-toggle"
+            type="button"
+            aria-expanded="false"
+            onClick={() => setFormOpen(true)}
+          >
+            <span>
+              <span className="section-kicker">Make it yours</span>
+              <strong id="custom-card-heading">Add a custom flashcard</strong>
+              <small>Japanese, translation, explanation, and optional examples</small>
+            </span>
+            <span className="custom-card-toggle-icon" aria-hidden="true">＋</span>
+          </button>
+        ) : (
+          <div className="custom-card-panel-copy">
+            <div>
+              <span className="section-kicker">{editingId ? 'Editing saved card' : 'Make it yours'}</span>
+              <h2 id="custom-card-heading">
+                {editingId ? 'Edit flashcard' : 'Add a custom flashcard'}
+              </h2>
+              <p>
+                {editingId
+                  ? 'Saving will replace this card in your starred deck.'
+                  : 'Give the phrase, its translation, and the explanation you want to remember.'}
+              </p>
+            </div>
+            <button
+              className="custom-card-minimize"
+              type="button"
+              aria-label="Minimize flashcard form"
+              title="Minimize form"
+              onClick={resetCardForm}
+            >
+              −
+            </button>
+          </div>
+        )}
+        {formOpen && <form className="custom-card-form" onSubmit={saveCard}>
           <label>
             Japanese phrase
             <input
+              ref={japaneseInputRef}
               value={japanese}
               onChange={(event) => setJapanese(event.target.value)}
               placeholder="例：お元気ですか"
               required
+            />
+          </label>
+          <label>
+            Romaji
+            <input
+              value={romaji}
+              onChange={(event) => setRomaji(event.target.value)}
+              placeholder="o-genki desu ka"
             />
           </label>
           <label>
@@ -172,11 +313,69 @@ export default function Starred() {
               onChange={(event) => setExplanation(event.target.value)}
               placeholder="お元気 means well; ですか makes it a polite question."
               rows="3"
-              required
+              required={!editingId}
             />
           </label>
-          <button className="custom-card-submit" type="submit">Add to starred</button>
-        </form>
+          <fieldset className="custom-card-example">
+            <legend>Example sentence <span>(optional)</span></legend>
+            <div className="custom-card-example-grid">
+              <label className="example-japanese">
+                Example Japanese
+                <input
+                  value={example.jp}
+                  onChange={(event) => setExample((value) => ({ ...value, jp: event.target.value }))}
+                  placeholder="お元気ですか。"
+                />
+              </label>
+              <label className="example-english">
+                Example English
+                <input
+                  value={example.en}
+                  onChange={(event) => setExample((value) => ({ ...value, en: event.target.value }))}
+                  placeholder="How are you?"
+                />
+              </label>
+              <label>
+                Romaji before focus
+                <input
+                  value={example.before}
+                  onChange={(event) => setExample((value) => ({ ...value, before: event.target.value }))}
+                  placeholder="O-"
+                />
+              </label>
+              <label>
+                Focused romaji
+                <input
+                  value={example.focus}
+                  onChange={(event) => setExample((value) => ({ ...value, focus: event.target.value }))}
+                  placeholder="genki"
+                />
+              </label>
+              <label>
+                Romaji after focus
+                <input
+                  value={example.after}
+                  onChange={(event) => setExample((value) => ({ ...value, after: event.target.value }))}
+                  placeholder=" desu ka."
+                />
+              </label>
+            </div>
+          </fieldset>
+          <div className="custom-card-actions">
+            {editingId && (
+              <button className="delete-card-button" type="button" onClick={requestDelete}>
+                Delete
+              </button>
+            )}
+            <span className="custom-card-actions-spacer" />
+            {editingId && (
+              <button className="wc-ctl" type="button" onClick={resetCardForm}>Cancel editing</button>
+            )}
+            <button className="custom-card-submit" type="submit">
+              {editingId ? 'Save changes' : 'Add to starred'}
+            </button>
+          </div>
+        </form>}
       </section>
 
       <div className="starred-list-heading">
@@ -207,7 +406,7 @@ export default function Starred() {
                 revealAll={revealAll}
                 canSpeak={canSpeak}
                 allowTwoStepReveal={false}
-                starCard={card}
+                onEdit={() => editCard(card)}
               />
               {card.source && <span className="starred-source">{card.source}</span>}
             </div>
@@ -270,11 +469,48 @@ export default function Starred() {
               )}
               <div className="import-modal-actions">
                 <button className="wc-ctl" type="button" onClick={() => setImportOpen(false)}>
-                  Cancel
+                  Close
                 </button>
-                <button className="custom-card-submit" type="submit">Import cards</button>
+                {importFeedback?.type !== 'success' && (
+                  <button className="custom-card-submit" type="submit">Import cards</button>
+                )}
               </div>
             </form>
+          </section>
+        </div>
+      )}
+
+      {deleteCandidate && (
+        <div
+          className="import-modal-backdrop"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setDeleteCandidate(null)
+          }}
+        >
+          <section
+            className="delete-confirm-modal"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="delete-confirm-title"
+            aria-describedby="delete-confirm-description"
+          >
+            <span className="section-kicker">Permanent action</span>
+            <h2 id="delete-confirm-title">Delete this flashcard?</h2>
+            <p id="delete-confirm-description">
+              “{deleteCandidate.jp}” will be removed from your starred deck.
+            </p>
+            <div className="import-modal-actions">
+              <button className="wc-ctl" type="button" onClick={() => setDeleteCandidate(null)}>
+                Cancel
+              </button>
+              <button
+                className="delete-card-button"
+                type="button"
+                onClick={() => deleteCard(deleteCandidate)}
+              >
+                Delete card
+              </button>
+            </div>
           </section>
         </div>
       )}

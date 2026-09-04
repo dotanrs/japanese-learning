@@ -45,6 +45,10 @@ function copyCard(card, fallbackId) {
     example,
     source: card.source || '',
     custom: Boolean(card.custom),
+    edited: Boolean(
+      card.edited ||
+      (!card.custom && typeof card.source === 'string' && card.source.endsWith('[edited]'))
+    ),
   }
 }
 
@@ -113,6 +117,18 @@ export function StarredProvider({ children }) {
     })
   }, [])
 
+  const updateCard = useCallback((card) => {
+    const copied = copyCard(card)
+    if (!copied) return
+    setCards((current) =>
+      current.map((item) => (item.id === copied.id ? copied : item))
+    )
+  }, [])
+
+  const removeCard = useCallback((id) => {
+    setCards((current) => current.filter((card) => card.id !== id))
+  }, [])
+
   const importCards = useCallback(
     (incoming) => {
       const signatures = new Set(cards.map(exactCardSignature))
@@ -149,8 +165,8 @@ export function StarredProvider({ children }) {
   )
 
   const value = useMemo(
-    () => ({ cards, isStarred, addCard, toggleCard, importCards }),
-    [cards, isStarred, addCard, toggleCard, importCards]
+    () => ({ cards, isStarred, addCard, toggleCard, updateCard, removeCard, importCards }),
+    [cards, isStarred, addCard, toggleCard, updateCard, removeCard, importCards]
   )
 
   return <StarredContext.Provider value={value}>{children}</StarredContext.Provider>
