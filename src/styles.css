@@ -650,6 +650,18 @@ a:hover { text-decoration: underline; }
 .wc-hint { color: var(--text-dim); font-size: 12px; margin-top: 6px; }
 
 /* Saved and custom flashcards */
+.starred-transfer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 19px;
+}
+.starred-transfer-status {
+  min-height: 20px;
+  color: var(--text-dim);
+  font-size: 12.5px;
+}
 .custom-card-panel {
   display: grid;
   grid-template-columns: minmax(190px, .72fr) minmax(320px, 1.28fr);
@@ -735,6 +747,74 @@ a:hover { text-decoration: underline; }
   text-transform: uppercase;
   letter-spacing: .06em;
 }
+
+.import-modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(29,25,23,.58);
+  backdrop-filter: blur(2px);
+}
+.import-modal {
+  width: min(640px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 8px;
+  background: var(--bg-elev);
+  box-shadow: 0 24px 70px rgba(29,25,23,.28);
+}
+.import-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.import-modal .section-kicker { margin: 0; }
+.import-modal h2 { margin: 5px 0 0; padding: 0; border: 0; }
+.import-modal > p { margin: 11px 0 17px; color: var(--text-dim); font-size: 13.5px; }
+.import-modal-close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg-elev2);
+  color: var(--text-dim);
+  font: 24px/1 Inter, sans-serif;
+  cursor: pointer;
+}
+.import-modal-close:hover { color: var(--accent); border-color: var(--accent); }
+.import-modal form { display: grid; gap: 7px; }
+.import-modal label {
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.import-modal textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font: 12.5px/1.5 "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  resize: vertical;
+}
+.import-modal textarea:focus { outline: 2px solid rgba(181,31,46,.22); border-color: var(--accent); }
+.import-feedback { margin: 5px 0 0 !important; font-size: 13px; }
+.import-feedback.success { color: var(--accent-2); }
+.import-feedback.error { color: var(--danger); }
+.import-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+.import-modal-actions .custom-card-submit { justify-self: auto; }
 
 /* Home banner for the word deck */
 .words-banner {
@@ -1294,6 +1374,7 @@ a:hover { text-decoration: underline; }
   .custom-card-form { grid-template-columns: 1fr; }
   .custom-card-explanation { grid-column: auto; }
   .starred-list-heading { align-items: flex-start; }
+  .import-modal { padding: 19px; }
   .wc-toolbar { align-items: flex-start; }
   .words-banner { flex-direction: column; align-items: flex-start; gap: 10px; }
   .words-banner .wb-arrow { margin-left: 0; }

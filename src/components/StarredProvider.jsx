@@ -3,33 +3,70 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 const STORAGE_KEY = 'japanese-crash-course-starred-v1'
 const StarredContext = createContext(null)
 
-function readStoredCards() {
-  try {
-    const value = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '[]')
-    if (!Array.isArray(value)) return []
-
-    return value.filter(
-      (card) =>
-        card &&
-        typeof card.id === 'string' &&
-        typeof card.jp === 'string' &&
-        typeof card.en === 'string'
-    )
-  } catch {
-    return []
+function makeImportedId() {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return `import:${crypto.randomUUID()}`
   }
+  return `import:${Date.now()}:${Math.random().toString(36).slice(2)}`
 }
 
-function copyCard(card) {
+function copyExample(example) {
+  if (example === undefined) return undefined
+  if (!example || typeof example !== 'object') return null
+
+  const fields = ['jp', 'before', 'focus', 'after', 'en']
+  if (fields.some((field) => typeof example[field] !== 'string')) return null
+  return Object.fromEntries(fields.map((field) => [field, example[field]]))
+}
+
+function copyCard(card, fallbackId) {
+  if (!card || typeof card !== 'object') return null
+  if (typeof card.jp !== 'string' || typeof card.en !== 'string') return null
+  if (!card.jp || !card.en) return null
+
+  const optionalStrings = ['romaji', 'note', 'source']
+  if (
+    optionalStrings.some(
+      (field) => card[field] !== undefined && typeof card[field] !== 'string'
+    )
+  ) {
+    return null
+  }
+
+  const example = copyExample(card.example)
+  if (example === null) return null
+
   return {
-    id: card.id,
+    id: typeof card.id === 'string' && card.id ? card.id : fallbackId,
     jp: card.jp,
     romaji: card.romaji || '',
     en: card.en,
     note: card.note || '',
-    example: card.example ? { ...card.example } : undefined,
+    example,
     source: card.source || '',
     custom: Boolean(card.custom),
+  }
+}
+
+// IDs and source labels describe where a card came from; the visible learning
+// content is what makes two imported cards an exact match.
+function exactCardSignature(card) {
+  return JSON.stringify({
+    jp: card.jp,
+    romaji: card.romaji,
+    en: card.en,
+    note: card.note,
+    example: card.example,
+  })
+}
+
+function readStoredCards() {
+  try {
+    const value = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '[]')
+    if (!Array.isArray(value)) return []
+    return value.map((card) => copyCard(card)).filter((card) => card?.id)
+  } catch {
+    return []
   }
 }
 
@@ -61,7 +98,8 @@ export function StarredProvider({ children }) {
   const addCard = useCallback((card) => {
     setCards((current) => {
       if (current.some((item) => item.id === card.id)) return current
-      return [...current, copyCard(card)]
+      const copied = copyCard(card)
+      return copied ? [...current, copied] : current
     })
   }, [])
 
@@ -70,13 +108,49 @@ export function StarredProvider({ children }) {
       if (current.some((item) => item.id === card.id)) {
         return current.filter((item) => item.id !== card.id)
       }
-      return [...current, copyCard(card)]
+      const copied = copyCard(card)
+      return copied ? [...current, copied] : current
     })
   }, [])
 
+  const importCards = useCallback(
+    (incoming) => {
+      const signatures = new Set(cards.map(exactCardSignature))
+      const ids = new Set(cards.map((card) => card.id))
+      const added = []
+      let duplicates = 0
+      let invalid = 0
+
+      incoming.forEach((candidate) => {
+        let copied = copyCard(candidate, makeImportedId())
+        if (!copied) {
+          invalid += 1
+          return
+        }
+
+        const signature = exactCardSignature(copied)
+        if (signatures.has(signature)) {
+          duplicates += 1
+          return
+        }
+
+        while (ids.has(copied.id)) {
+          copied = { ...copied, id: makeImportedId() }
+        }
+        signatures.add(signature)
+        ids.add(copied.id)
+        added.push(copied)
+      })
+
+      if (added.length > 0) setCards((current) => [...current, ...added])
+      return { added: added.length, duplicates, invalid }
+    },
+    [cards]
+  )
+
   const value = useMemo(
-    () => ({ cards, isStarred, addCard, toggleCard }),
-    [cards, isStarred, addCard, toggleCard]
+    () => ({ cards, isStarred, addCard, toggleCard, importCards }),
+    [cards, isStarred, addCard, toggleCard, importCards]
   )
 
   return <StarredContext.Provider value={value}>{children}</StarredContext.Provider>
