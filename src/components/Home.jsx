@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
 import { chapters, wordDeck, phraseDeck, storyDeck, puzzleDeck } from '../content/index.js'
 import Translator from './Translator.jsx'
+import { useStarred } from './StarredProvider.jsx'
 
 export default function Home() {
+  const { cards } = useStarred()
+
   return (
     <div className="content home-content">
       <section className="home-hero">
@@ -30,6 +33,18 @@ export default function Home() {
       </section>
       <Translator />
       <div className="side-decks">
+        <Link className="words-banner starred-banner" to="/starred">
+          <div className="wb-copy">
+            <div className="eyebrow">Your study deck</div>
+            <h2>Starred</h2>
+            <p>
+              {cards.length === 0
+                ? 'Save useful words and phrases, or create your own flashcards.'
+                : `${cards.length} saved ${cards.length === 1 ? 'card' : 'cards'}, ready to review.`}
+            </p>
+          </div>
+          <div className="wb-arrow" aria-hidden="true">★</div>
+        </Link>
         <Link className="words-banner" to="/words">
           <div className="wb-copy">
             <div className="eyebrow">Vocabulary deck</div>

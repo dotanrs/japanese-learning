@@ -17,6 +17,7 @@ export default function Sidebar({ onNavigate }) {
 
   // Standalone sections match on their own title or any of their activities.
   const standalone = [
+    { to: '/starred', icon: '⭐', title: 'Starred', tabs: [] },
     { to: '/words', icon: '🗂️', title: wordDeck.title, tabs: wordDeck.scenarios },
     { to: '/phrases', icon: '🗣️', title: phraseDeck.title, tabs: phraseDeck.scenarios },
     { to: '/stories', icon: '📖', title: storyDeck.title, tabs: storyDeck.stories },

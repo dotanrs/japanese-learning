@@ -2,9 +2,17 @@ import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { hasSpeech, watchJapaneseVoice } from '../lib/speech.js'
 import SpeakButton from './SpeakButton.jsx'
+import StarButton from './StarButton.jsx'
 import Translator from './Translator.jsx'
 
-function WordCard({ word, showJapaneseFirst, revealAll, canSpeak, allowTwoStepReveal }) {
+export function WordCard({
+  word,
+  showJapaneseFirst,
+  revealAll,
+  canSpeak,
+  allowTwoStepReveal,
+  starCard,
+}) {
   const [revealStep, setRevealStep] = useState(0)
   const hasExample = Boolean(word.example)
   const twoStepReveal = allowTwoStepReveal && showJapaneseFirst && hasExample
@@ -36,14 +44,13 @@ function WordCard({ word, showJapaneseFirst, revealAll, canSpeak, allowTwoStepRe
   )
 
   return (
-    <div
+    <article
       className={'word-card' + (shown ? ' open' : '')}
       onClick={advanceReveal}
-      role="button"
       tabIndex={0}
-      aria-expanded={shown}
+      aria-label={`Flashcard: ${showJapaneseFirst ? word.jp : word.en}${shown ? ', revealed' : ''}`}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault()
           advanceReveal()
         }
@@ -51,7 +58,10 @@ function WordCard({ word, showJapaneseFirst, revealAll, canSpeak, allowTwoStepRe
     >
       <div className="wc-head">
         <div className="wc-prompt">{prompt}</div>
-        <SpeakButton jp={word.jp} enabled={canSpeak} />
+        <div className="wc-actions">
+          {starCard && <StarButton card={starCard} />}
+          <SpeakButton jp={word.jp} enabled={canSpeak} />
+        </div>
       </div>
       {shown ? (
         <div className={'wc-answer' + (!fullyShown ? ' example-only' : '')}>
@@ -73,7 +83,7 @@ function WordCard({ word, showJapaneseFirst, revealAll, canSpeak, allowTwoStepRe
       ) : (
         <div className="wc-hint">{twoStepReveal ? 'Tap for an example ▾' : 'Tap to reveal ▾'}</div>
       )}
-    </div>
+    </article>
   )
 }
 
@@ -164,6 +174,11 @@ export default function WordCards({ deck }) {
             revealAll={revealAll}
             canSpeak={canSpeak}
             allowTwoStepReveal={deck.twoStepReveal !== false}
+            starCard={{
+              ...w,
+              id: `deck:${deck.id}:${active.id}:${w.jp}:${w.romaji}`,
+              source: `${deck.title} · ${active.title}`,
+            }}
           />
         ))}
       </div>
